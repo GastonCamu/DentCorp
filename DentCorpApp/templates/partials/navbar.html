@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-md bg-dark" data-bs-theme="dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Catálogo</a>
+        
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbar"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" 
+                            href="{% url 'home' %}">Inicio</a>
+                    </li>
+
+                    {% if perms.catalogo.view_libro %}
+                        <li class="nav-item">
+                            <a 
+                                class="nav-link {% if request.resolver_match.url_name == 'libro_list' %}active{% endif %}" 
+                                href="{% url 'libro_list' %}">Libros</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link {% if request.resolver_match.url_name == 'ejemplar_list' %}active{% endif %}" 
+                            href="{% url 'ejemplar_list' %}">Ejemplares</a>
+                    </li>
+
+                    <li class="nav-item dropdown"> 
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            <img src="{{ user.get_image }}" alt="{{ user.username }}" height="25px" width="25px">
+
+                            {{ user.username | capfirst }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'login' %}">Ingresar</a>
+                    </li>
+                    <li>
+                        <a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}" href="{% url 'register' %}">Registrarse</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
