@@ -1,0 +1,249 @@
+body {
+  background-image: url(../assets/img/fondo-principal.png);
+  background-size: cover;
+  background-repeat: repeat;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "header header" "main main" "footer footer";
+  height: 100vh;
+}
+body header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 20px;
+  background-color: rgba(117, 117, 117, 0.6784313725);
+  padding: 15px;
+  border-radius: 10px;
+}
+body header div.empresa-logo img {
+  width: 200px;
+  height: 60px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body header div.MENU {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body header div.MENU nav {
+  border-radius: 15px;
+  color: white;
+  background: rgb(43, 43, 43);
+  box-shadow: 0px 0px 5px 2px rgb(87, 87, 87);
+}
+body header div.MENU nav ul li a {
+  color: white;
+}
+body header div.MENU nav ul li a:hover {
+  color: rgb(153, 153, 153);
+}
+body header div.MENU nav ul li .nav-link.show {
+  color: rgb(153, 153, 153);
+}
+body header div.MENU nav ul li ul {
+  background: rgb(43, 43, 43);
+}
+body header div.MENU nav ul li ul li a {
+  color: white;
+}
+body header div.MENU nav ul li ul li a:hover {
+  background: rgb(68, 68, 68);
+  color: white;
+}
+body header div.perfil ul li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
+  padding: 5px 10px;
+  border-radius: 10px;
+  transition: background, color, 800ms;
+}
+body header div.perfil ul li a img {
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+body header div.perfil ul li a div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body header div.perfil ul li a div p.nombre-usuario {
+  margin: 0;
+}
+body header div.perfil ul li a div p.rol {
+  margin: 0;
+  font-size: 13px;
+}
+body header div.perfil ul li a:hover {
+  background: rgb(43, 43, 43);
+  color: white;
+  font-weight: bolder;
+  border-radius: 10px;
+  padding: 5px 10px;
+  transition: background, color, 500ms;
+}
+body header div.perfil ul li ul li a {
+  font-size: 15px;
+  border-radius: 0;
+}
+body header div.perfil ul li ul li a:hover {
+  border-radius: 0;
+}
+body main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+body main h2 {
+  text-align: center;
+}
+body main div.div-principal {
+  background-color: rgba(0, 0, 0, 0.795);
+  width: 90%;
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+body main div.div-principal div.div-tabla {
+  background-color: transparent;
+  max-height: 300px;
+  border: 4px solid rgb(255, 255, 255);
+  border-radius: 5px;
+  overflow-y: auto;
+  width: 70%;
+}
+body main div.div-principal div.div-tabla table {
+  background: rgb(210, 210, 255);
+  width: 100%;
+  border-collapse: collapse;
+}
+body main div.div-principal div.div-tabla table tr {
+  cursor: pointer;
+}
+body main div.div-principal div.div-tabla table tr td {
+  text-align: center;
+  border: 1px solid rgb(192, 192, 252);
+  padding: 2px;
+}
+body main div.div-principal div.div-tabla table tr td.fila__titulo__contenido {
+  color: white;
+  font-weight: bolder;
+  background: rgb(83, 83, 155);
+}
+body main div.div-principal div.div-tabla table tr.fila__titulo {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: default;
+}
+body main div.div-principal div.div-tabla table tr.selected {
+  border-top: 4px solid rgb(0, 0, 0);
+  border-bottom: 4px solid rgb(0, 0, 0);
+  background-color: rgb(245, 245, 255);
+}
+body main div.div-principal div.div-tabla table tr.fila__contenido:hover {
+  background-color: rgb(245, 245, 255);
+}
+body main div.div-principal div.div-botones {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+  padding: 0px;
+}
+body main div.div-principal div.div-botones form {
+  display: flex;
+  align-items: center;
+}
+body main div.div-principal div.div-botones form select {
+  width: 80px;
+  height: 30px;
+  margin: 7px;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 5px;
+  font-weight: bolder;
+  outline: none;
+}
+body main div.div-principal div.div-botones form select option[value=Default] {
+  display: none;
+}
+body main div.div-principal div.div-botones form select:hover {
+  cursor: pointer;
+}
+body main div.div-principal div.div-botones form div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body main div.div-principal div.div-botones form div input {
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  width: 150px;
+  height: 30px;
+}
+body main div.div-principal div.div-botones form div input::-moz-placeholder {
+  text-align: center;
+}
+body main div.div-principal div.div-botones form div input::placeholder {
+  text-align: center;
+}
+body main div.div-principal div.div-botones form div button {
+  border: 1px solid rgb(255, 255, 255);
+  background-color: white;
+  border-radius: 50%;
+  outline: none;
+  width: 30px;
+  margin-left: 4px;
+  padding: 0px;
+}
+body main div.div-principal div.div-botones form div button img {
+  padding: 5px;
+}
+body main div.div-principal div.div-botones button {
+  margin: 7px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 50px;
+  padding: 2px;
+  width: 150px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: bolder;
+}
+body main div.div-principal div.div-botones button:hover {
+  background-color: rgb(168, 168, 235);
+  border: 1px solid rgb(0, 0, 255);
+  transition: background 300ms;
+}
+body footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  width: 100%;
+  grid-area: footer;
+  background-color: rgba(0, 0, 0, 0.8549019608);
+  color: white;
+  height: 5vh;
+}
+body footer p {
+  font-size: 18px;
+}/*# sourceMappingURL=style.css.map */
