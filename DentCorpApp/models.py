@@ -8,8 +8,8 @@ from django.urls import reverse
 import uuid
 
 class User(AbstractUser):
-    # groups = models.ManyToManyField(Group, related_name='dcapp_users_groups')
-    # user_permissions = models.ManyToManyField(Permission, related_name='dcapp_users_permissions')
+    groups = models.ManyToManyField(Group, related_name='DentCorpApp_users_groups')
+    user_permissions = models.ManyToManyField(Permission, related_name='DentCorpApp_users_permissions')
     image = models.ImageField(upload_to='users/%Y/%m/%d', null=True, blank=True)
     email = models.EmailField(_('email adress'), unique=True)
 
