@@ -29,10 +29,11 @@ class Especialidades(models.Model):
         return self.nombre_espec
     
 class Consultorios(models.Model):
-    num_cons = models.CharField(max_length=3)
+    num_cons = models.IntegerField(max_length=3)
 
 class ServiciosOdontologicos(models.Model):
     nombre_serv_odon = models.CharField(max_length=20)
+    costo_serv_odon = models.FloatField(max_length=10)
 
 class Provincias(models.Model):
     nom_prov = models.CharField(max_length=50)
@@ -41,7 +42,7 @@ class Planes(models.Model):
     nombre_plan = models.CharField(max_length=20)
 
 class Coberturas(models.Model):
-    nom_con = models.CharField(max_length=20)
+    nom_cob = models.CharField(max_length=20)
 
 class PagosServExt(models.Model):
     nombre_serv = models.CharField(max_length=50)
@@ -65,7 +66,7 @@ class Usuarios(models.Model):
     id_ciu = models.ForeignKey(Ciudades, on_delete=models.CASCADE)
 
 class RolXUsuario(models.Model):
-    fecha_Alta_usu = models.DateField()
+    fecha_alta_usu = models.DateField()
     fecha_baja_usu = models.DateField()
     id_usu = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
     id_rol = models.ForeignKey(Roles, on_delete=models.CASCADE)
@@ -73,7 +74,7 @@ class RolXUsuario(models.Model):
 class EspecXUsuario(models.Model):
     matricula = models.IntegerField()
     id_rol_usu = models.ForeignKey(RolXUsuario, on_delete=models.CASCADE)
-    id_espec = models.ForeignKey(Especialidades, on_delete=models.CASCADE)
+    id_espec = models.ForeignKey(Especialidades, on_delete=models.CASCADE, max_length=5)
 
 class AsignacionesConsultorio(models.Model):
     fecha_inicio_asig = models.DateTimeField()
@@ -90,7 +91,7 @@ class Cajas(models.Model):
     id_rol_usu = models.ForeignKey(RolXUsuario, on_delete=models.CASCADE)
 
 class FacturasServExt(models.Model):
-    link_fack = models.CharField(max_length=200)
+    link_fact = models.CharField(max_length=200)
     costo_fact = models.FloatField()
     fecha_cad_fact = models.DateField()
     fecha_pago_fact = models.DateField()
@@ -99,6 +100,7 @@ class FacturasServExt(models.Model):
     id_serv_ext = models.ForeignKey(PagosServExt, on_delete=models.CASCADE)
 
 class PlanXCobertura(models.Model):
+    porcentaje_cob = models.IntegerField(max_length=3)
     id_plan = models.ForeignKey(Planes, on_delete=models.CASCADE)
     id_cob = models.ForeignKey(Coberturas, on_delete=models.CASCADE)
 
