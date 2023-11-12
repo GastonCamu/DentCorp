@@ -14,7 +14,7 @@
 <body>
     {% include "partials/navbar.html" %}
     <main>
-
+        {% block content %} {% endblock %}
     </main>
     {% include "partials/footer.html" %}
     <script src="{% static 'libs/bootstrap/popper.min.js' %}"></script>
