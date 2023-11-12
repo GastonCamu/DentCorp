@@ -17,6 +17,31 @@ def turnos(request):
     template_name = 'atencion-medica/turnos.html'
     return render(request, template_name)
 
+def medicos(request):
+    context = {}
+    template_name = 'atencion-medica/medicos.html'
+    return render(request, template_name)
+
+def pacientes(request):
+    context = {}
+    template_name = 'atencion-medica/pacientes.html'
+    return render(request, template_name)
+
+def servicios_odontologicos(request):
+    context = {}
+    template_name = 'atencion-medica/servicios-odontologicos.html'
+    return render(request, template_name)
+
+def especialidades(request):
+    context = {}
+    template_name = 'atencion-medica/especialidades.html'
+    return render(request, template_name)
+
+def consultorios(request):
+    context = {}
+    template_name = 'atencion-medica/turnos.html'
+    return render(request, template_name)
+
 
 # class TurnosListView(LoginRequiredMixin, ListView):
 #     model = Turnos
