@@ -131,8 +131,11 @@ class AsignacionesConsultorio(models.Model):
     id_cons = models.ForeignKey(Consultorios, on_delete=models.CASCADE)
     id_espec_usu = models.ForeignKey(EspecXUsuario, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('asignacionesConsultorio', args=[str(self.id)])
+
     def __str__(self):
-        return self.nom_prov
+        return f'{self.fecha_inicio_asig}, {self.fecha_fin_asig}'
 
 class Cajas(models.Model):
     fecha_hr_ap_cj = models.DateTimeField()
@@ -191,5 +194,8 @@ class FacturasOdontologicas(models.Model):
     id_turno = models.ForeignKey(Turnos, on_delete=models.CASCADE)
     id_caja = models.ForeignKey(Cajas, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('facturasOdontologicas', args=[str(self.id)])
+
     def __str__(self):
-        return self.nom_prov
+        return f'{self.costo_fact_cob}, {self.costo_fact_pac}, {self.costo_total_fact_odon}'
