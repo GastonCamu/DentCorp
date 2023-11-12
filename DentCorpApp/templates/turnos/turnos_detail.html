@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %} Detalle del Ejemplar {% endblock %}
+
+{% block content %}
+    <h1 class="my-3">Detalle del Ejemplar</h1>
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-3">
+                <h4 class="card-header">
+                    {{ ejemplar }}
+                </h4>
+
+                <div class="card-body">
+                    <p>
+                        <strong>Libro:</strong>
+                        {{ ejemplar.libro.titulo }}
+                    </p>
+                    <p>
+                        <strong>Fecha de Devolución:</strong>
+                        {% if ejemplar.fechaDevolucion %}
+                            {{ ejemplar.fechaDevolucion }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </p>
+                    <p>
+                        <strong>Usuario:</strong>
+                        {% if ejemplar.usuario %}
+                            {{ ejemplar.usuario }}
+                        {% else %}
+                            ---
+                        {% endif %}
+                    </p>
+                    <p>
+                        <strong>Estado:</strong>
+                        <a href="#">{{ ejemplar.get_estado_display }}</a>
+                    </p>
+                </div>
+                {% if perms.catalogo.reserve_ejemplar %}
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary btn-sm">
+                            Solicitar prestamo
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <a href="{% url 'ejemplar_list' %}" class="btn btn-link">
+                <i class="fas fa-arrow-left mr-1"></i> Volver al Listado
+            </a>
+        </div>
+    </div>
+{% endblock %}
