@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'django_extensions',
 ]
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootrstrap5'
+CRISPY_TEMPLATE_PACKS = 'bootstrap5'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

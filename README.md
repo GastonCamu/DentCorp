@@ -1,6 +1,9 @@
 # DentCorp
 Empresa ficticia como proyecto final de la tec. analista superior de sistemas (ISDM)
 
+<<<<<<< HEAD
+Lamas Erick
+=======
 Dependencias a instalar:
 
 virtualenv venv
