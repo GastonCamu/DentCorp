@@ -36,7 +36,7 @@ class Consultorios(models.Model):
 
 class ServiciosOdontologicos(models.Model):
     nombre_serv_odon = models.CharField(max_length=20)
-    costo_serv_odon = models.DecimalField()
+    costo_serv_odon = models.DecimalField(max_digits=6, decimal_places=2)
 
     def get_absolute_url(self):
         return reverse('serviciosInfo', args=[str(self.id)])
