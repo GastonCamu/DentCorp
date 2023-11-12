@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content  %}
+    {% load crispy_forms_tags %}
+<h2>{% block name_h2 %} {% endblock %}</h2>
+<div class="div-principal">
+    <div class="div-tabla">
+        <table>
+            <tr class="fila__titulo">
+                <td class="fila__titulo__contenido">Paciente</td>
+                <td class="fila__titulo__contenido">Fecha</td>
+                <td class="fila__titulo__contenido">Autorizado</td>
+                <td class="fila__titulo__contenido">Servicio</td>
+                <td class="fila__titulo__contenido">Médico</td>
+                <td class="fila__titulo__contenido">Cobertura</td>
+                <td class="fila__titulo__contenido">Consultorio Asignado</td>
+            </tr>
+            <tr class="fila__contenido">
+                <td>Gaston Camu</td>
+                <td>12/12/2023 15:00 Hs</td>
+                <td>SI</td>
+                <td>Arreglo de carie</td>
+                <td>Alicia Nazar</td>
+                <td>IPS</td>
+                <td>1</td>
+            </tr>
+            <tr class="fila__contenido">
+                <td>Ezequiel Mamani</td>
+                <td>14/12/2023 16:00 Hs</td>
+                <td>NO</td>
+                <td>Arreglo de carie</td>
+                <td>Karen Cordoba</td>
+                <td>PAMI</td>
+                <td>2</td>
+            </tr>
+            <tr class="fila__contenido">
+                <td>Gaston Camu</td>
+                <td>12/12/2023 15:00 Hs</td>
+                <td>SI</td>
+                <td>Arreglo de carie</td>
+                <td>Alicia Nazar</td>
+                <td>IPS</td>
+                <td>1</td>
+            </tr>
+            <tr class="fila__contenido">
+                <td>Ezequiel Mamani</td>
+                <td>14/12/2023 16:00 Hs</td>
+                <td>NO</td>
+                <td>Arreglo de carie</td>
+                <td>Karen Cordoba</td>
+                <td>PAMI</td>
+                <td>2</td>
+            </tr>
+            <tr class="fila__contenido">
+                <td>Gaston Camu</td>
+                <td>12/12/2023 15:00 Hs</td>
+                <td>SI</td>
+                <td>Arreglo de carie</td>
+                <td>Alicia Nazar</td>
+                <td>IPS</td>
+                <td>1</td>
+            </tr>
+            <tr class="fila__contenido">
+                <td>Ezequiel Mamani</td>
+                <td>14/12/2023 16:00 Hs</td>
+                <td>NO</td>
+                <td>Arreglo de carie</td>
+                <td>Karen Cordoba</td>
+                <td>PAMI</td>
+                <td>2</td>
+            </tr>
+            </table>
+    </div>
+        <div class="div-botones">
+        <form role="search">
+            <select id="">
+                <option disabled selected value="Default">Filtrar</option>
+                <option value="Paciente">Paciente</option>
+                <option value="Autorizado">Autorizado</option>
+                <option value="Medico">Medico</option>
+            </select>
+            <div>
+                <input type="search" placeholder="BUSCAR">
+                <button type="submit"><img src="../../assets/img/lupa.png" alt="B"></button>
+            </div>
+        </form>
+        <button>AGREGAR TURNO</button>
+        <button>MODIFICAR</button>
+        <button>ELIMINAR</button>
+        </div>
+</div>
+{% endblock %}
