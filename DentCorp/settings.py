@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'DentCorp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dentcorp',
+        'NAME': 'dent_corp',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
