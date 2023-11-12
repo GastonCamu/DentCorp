@@ -116,10 +116,12 @@ class Turnos(models.Model):
     id_rol_usu = models.ForeignKey(RolXUsuario, on_delete=models.PROTECT)
     id_asig_cons = models.ForeignKey(AsignacionesConsultorio, on_delete=models.PROTECT)
 
+
+
 class FacturasOdontologicas(models.Model):
     costo_fact_pac = models.FloatField()
     costo_fact_cob = models.FloatField()
     costo_total_fact_odon = models.FloatField()
     fecha_fact_odon = models.DateTimeField()
     id_turno = models.ForeignKey(Turnos, on_delete=models.PROTECT)
-    id_caja = models.ForeignKey(Cajas, on_delete=models.PROTECT)
+    id_caja = models.ForeignKey(Cajas, on_delete=models.PROTECT) 
