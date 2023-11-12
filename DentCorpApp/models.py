@@ -183,13 +183,12 @@ class Turnos(models.Model):
     def __str__(self):
         return self.nom_prov
 
+
+
 class FacturasOdontologicas(models.Model):
     costo_fact_pac = models.FloatField()
     costo_fact_cob = models.FloatField()
     costo_total_fact_odon = models.FloatField()
     fecha_fact_odon = models.DateTimeField()
-    id_turno = models.ForeignKey(Turnos, on_delete=models.CASCADE)
-    id_caja = models.ForeignKey(Cajas, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.nom_prov
+    id_turno = models.ForeignKey(Turnos, on_delete=models.PROTECT)
+    id_caja = models.ForeignKey(Cajas, on_delete=models.PROTECT)
