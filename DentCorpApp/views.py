@@ -39,7 +39,7 @@ def especialidades(request):
 
 def consultorios(request):
     context = {}
-    template_name = 'atencion-medica/turnos.html'
+    template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
 
 
