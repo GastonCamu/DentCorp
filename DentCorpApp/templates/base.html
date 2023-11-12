@@ -1,12 +1,25 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %} | DentCorp</title>
-    <link rel="stylesheet" href="../../">
+    <link rel="stylesheet" href="{% static 'libs/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    {% block css %} {% endblock %}
 </head>
 <body>
-    
+    {% include "partials/navbar.html" %}
+    <main>
+        {% block content %} {% endblock %}
+    </main>
+    {% include "partials/footer.html" %}
+    <script src="{% static 'libs/bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap/bootstrap.min.js' %}"></script>
+    <script></script>
+    {% block js %} {% endblock %}
 </body>
 </html>
