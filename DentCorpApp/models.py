@@ -131,8 +131,11 @@ class AsignacionesConsultorio(models.Model):
     id_cons = models.ForeignKey(Consultorios, on_delete=models.CASCADE)
     id_espec_usu = models.ForeignKey(EspecXUsuario, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('asignacionesConsultorio', args=[str(self.id)])
+
     def __str__(self):
-        return self.nom_prov
+        return f'{self.fecha_inicio_asig}, {self.fecha_fin_asig}'
 
 class Cajas(models.Model):
     fecha_hr_ap_cj = models.DateTimeField()
@@ -142,8 +145,11 @@ class Cajas(models.Model):
     comentarios = models.CharField(max_length=100)
     id_rol_usu = models.ForeignKey(RolXUsuario, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('infoCajas', args=[str(self.id)])
+
     def __str__(self):
-        return self.nom_prov
+        return f'{self.fecha_hr_ap_cj}, {self.fecha_hr_cr_cj}, {self.monto_ap_cj}, {self.monto_cr_cj}, {self.comentarios}'
 
 class FacturasServExt(models.Model):
     link_fact = models.CharField(max_length=200)
@@ -154,23 +160,30 @@ class FacturasServExt(models.Model):
     id_caja = models.ForeignKey(Cajas, on_delete=models.CASCADE)
     id_serv_ext = models.ForeignKey(PagosServExt, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('infoFacturasServExt', args=[str(self.id)])
+
     def __str__(self):
-        return self.nom_prov
+        return f'{self.link_fact}, {self.costo_fact}, {self.fecha_cad_fact}, {self.fecha_pago_fact}, {self.comprobante_pago}'
 
 class PlanXCobertura(models.Model):
     porcentaje_cob = models.Field(max_length=3)
     id_plan = models.ForeignKey(Planes, on_delete=models.CASCADE)
     id_cob = models.ForeignKey(Coberturas, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse ('infoPanXCobertura', args=[str(self.id)])
+
     def __str__(self):
-        return self.nom_prov
+        return self.porcentaje_cob
 
 class CoberturasXUsuario(models.Model):
     id_rol_usu = models.ForeignKey(RolXUsuario, on_delete=models.CASCADE)
     id_plan_cob = models.ForeignKey(PlanXCobertura, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.nom_prov
+    def get_absolute_url(self):
+        return reverse('infoCoberturasXUsuario', args=[str(self.id)])
+
 
 class Turnos(models.Model):
     fecha_hr_turno = models.DateTimeField()
@@ -180,8 +193,11 @@ class Turnos(models.Model):
     id_rol_usu = models.ForeignKey(RolXUsuario, on_delete=models.CASCADE)
     id_asig_cons = models.ForeignKey(AsignacionesConsultorio, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('infoTurnos', args=[str(self.id)])
+
     def __str__(self):
-        return self.nom_prov
+        return f'{self.fecha_hr_turno}, {self.autorizado}'
 
 class FacturasOdontologicas(models.Model):
     costo_fact_pac = models.FloatField()
@@ -191,5 +207,8 @@ class FacturasOdontologicas(models.Model):
     id_turno = models.ForeignKey(Turnos, on_delete=models.CASCADE)
     id_caja = models.ForeignKey(Cajas, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('facturasOdontologicas', args=[str(self.id)])
+
     def __str__(self):
-        return self.nom_prov
+        return f'{self.costo_fact_cob}, {self.costo_fact_pac}, {self.costo_total_fact_odon}'
