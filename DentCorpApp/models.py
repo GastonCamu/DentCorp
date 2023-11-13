@@ -199,8 +199,6 @@ class Turnos(models.Model):
     def __str__(self):
         return f'{self.fecha_hr_turno}, {self.autorizado}'
 
-
-
 class FacturasOdontologicas(models.Model):
     costo_fact_pac = models.FloatField()
     costo_fact_cob = models.FloatField()
