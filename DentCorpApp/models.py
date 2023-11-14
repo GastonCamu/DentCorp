@@ -1,7 +1,7 @@
 from django.db import models
 from django.db import models
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.models import AbstractGroup, AbstractUser, Group, Permission
 from DentCorp import settings
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
@@ -10,19 +10,31 @@ import uuid
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from .models import User
 
-class Roles(models.Model):
+
+class Group(AbstractGroup):
     nombre_rol = models.CharField(max_length=50)
 
     def __str__(self):
         return self.nombre_rol
     
+class CustomUserGroup(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    fecha_alta_usu_grupo = models.DateField()
+    fecha_baja_usu_grupo = models.DateField()
+
+    def __str__(self):
+        return f'{self.user.email} - {self.group.nombre_rol}'    
+    
 class User(AbstractUser):
-    roles = models.ForeignKey(Roles, on_delete=models.SET_NULL, null=True, blank=True)
-    groups = models.ManyToManyField(Group, related_name='DentCorpApp_users_groups')
+    roles = models.ManyToManyField(Group, related_name='DentCorpApp_users_groups')
     user_permissions = models.ManyToManyField(Permission, related_name='DentCorpApp_users_permissions')
     image = models.ImageField(upload_to='users/%Y/%m/%d', null=True, blank=True)
     email = models.EmailField(_('email address'), unique=True)
+    fecha_alta_usu = models.DateField()
+    fecha_baja_usu = models.DateField()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -32,6 +44,13 @@ class User(AbstractUser):
             return '{}{}'.format(settings.MEDIA_URL, self.image)
         
         return '{}{}'.format(settings.STATIC_URL, 'img/user-default.png')
+    
+    def __str__(self):
+        return f'{self.dni_usu}, {self.dom_usu}, {self.tel_usu}, {self.email}'
+
+
+
+    
 
 class Especialidades(models.Model):
     nombre_espec = models.CharField(max_length=50)

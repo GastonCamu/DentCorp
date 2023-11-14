@@ -131,4 +131,3 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'DentCorp/static'), )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'DentCorpApp.User'
-AUTH_GROUP_MODEL = 'DentCorpApp.Roles'
