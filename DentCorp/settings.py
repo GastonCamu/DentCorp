@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'DentCorp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dentcorp',
+        'NAME': 'dent_corp',
         'USER': 'root',
         'PASSWORD': '12345678',
         'HOST': 'localhost',
@@ -131,3 +131,4 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'DentCorp/static'), )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'DentCorpApp.User'
+AUTH_GROUP_MODEL = 'DentCorpApp.Roles'

@@ -7,11 +7,22 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 import uuid
 
+from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+class Roles(models.Model):
+    nombre_rol = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nombre_rol
+    
 class User(AbstractUser):
+    roles = models.ForeignKey(Roles, on_delete=models.SET_NULL, null=True, blank=True)
     groups = models.ManyToManyField(Group, related_name='DentCorpApp_users_groups')
     user_permissions = models.ManyToManyField(Permission, related_name='DentCorpApp_users_permissions')
     image = models.ImageField(upload_to='users/%Y/%m/%d', null=True, blank=True)
-    email = models.EmailField(_('email adress'), unique=True)
+    email = models.EmailField(_('email address'), unique=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -72,11 +83,7 @@ class PagosServExt(models.Model):
     def __str__(self):
         return f'{self.nombre_serv}, {self.fecha_cad_cont}'
     
-class Roles(models.Model):
-    nombre_rol = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.nombre_rol
 
 class Ciudades(models.Model):
     nom_ciu = models.CharField(max_length=20)
