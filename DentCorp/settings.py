@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'django_extensions',
 ]
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootsrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -131,3 +134,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'DentCorp/static'), )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'DentCorpApp.User'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
