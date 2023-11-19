@@ -23,5 +23,5 @@ urlpatterns = [
     path('DentCorp/admin/', admin.site.urls),
     path('DentCorp/', include('DentCorpApp.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/register/', register, name='register'),
+    # path('accounts/register/', register, name='register'),
 ]
