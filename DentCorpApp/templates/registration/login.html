@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+    {% load crispy_forms_tags %}
+    
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title text-center">Iniciar Sesión</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <button class="btn btn-primary btn-block mt-3" type="submit">Iniciar Sesión</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

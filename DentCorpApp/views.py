@@ -6,23 +6,22 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Turnos
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import CustomUserCreationForm
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
 
 
-def base(request):
+@login_required
+def home(request):
     context = {}
-    return render(request, 'base.html')
+    return render(request, 'base.html') #cambio momentaneo
 
-def turnos(request):
-    context = {}
-    template_name = 'atencion-medica/turnos.html'
-    return render(request, template_name)
-
-
-# class TurnosListView(LoginRequiredMixin, ListView):
-#     model = Turnos
-#     template_name = 'templates/turnos_list.html'
-#     context_object_name = 'turnos'
-#     paginate_by = 4
+class TurnosListView(LoginRequiredMixin, ListView):
+    model = Turnos
+    template_name = 'templates/turnos_list.html'
+    context_object_name = 'turnos'
+    paginate_by = 4
 
 #     def get_queryset(self):
 #         return Turnos.objetcs.filter(estado = 'r')
