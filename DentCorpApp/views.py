@@ -15,7 +15,29 @@ from django.shortcuts import render, redirect
 @login_required
 def home(request):
     context = {}
-    return render(request, 'base.html') #cambio momentaneo
+    return render(request, 'base.html', context) #cambio momentaneo
+
+def register(request):
+    if request.method == 'GET':
+        return render(request, 'registration/register.html', {'form': CustomUserCreationForm})
+    
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+
+            user = authenticate(
+                email = form.cleaned_data['email'],
+                password = form.cleaned_data['password']
+            )
+            login(request, user)
+
+            return redirect('home')
+        else:
+            return render(request, 'registration/register.html', {"form":form})
+        
 
 class TurnosListView(LoginRequiredMixin, ListView):
     model = Turnos
@@ -23,43 +45,43 @@ class TurnosListView(LoginRequiredMixin, ListView):
     context_object_name = 'turnos'
     paginate_by = 4
 
-#     def get_queryset(self):
-#         return Turnos.objetcs.filter(estado = 'r')
+    def get_queryset(self):
+        return Turnos.objetcs.filter(estado = 'r')
     
-# class TurnosDetailView(LoginRequiredMixin, DetailView):
-#     model = Turnos
-#     template_name = 'templates/turnos_detail.html'
-#     context_object_name = 'det_turno'
+class TurnosDetailView(LoginRequiredMixin, DetailView):
+    model = Turnos
+    template_name = 'templates/turnos_detail.html'
+    context_object_name = 'det_turno'
 
-# class TurnosCreateView(LoginRequiredMixin, CreateView):
-#     model = Turnos
-#     template_name = 'templates/turnos_create.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha reservado con éxito."
+class TurnosCreateView(LoginRequiredMixin, CreateView):
+    model = Turnos
+    template_name = 'templates/turnos_create.html'
+    fields = '__all__'
+    success_url = reverse_lazy('turnos_list')
+    success_message = "El turno se ha reservado con éxito."
 
-#     def form_valid(self, form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)
+    def form_valid(self, form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)
     
-# class TurnosUpdateView(LoginRequiredMixin, UpdateView):
-#     model = Turnos
-#     template_name = 'template/turnos_update.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha actualizado con éxito"
+class TurnosUpdateView(LoginRequiredMixin, UpdateView):
+    model = Turnos
+    template_name = 'template/turnos_update.html'
+    fields = '__all__'
+    success_url = reverse_lazy('turnos_list')
+    success_message = "El turno se ha actualizado con éxito"
 
-#     def form_valid(self,form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)
+    def form_valid(self,form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)
     
-# class TurnosDeleteView(LoginRequiredMixin, DeleteView):
-#     model = Turnos
-#     template_name = 'template/turnos_confirm_delete.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha eliminado con éxito"
+class TurnosDeleteView(LoginRequiredMixin, DeleteView):
+    model = Turnos
+    template_name = 'template/turnos_confirm_delete.html'
+    fields = '__all__'
+    success_url = reverse_lazy('turnos_list')
+    success_message = "El turno se ha eliminado con éxito"
 
-#     def form_valid(self,form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)
+    def form_valid(self,form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)
