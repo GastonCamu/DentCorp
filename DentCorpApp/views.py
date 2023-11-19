@@ -6,11 +6,38 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Turnos
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import CustomUserCreationForm
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
 
 
-def base(request):
+@login_required
+def home(request):
     context = {}
-    return render(request, 'base.html')
+    return render(request, 'base.html', context) #cambio momentaneo
+
+def register(request):
+    if request.method == 'GET':
+        return render(request, 'registration/register.html', {'form': CustomUserCreationForm})
+    
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+
+            user = authenticate(
+                email = form.cleaned_data['email'],
+                password = form.cleaned_data['password']
+            )
+            login(request, user)
+
+            return redirect('home')
+        else:
+            return render(request, 'registration/register.html', {"form":form})
+        
 
 def turnos(request):
     context = {}
