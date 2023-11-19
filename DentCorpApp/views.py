@@ -15,35 +15,44 @@ from django.shortcuts import render, redirect
 @login_required
 def home(request):
     context = {}
-    return render(request, 'base.html', context) #cambio momentaneo
+    return render(request, 'base.html')
 
-def register(request):
-    if request.method == 'GET':
-        return render(request, 'registration/register.html', {'form': CustomUserCreationForm})
-    
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST, request.FILES)
+def turnos(request):
+    context = {}
+    template_name = 'atencion-medica/turnos.html'
+    return render(request, template_name)
 
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
+def medicos(request):
+    context = {}
+    template_name = 'atencion-medica/medicos.html'
+    return render(request, template_name)
 
-            user = authenticate(
-                email = form.cleaned_data['email'],
-                password = form.cleaned_data['password']
-            )
-            login(request, user)
+def pacientes(request):
+    context = {}
+    template_name = 'atencion-medica/pacientes.html'
+    return render(request, template_name)
 
-            return redirect('home')
-        else:
-            return render(request, 'registration/register.html', {"form":form})
-        
+def servicios_odontologicos(request):
+    context = {}
+    template_name = 'atencion-medica/servicios-odontologicos.html'
+    return render(request, template_name)
 
-class TurnosListView(LoginRequiredMixin, ListView):
-    model = Turnos
-    template_name = 'templates/turnos_list.html'
-    context_object_name = 'turnos'
-    paginate_by = 4
+def especialidades(request):
+    context = {}
+    template_name = 'atencion-medica/especialidades.html'
+    return render(request, template_name)
+
+def consultorios(request):
+    context = {}
+    template_name = 'atencion-medica/consultorios.html'
+    return render(request, template_name)
+
+
+# class TurnosListView(LoginRequiredMixin, ListView):
+#     model = Turnos
+#     template_name = 'templates/turnos_list.html'
+#     context_object_name = 'turnos'
+#     paginate_by = 4
 
     def get_queryset(self):
         return Turnos.objetcs.filter(estado = 'r')

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %} Detalle de la Especialidad {% endblock %}
+
+{% block content %}
+    <h1 class="my-3">Detalle de la Especialidad</h1>
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-3">
+                <h4 class="card-header">
+                    {{ especialidad }}
+                </h4>
+
+                <div class="card-body">
+                    <p>
+                        <strong>Id de la Especialidad:</strong>
+                        {{ especialidad.id }}
+                    </p>
+                    <p>
+                        <strong>Especialidad:</strong>
+                        {{ especialidad.descripcion }}
+                    </p>
+                </div>
+            </div>
+            
+            <a href="{% url 'especialidades_list' %}" class="btn btn-link">
+                <i class="fas fa-arrow-left mr-1"></i> Volver al Listado
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
