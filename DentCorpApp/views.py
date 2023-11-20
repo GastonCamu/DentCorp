@@ -23,7 +23,7 @@ class TurnosListView(LoginRequiredMixin, ListView):
     context_object_name = 'turnos'
 
     def get_queryset(self):
-        return Turnos.objetcs.filter(estado = 'r')
+        return Turnos.objetcs.filter()
     
 class TurnosDetailView(LoginRequiredMixin, DetailView):
     model = Turnos
