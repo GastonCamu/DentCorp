@@ -1,13 +1,32 @@
-{% extends 'atencion-medica/tabla.html' %}
-{% block name_page %} PACIENTES {% endblock%}
+{% extends "base.html" %}
+
+{% block title %} Cancelar reserva {% endblock %}
 
 {% block content %}
-  <h2>Confirmar eliminación del turno</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Confirmar eliminación</button>
-  </form>
-  <a href="{% url 'turnos_list' %}">Cancelar</a>
+    <h1 class="my-3">¿Confirmar cancelación?</h1>
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">¿Estás seguro de eliminar esta reservación?</h4>
+                    
+                    <p><strong>Turno:</strong> {{ turno }}</p>
+                    <p><strong>Libro:</strong> {{ ejemplar.libro }}</p>
+                    <p><strong>Estado:</strong> {{ ejemplar.get_estado_display }}</p>
+                </div>
+
+                <div class="card-footer">
+                    <form method="POST" action=".">
+                        {% csrf_token %}
+
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <a href="{% url 'ejemplar_list' %}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 

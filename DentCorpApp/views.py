@@ -7,7 +7,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Turnos
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
@@ -47,6 +46,11 @@ def consultorios(request):
     template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
 
+class TurnosListView(LoginRequiredMixin, ListView):
+    model = Turnos
+    template_name = 'atencion-medica/turnos.html'
+    context_object_name = 'turnos'
+    paginate_by = 4
 
 # class TurnosListView(LoginRequiredMixin, ListView):
 #     model = Turnos
