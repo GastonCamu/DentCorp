@@ -2,7 +2,7 @@ from django.urls import path
 from DentCorpApp import views
 
 urlpatterns = [
-    path('base', views.base, name= "base"),
+    # path('base', views.base, name= "base"),
     path('turnos/', views.turnos, name = "turnos"),
     path('pacientes/', views.pacientes, name = "pacientes"),
     path('especialidades/', views.especialidades, name = "especialidades"),

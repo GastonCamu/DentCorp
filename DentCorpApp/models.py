@@ -150,7 +150,8 @@ class FacturasServExt(models.Model):
         return reverse('infoFacturasServExt', args=[str(self.id)])
 
     def __str__(self):
-        return self.nom_prov
+        return f'{self.link_fact}, {self.costo_fact}, {self.fecha_cad_fact}, {self.fecha_pago_fact}, {self.comprobante_pago}'
+
 
 class PlanXCobertura(models.Model):
     porcentaje_cob = models.Field(max_length=3)
@@ -170,8 +171,8 @@ class CoberturasXUsuario(models.Model):
     id_rol_usu = models.ForeignKey(Group, related_name='coberturas_usuarios', on_delete=models.PROTECT)
     id_plan_cob = models.ForeignKey(PlanXCobertura, on_delete=models.PROTECT)
 
-    def __str__(self):
-        return self.nom_prov
+    def get_absolute_url(self):
+        return reverse('infoCoberturasXUsuario', args=[str(self.id)])
 
 class Turnos(models.Model):
     fecha_hr_turno = models.DateTimeField()
