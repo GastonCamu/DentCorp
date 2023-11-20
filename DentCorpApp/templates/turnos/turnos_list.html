@@ -9,7 +9,7 @@
     {% include "partials/alert.html" %}
 
     <div class="col-12">
-        {% if perms.dcapp.add_turno %}
+        {% if perms.DentCorpApp.add_turno %}
             <a href="{% url 'turno_create' %}" class="btn btn-success mb-3">
                 <i class="fas fa-plus mr-1"></i> Nuevo Turno
             </a>
@@ -20,15 +20,15 @@
                 <div class="col-md-4 mb-1">
                     <div class="card shadow-sm">
 
-                        {% if turno.imagen %}
-                            <img src="{{ ejemplar.libro.imagen.url }}" class="card-img-top" alt="{{ ejemplar }}">
-                        {% endif %}
+                        <!-- {% if turno.imagen %}
+                            <img src="{{ ejemplar.libro.imagen.url }}" class="card-img-top" alt="{{ turno }}">
+                        {% endif %} -->
 
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a href="{% url 'ejemplar_detail' ejemplar.pk %}">{{ ejemplar.id }}</a>
+                                <a href="{% url 'turnos_detail' turno.pk %}">{{ turno.id }}</a>
                             </h5>
-                            <p class="card-text">Libro: {{ ejemplar.libro.titulo }}</p>
+                            <p class="card-text">Turno: {{ turno.id }}</p>
                             <p class="card-text">
                                 Fecha de Devolución: 
                                 {% if ejemplar.fechaDevolucion %}
