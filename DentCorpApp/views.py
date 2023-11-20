@@ -6,54 +6,24 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Turnos
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
 
 
-def base(request):
+@login_required
+def home(request):
     context = {}
-    return render(request, 'base.html')
-
-def turnos(request):
-    context = {}
-    template_name = 'atencion-medica/turnos.html'
-    return render(request, template_name)
-
-def medicos(request):
-    context = {}
-    template_name = 'atencion-medica/medicos.html'
-    return render(request, template_name)
-
-def pacientes(request):
-    context = {}
-    template_name = 'atencion-medica/pacientes.html'
-    return render(request, template_name)
-
-def servicios_odontologicos(request):
-    context = {}
-    template_name = 'atencion-medica/servicios-odontologicos.html'
-    return render(request, template_name)
-
-def especialidades(request):
-    context = {}
-    template_name = 'atencion-medica/especialidades.html'
-    return render(request, template_name)
-
-def consultorios(request):
-    context = {}
-    template_name = 'atencion-medica/consultorios.html'
-    return render(request, template_name)
-
+    return render(request, 'base.html') #cambio momentaneo
 
 class TurnosListView(LoginRequiredMixin, ListView):
     model = Turnos
     template_name = 'atencion-medica/turnos.html'
     context_object_name = 'turnos'
+    paginate_by = 4
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-    
-#     def get_queryset(self):
-#         return Turnos.objetcs.filter(estado = 'r')
+    def get_queryset(self):
+        return Turnos.objetcs.filter(estado = 'r')
     
 # class TurnosDetailView(LoginRequiredMixin, DetailView):
 #     model = Turnos
