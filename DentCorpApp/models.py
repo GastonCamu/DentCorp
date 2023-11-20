@@ -26,8 +26,6 @@ class User(AbstractUser):
     fecha_alta_usu = models.DateField(null=True, blank=True)
     fecha_baja_usu = models.DateField(null=True, blank=True)
     dni_usu = models.CharField(max_length=9)
-    nom_usu = models.CharField(max_length=50)   #borrar
-    ape_usu = models.CharField(max_length=50)   #borrar
     dom_usu = models.CharField(max_length=50)
     tel_usu = models.CharField(max_length=14)
     id_ciu = models.ForeignKey(Ciudades, null=True, blank=True, on_delete=models.PROTECT)
