@@ -2,3 +2,25 @@
 {% block title %} TURNOS {% endblock %}
 {% block name_page %} TURNOS {% endblock%}
 {% block boton_agregar_name %} TURNO {% endblock%}
+{% block titulos_tabla %}
+    <td class="fila__titulo__contenido">Paciente</td>
+    <td class="fila__titulo__contenido">Fecha</td>
+    <td class="fila__titulo__contenido">Autorizado</td>
+    <td class="fila__titulo__contenido">Servicio</td>
+    <td class="fila__titulo__contenido">Médico</td>
+    <td class="fila__titulo__contenido">Cobertura</td>
+    <td class="fila__titulo__contenido">Consultorio Asignado</td>
+{% endblock %}
+{% block contenido_tabla %} 
+    {% for turno in turnos %}
+        <tr class="fila__contenido">
+            <td>{{ turno.paciente }}</td>
+            <td>{{ turno.fecha }}</td>
+            <td>{{ turno.autorizado }}</td>
+            <td>{{ turno.servicio }}</td>
+            <td>{{ turno.medico }}</td>
+            <td>{{ turno.cobertura }}</td>
+            <td>{{ turno.consultorio_asignado }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

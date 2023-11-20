@@ -43,12 +43,15 @@ def consultorios(request):
     return render(request, template_name)
 
 
-# class TurnosListView(LoginRequiredMixin, ListView):
-#     model = Turnos
-#     template_name = 'templates/turnos_list.html'
-#     context_object_name = 'turnos'
-#     paginate_by = 4
+class TurnosListView(LoginRequiredMixin, ListView):
+    model = Turnos
+    template_name = 'atencion-medica/turnos.html'
+    context_object_name = 'turnos'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+    
 #     def get_queryset(self):
 #         return Turnos.objetcs.filter(estado = 'r')
     
