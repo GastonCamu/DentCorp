@@ -130,6 +130,9 @@ class Cajas(models.Model):
     def get_absolute_url(self):
         return reverse('infoCajas', args=[str(self.id)])
 
+    def get_absolute_url(self):
+        return reverse('infoCajas', args=[str(self.id)])
+
     def __str__(self):
         return f'{self.fecha_hr_ap_cj}, {self.fecha_hr_cr_cj}, {self.monto_ap_cj}, {self.monto_cr_cj}, {self.comentarios}'
 
@@ -145,14 +148,19 @@ class FacturasServExt(models.Model):
     def get_absolute_url(self):
         return reverse('infoFacturasServExt', args=[str(self.id)])
 
-    def __str__(self):
-        return f'{self.link_fact}, {self.costo_fact}, {self.fecha_cad_fact}, {self.fecha_pago_fact}, {self.comprobante_pago}'
+    def get_absolute_url(self):
+        return reverse('infoFacturasServExt', args=[str(self.id)])
 
+    def __str__(self):
+        return self.nom_prov
 
 class PlanXCobertura(models.Model):
     porcentaje_cob = models.Field(max_length=3)
     id_plan = models.ForeignKey(Planes, on_delete=models.PROTECT)
     id_cob = models.ForeignKey(Coberturas, on_delete=models.PROTECT)
+
+    def get_absolute_url(self):
+        return reverse ('infoPanXCobertura', args=[str(self.id)])
 
     def get_absolute_url(self):
         return reverse ('infoPanXCobertura', args=[str(self.id)])
@@ -164,8 +172,8 @@ class CoberturasXUsuario(models.Model):
     id_rol_usu = models.ForeignKey(Group, related_name='coberturas_usuarios', on_delete=models.PROTECT)
     id_plan_cob = models.ForeignKey(PlanXCobertura, on_delete=models.PROTECT)
 
-    def get_absolute_url(self):
-        return reverse('infoCoberturasXUsuario', args=[str(self.id)])
+    def __str__(self):
+        return self.nom_prov
 
 class Turnos(models.Model):
     fecha_hr_turno = models.DateTimeField()
@@ -174,6 +182,9 @@ class Turnos(models.Model):
     id_cob_usu = models.ForeignKey(CoberturasXUsuario, on_delete=models.PROTECT)
     id_rol_usu = models.ForeignKey(Group, related_name='turnos_usuarios', on_delete=models.PROTECT)
     id_asig_cons = models.ForeignKey(AsignacionesConsultorio, on_delete=models.PROTECT)
+
+    def get_absolute_url(self):
+        return reverse('infoTurnos', args=[str(self.id)])
 
     def get_absolute_url(self):
         return reverse('infoTurnos', args=[str(self.id)])

@@ -1,0 +1,22 @@
+{% extends 'atencion-medica/tabla.html' %}
+{% block title %} PACIENTES {% endblock %}
+{% block name_page %} PACIENTES {% endblock%}
+{% block boton_agregar_name %} PACIENTE {% endblock%}
+{% block titulos_tabla %}
+    <td class="fila__titulo__contenido">DNI</td>
+    <td class="fila__titulo__contenido">Nombre</td>
+    <td class="fila__titulo__contenido">Apellido</td>
+    <td class="fila__titulo__contenido">Domicilio</td>
+    <td class="fila__titulo__contenido">Email</td>
+    <td class="fila__titulo__contenido">Ciudad</td>
+{% endblock %}
+{% block contenido_tabla %} 
+<tr class="fila__contenido">
+    <td>44111222</td>
+    <td>Gaston</td>
+    <td>Camu</td>
+    <td>08 de octubre 341</td>
+    <td>camgas@gmail.com</td>
+    <td>Salta Capital</td>
+</tr>
+{% endblock %}
