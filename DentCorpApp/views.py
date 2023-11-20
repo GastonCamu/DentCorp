@@ -54,9 +54,10 @@ def consultorios(request):
 #     context_object_name = 'turnos'
 #     paginate_by = 4
 
-    def get_queryset(self):
-        return Turnos.objetcs.filter(estado = 'r')
+    # def get_queryset(self):
+    #     return Turnos.objetcs.filter(estado = 'r')
     
+
 class TurnosDetailView(LoginRequiredMixin, DetailView):
     model = Turnos
     template_name = 'templates/turnos_detail.html'
