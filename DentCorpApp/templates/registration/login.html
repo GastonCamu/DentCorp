@@ -11,15 +11,14 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <img src="{% static 'styles/login/img/login.png' %}" alt="">
-                    {{ form.username|as_crispy_field }}
+                    {{ form.username}}
                 </div>
                 <div class="form-group">
                     <img src="{% static 'styles/login/img/password.png' %}" alt="">
-                    {{ form.password|as_crispy_field }}
+                    {{ form.password}}
                 </div>
-                <button type="submit" class="button">Iniciar Sesión</button>
+                <button type="submit" class="button">Ingresar</button>
             </form>
         </div>
     </div>
 {% endblock %}
-
