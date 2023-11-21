@@ -9,6 +9,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from .models import Consultorios
+from django.shortcuts import render
+
 
 
 @login_required
@@ -48,12 +51,21 @@ def consultorios(request):
 
 class TurnosListView(LoginRequiredMixin, ListView):
     model = Turnos
-    template_name = 'atencion-medica/turnos.html'
+    template_name = 'atencion-medica/turnos.html' 
     context_object_name = 'turnos'
-    paginate_by = 4
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+    
     def get_queryset(self):
         return Turnos.objetcs.filter(estado = 'r')
+    
+class ConsultoriosListView(ListView):
+    model = Consultorios
+    template_name = 'atencion-medica/consultorios.html'
+    context_object_name = 'consultorios'
+    
     
 # class TurnosDetailView(LoginRequiredMixin, DetailView):
 #     model = Turnos
