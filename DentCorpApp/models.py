@@ -172,8 +172,12 @@ class CoberturasXUsuario(models.Model):
     id_rol_usu = models.ForeignKey(Group, related_name='coberturas_usuarios', on_delete=models.PROTECT)
     id_plan_cob = models.ForeignKey(PlanXCobertura, on_delete=models.PROTECT)
 
-    def __str__(self):
-        return self.nom_prov
+    def get_absolute_url(self):
+        return reverse('infoCoberturasXUsuario', args=[str(self.id)])
+<<<<<<<<< Temporary merge branch 1
+
+=========
+>>>>>>>>> Temporary merge branch 2
 
 class Turnos(models.Model):
     fecha_hr_turno = models.DateTimeField()

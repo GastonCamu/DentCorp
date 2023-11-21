@@ -14,15 +14,70 @@ from django.shortcuts import render
 
 
 
-@login_required
+<<<<<<<<< Temporary merge branch 1
 def base(request):
     context = {}
     return render(request, 'base.html')
+=========
+@login_required
+def home(request):
+    context = {}
+    return render(request, 'base.html', context) #cambio momentaneo
+
+def register(request):
+    if request.method == 'GET':
+        return render(request, 'registration/register.html', {'form': CustomUserCreationForm})
+    
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+
+            user = authenticate(
+                email = form.cleaned_data['email'],
+                password = form.cleaned_data['password']
+            )
+            login(request, user)
+
+            return redirect('home')
+        else:
+            return render(request, 'registration/register.html', {"form":form})
+        
+>>>>>>>>> Temporary merge branch 2
 
 def turnos(request):
     context = {}
     template_name = 'atencion-medica/turnos.html'
     return render(request, template_name)
+
+def register(request):
+    if request.method == 'GET':
+        return render(request, 'registration/register.html', {'form': CustomUserCreationForm})
+
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+  
+            user = authenticate(
+                email = form.cleaned_data['email'],
+                password = form.cleaned_data['password1']       
+            )
+            login(request, user)
+
+
+            return redirect('base')
+        else:
+            return render(request, 'registration/register.html', {"form": form})
+        
+@login_required
+def base(request):
+    context = {}
+    
+    return render(request, 'base.html', context)
 
 def medicos(request):
     context = {}
