@@ -1,0 +1,24 @@
+{% block content %}
+    {% load static %}
+    {% load crispy_forms_tags %}
+
+    <link rel="stylesheet" href="{% static 'styles/login/styles.css' %}">
+
+    <div class="container">
+        <h1>Login</h1>
+        <div class="formLog">
+            <form method="post" novalidate class="login-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <img src="{% static 'styles/login/img/login.png' %}" alt="">
+                    {{ form.username}}
+                </div>
+                <div class="form-group">
+                    <img src="{% static 'styles/login/img/password.png' %}" alt="">
+                    {{ form.password}}
+                </div>
+                <button type="submit" class="button">Ingresar</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,3 +1,16 @@
 {% extends 'atencion-medica/tabla.html' %}
+{% block title %} SERVICIOS ODONTOLOGICOS {% endblock %}
 {% block name_page %} SERVICIOS ODONTOLOGICOS {% endblock%}
 {% block boton_agregar_name %} SERVICIO {% endblock%}
+{% block titulos_tabla %}
+<td class="fila__titulo__contenido">Codigo</td>
+<td class="fila__titulo__contenido">Descripción</td>
+<td class="fila__titulo__contenido">Costo</td>
+{% endblock %}
+{% block contenido_tabla %} 
+<tr class="fila__contenido">
+    <td>001</td>
+    <td>Endodoncia</td>
+    <td>3000$</td>
+</tr>
+{% endblock %}
