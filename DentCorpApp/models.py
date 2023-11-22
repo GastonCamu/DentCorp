@@ -150,7 +150,7 @@ class FacturasServExt(models.Model):
         return reverse('infoFacturasServExt', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.link_fact}, {self.costo_fact}, {self.fecha_cad_fact}, {self.fecha_pago_fact}, {self.comprobante_pago}'
+        return self.nom_prov
 
 class PlanXCobertura(models.Model):
     porcentaje_cob = models.Field(max_length=3)
@@ -172,6 +172,10 @@ class CoberturasXUsuario(models.Model):
 
     def get_absolute_url(self):
         return reverse('infoCoberturasXUsuario', args=[str(self.id)])
+<<<<<<<<< Temporary merge branch 1
+
+=========
+>>>>>>>>> Temporary merge branch 2
 
 class Turnos(models.Model):
     fecha_hr_turno = models.DateTimeField()

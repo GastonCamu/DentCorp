@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %} Nueva Especialidad {% endblock %}
+
+{% block content %}
+    <h1 class="my-3">Crear una nueva Especialidad</h1>
+    <hr>
+
+    <div class="row mt-3 mb-5">
+        <div class="col-12">
+            {% include "especialidades/partials/form.html" %}
+        </div>
+    </div>
+{% endblock %}

@@ -7,11 +7,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Turnos
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from .models import Consultorios
+from django.shortcuts import render
 
 
+
+<<<<<<<<< Temporary merge branch 1
+def base(request):
+    context = {}
+    return render(request, 'base.html')
+=========
 @login_required
 def home(request):
     context = {}
@@ -38,6 +45,7 @@ def register(request):
         else:
             return render(request, 'registration/register.html', {"form":form})
         
+>>>>>>>>> Temporary merge branch 2
 
 def turnos(request):
     context = {}
@@ -71,15 +79,48 @@ def base(request):
     
     return render(request, 'base.html', context)
 
+def medicos(request):
+    context = {}
+    template_name = 'atencion-medica/medicos.html'
+    return render(request, template_name)
 
-# class TurnosListView(LoginRequiredMixin, ListView):
-#     model = Turnos
-#     template_name = 'templates/turnos_list.html'
-#     context_object_name = 'turnos'
-#     paginate_by = 4
+def pacientes(request):
+    context = {}
+    template_name = 'atencion-medica/pacientes.html'
+    return render(request, template_name)
 
-#     def get_queryset(self):
-#         return Turnos.objetcs.filter(estado = 'r')
+def servicios_odontologicos(request):
+    context = {}
+    template_name = 'atencion-medica/servicios-odontologicos.html'
+    return render(request, template_name)
+
+def especialidades(request):
+    context = {}
+    template_name = 'atencion-medica/especialidades.html'
+    return render(request, template_name)
+
+def consultorios(request):
+    context = {}
+    template_name = 'atencion-medica/consultorios.html'
+    return render(request, template_name)
+
+class TurnosListView(LoginRequiredMixin, ListView):
+    model = Turnos
+    template_name = 'atencion-medica/turnos.html' 
+    context_object_name = 'turnos'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+    
+    def get_queryset(self):
+        return Turnos.objetcs.filter(estado = 'r')
+    
+class ConsultoriosListView(ListView):
+    model = Consultorios
+    template_name = 'atencion-medica/consultorios.html'
+    context_object_name = 'consultorios'
+    
     
 # class TurnosDetailView(LoginRequiredMixin, DetailView):
 #     model = Turnos

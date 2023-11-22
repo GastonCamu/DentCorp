@@ -1,2 +1,17 @@
 {% extends 'atencion-medica/tabla.html' %}
-{% block name_page %} PACIENTES {% endblock%}
+{% block title %} CONSULTORIOS {% endblock %}
+{% block name_page %} CONSULTORIOS {% endblock%}
+{% block boton_agregar_name %} CONSULTORIO {% endblock%}
+{% block titulos_tabla %}
+    <td class="fila__titulo__contenido">Codigo</td>
+    <td class="fila__titulo__contenido">Numero de Consultorio</td>
+{% endblock %}
+
+{% block contenido_tabla %} 
+    {% for consultorio in consultorios %}
+        <tr class="fila__contenido">
+            <td>{{ consultorio.id }}</td>
+            <td>{{ consultorio.num_cons }}</td>
+        </tr>
+    {% endfor %}
+{% endblock %}

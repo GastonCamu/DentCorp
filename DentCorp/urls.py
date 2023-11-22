@@ -20,11 +20,12 @@ from django.views.generic import RedirectView
 from DentCorpApp.views import register
 from django.views.generic import RedirectView
 from DentCorpApp.views import register
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/DentCorpApp/')),
     path('DentCorp/admin/', admin.site.urls),
     path('DentCorp/', include('DentCorpApp.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/register/', register, name='register'),
+    
 ]
