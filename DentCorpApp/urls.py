@@ -8,7 +8,7 @@ urlpatterns = [
     path('especialidades/', views.especialidades, name = "especialidades"),
     path('medicos/', views.medicos, name = "medicos"),
     path('servicios-odontologicos/', views.servicios_odontologicos, name = "servicios odontologicos"),
-    path('consultorios/', views.consultorios, name = "consultorios"),
+    # path('consultorios/', views.consultorios, name = "consultorios"),
     path('consultorios/', ConsultoriosListView.as_view(), name='consultorios'),
     
     
