@@ -26,8 +26,6 @@ class User(AbstractUser):
     fecha_alta_usu = models.DateField(null=True, blank=True)
     fecha_baja_usu = models.DateField(null=True, blank=True)
     dni_usu = models.CharField(max_length=9)
-    nom_usu = models.CharField(max_length=50)
-    ape_usu = models.CharField(max_length=50)
     dom_usu = models.CharField(max_length=50)
     tel_usu = models.CharField(max_length=14)
     id_ciu = models.ForeignKey(Ciudades, null=True, blank=True, on_delete=models.PROTECT)
@@ -130,9 +128,6 @@ class Cajas(models.Model):
     def get_absolute_url(self):
         return reverse('infoCajas', args=[str(self.id)])
 
-    def get_absolute_url(self):
-        return reverse('infoCajas', args=[str(self.id)])
-
     def __str__(self):
         return f'{self.fecha_hr_ap_cj}, {self.fecha_hr_cr_cj}, {self.monto_ap_cj}, {self.monto_cr_cj}, {self.comentarios}'
 
@@ -148,9 +143,6 @@ class FacturasServExt(models.Model):
     def get_absolute_url(self):
         return reverse('infoFacturasServExt', args=[str(self.id)])
 
-    def get_absolute_url(self):
-        return reverse('infoFacturasServExt', args=[str(self.id)])
-
     def __str__(self):
         return self.nom_prov
 
@@ -158,9 +150,6 @@ class PlanXCobertura(models.Model):
     porcentaje_cob = models.Field(max_length=3)
     id_plan = models.ForeignKey(Planes, on_delete=models.PROTECT)
     id_cob = models.ForeignKey(Coberturas, on_delete=models.PROTECT)
-
-    def get_absolute_url(self):
-        return reverse ('infoPanXCobertura', args=[str(self.id)])
 
     def get_absolute_url(self):
         return reverse ('infoPanXCobertura', args=[str(self.id)])
@@ -175,6 +164,7 @@ class CoberturasXUsuario(models.Model):
     def get_absolute_url(self):
         return reverse('infoCoberturasXUsuario', args=[str(self.id)])
 
+
 class Turnos(models.Model):
     fecha_hr_turno = models.DateTimeField()
     autorizado = models.BooleanField()
@@ -182,9 +172,6 @@ class Turnos(models.Model):
     id_cob_usu = models.ForeignKey(CoberturasXUsuario, on_delete=models.PROTECT)
     id_rol_usu = models.ForeignKey(Group, related_name='turnos_usuarios', on_delete=models.PROTECT)
     id_asig_cons = models.ForeignKey(AsignacionesConsultorio, on_delete=models.PROTECT)
-
-    def get_absolute_url(self):
-        return reverse('infoTurnos', args=[str(self.id)])
 
     def get_absolute_url(self):
         return reverse('infoTurnos', args=[str(self.id)])
