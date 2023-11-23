@@ -13,12 +13,25 @@ from django.shortcuts import render, redirect
 from .models import Consultorios
 from django.shortcuts import render
 from django.contrib import messages
-
+from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
 
 
 @login_required
 def base(request):
-    context = {}
+
+    paciente = User.objects.all().count()
+    cobertura = Coberturas.objects.all().count()
+    servicio = ServiciosOdontologicos.objects.all().count()
+    nroConsultorio = Consultorios.objects.all().count()
+
+
+    context = {
+        'paciente': paciente,
+        'cobertura': cobertura,
+        'servicio': servicio,
+        'nroConsultorio': nroConsultorio,
+    }        
+    
     return render(request, 'base.html', context) #cambio momentaneo
 
        
@@ -83,7 +96,7 @@ class TurnosCreateView(LoginRequiredMixin, CreateView):
     model = Turnos
     template_name = 'turnos/turnos_create.html'
     context_object_name = 'turnos'
-    fields = '__all__'
+    fields = ['fecha_hr_turno', 'autorizado', 'id_serv_odon', 'id_cob_usu', 'id_rol_usu', 'id_asig_cons']
     success_url = reverse_lazy('turnos_list')
     success_message = "El turno se ha reservado con éxito."
 
