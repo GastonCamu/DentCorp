@@ -26,16 +26,19 @@
             </div>
         </form>
         <button onclick="redirigir()">AGREGAR {% block boton_agregar_name %} {% endblock %}</button>
-        <button onclick="redirect()">MODIFICAR</button>
-        <button>ELIMINAR</button>
+        <button onclick="redir()">MODIFICAR</button> 
+        <button onclick="redirect()">ELIMINAR</button>
         </div>
 </div>
 <script>
     function redirigir() {
-        window.location.href = "{% url 'turnos_create' %}";
+        window.location.href = "{% url 'turno_create' %}";
     };
     function redirect() {
-        window.location.href = "{% url 'turnos_update' %}";
+        window.location.href = "{% url 'turno_delete' %}";
     };
-</script>
+    function redir() {
+        window.location.href = "{% url 'turno_update' %}";
+    };
+ </script>
 {% endblock %}

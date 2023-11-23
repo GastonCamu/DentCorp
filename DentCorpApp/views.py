@@ -87,15 +87,14 @@ class ConsultoriosListView(ListView):
     context_object_name = 'consultorios'
     
     
-# class TurnosDetailView(LoginRequiredMixin, DetailView):
-#     model = Turnos
-#     template_name = 'templates/turnos_detail.html'
-#     context_object_name = 'det_turno'
+class TurnosDetailView(LoginRequiredMixin, DetailView):
+    model = Turnos
+    template_name = 'turnos/turnos_detail.html'
+    context_object_name = 'turno'
 
 class TurnosCreateView(LoginRequiredMixin, CreateView):
     model = Turnos
     template_name = 'turnos/turnos_create.html'
-    context_object_name = 'turnos'
     fields = '__all__'
     success_url = reverse_lazy('turnos_list')
     success_message = "El turno se ha reservado con éxito."
@@ -107,7 +106,6 @@ class TurnosCreateView(LoginRequiredMixin, CreateView):
 class TurnosUpdateView(LoginRequiredMixin, UpdateView):
     model = Turnos
     template_name = 'turnos/turnos_update.html'
-    context_object_name = 'turnos'
     fields = '__all__'
     success_url = reverse_lazy('turnos_list')
     success_message = "El turno se ha actualizado con éxito"
@@ -116,13 +114,13 @@ class TurnosUpdateView(LoginRequiredMixin, UpdateView):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
     
-# class TurnosDeleteView(LoginRequiredMixin, DeleteView):
-#     model = Turnos
-#     template_name = 'template/turnos_confirm_delete.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha eliminado con éxito"
+class TurnosDeleteView(LoginRequiredMixin, DeleteView):
+    model = Turnos
+    template_name = 'turnos/turnos_confirm_delete.html'
 
-#     def form_valid(self,form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)
+    success_url = reverse_lazy('turnos_list')
+    success_message = "El turno se ha eliminado con éxito"
+
+    def form_valid(self,form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)
