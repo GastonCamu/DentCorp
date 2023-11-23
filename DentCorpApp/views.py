@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.views.generic import  ListView, DetailView, DeleteView, CreateView,UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .models import Turnos
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -11,73 +12,24 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .models import Consultorios
 from django.shortcuts import render
+from django.contrib import messages
 
 
 
-<<<<<<<<< Temporary merge branch 1
-def base(request):
-    context = {}
-    return render(request, 'base.html')
-=========
 @login_required
-def home(request):
+def base(request):
     context = {}
     return render(request, 'base.html', context) #cambio momentaneo
 
-def register(request):
-    if request.method == 'GET':
-        return render(request, 'registration/register.html', {'form': CustomUserCreationForm})
-    
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
-
-            user = authenticate(
-                email = form.cleaned_data['email'],
-                password = form.cleaned_data['password']
-            )
-            login(request, user)
-
-            return redirect('home')
-        else:
-            return render(request, 'registration/register.html', {"form":form})
-        
->>>>>>>>> Temporary merge branch 2
+       
 
 def turnos(request):
     context = {}
     template_name = 'atencion-medica/turnos.html'
     return render(request, template_name)
 
-def register(request):
-    if request.method == 'GET':
-        return render(request, 'registration/register.html', {'form': CustomUserCreationForm})
 
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST, request.FILES)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
-  
-            user = authenticate(
-                email = form.cleaned_data['email'],
-                password = form.cleaned_data['password1']       
-            )
-            login(request, user)
-
-
-            return redirect('base')
-        else:
-            return render(request, 'registration/register.html', {"form": form})
         
-@login_required
-def base(request):
-    context = {}
-    
-    return render(request, 'base.html', context)
 
 def medicos(request):
     context = {}
@@ -106,7 +58,7 @@ def consultorios(request):
 
 class TurnosListView(LoginRequiredMixin, ListView):
     model = Turnos
-    template_name = 'atencion-medica/turnos.html' 
+    template_name = 'turnos/turnos_list.html' 
     context_object_name = 'turnos'
 
     def get_context_data(self, **kwargs):
@@ -127,16 +79,17 @@ class ConsultoriosListView(ListView):
 #     template_name = 'templates/turnos_detail.html'
 #     context_object_name = 'det_turno'
 
-# class TurnosCreateView(LoginRequiredMixin, CreateView):
-#     model = Turnos
-#     template_name = 'templates/turnos_create.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha reservado con éxito."
+class TurnosCreateView(LoginRequiredMixin, CreateView):
+    model = Turnos
+    template_name = 'turnos/turnos_create.html'
+    context_object_name = 'turnos'
+    fields = '__all__'
+    success_url = reverse_lazy('turnos_list')
+    success_message = "El turno se ha reservado con éxito."
 
-#     def form_valid(self, form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)
+    def form_valid(self, form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)
     
 # class TurnosUpdateView(LoginRequiredMixin, UpdateView):
 #     model = Turnos

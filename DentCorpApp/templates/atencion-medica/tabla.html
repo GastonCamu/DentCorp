@@ -25,9 +25,14 @@
                 <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>
             </div>
         </form>
-        <button>AGREGAR {% block boton_agregar_name %} {% endblock %}</button>
+        <button onclick="redirigir()">AGREGAR {% block boton_agregar_name %} {% endblock %}</button>
         <button>MODIFICAR</button>
         <button>ELIMINAR</button>
         </div>
 </div>
+<script>
+    function redirigir() {
+        window.location.href = "{% url 'turnos_create' %}";
+    }
+</script>
 {% endblock %}

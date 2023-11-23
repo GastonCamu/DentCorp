@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %} Lista de Turnos {% endblock %}
+{% block title %} Turnos Reservados {% endblock %}
 
 {% block content %}
     <h1 class="my-3">Lista de Turnos</h1>
     <hr>
 
-    {% include "partials/alert.html" %}
+    {% include "partials/alerts.html" %}  
 
     <div class="col-12">
         {% if perms.DentCorpApp.add_turno %}
-            <a href="{% url 'turno_create' %}" class="btn btn-success mb-3">
+            <a href="{% url 'turnos_create' %}" class="btn btn-success mb-3">
                 <i class="fas fa-plus mr-1"></i> Nuevo Turno
             </a>
         {% endif %}
@@ -28,29 +28,29 @@
                             <h5 class="card-title">
                                 <a href="{% url 'turnos_detail' turno.pk %}">{{ turno.id }}</a>
                             </h5>
-                            <p class="card-text">Turno: {{ turno.id }}</p>
+                            <p class="card-text">Turno: {{ turno.id_rol_usu }}</p>
                             <p class="card-text">
-                                Fecha de Devolución: 
-                                {% if ejemplar.fechaDevolucion %}
-                                    {{ ejemplar.fechaDevolucion }}
+                                Fecha de Reserva: 
+                                {% if turno.fecha_hr_turno %}
+                                    {{ turno.fecha_hr_turno }}
                                 {% else %}
                                     ---
                                 {% endif %}
                             </p>
-                            <p class="card-text">Estado: {{ ejemplar.get_estado_display }}</p>
+                            <p class="card-text">Estado: {{ turno.autorizado }}</p>
                         </div>
-                        {% if perms.catalogo.change_ejemplar or perms.catalogo.delete_ejemplar %}
+                        <!-- {% if perms.DentCorpApp.change_turno or perms.DentCorpApp.delete_turno %}
                         <div class="card-footer">
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                {% if perms.catalogo.change_ejemplar %}
-                                    <a href="{% url 'ejemplar_update' ejemplar.pk %}" class="btn btn-warning btn-sm">
-                                        Editar
+                                {% if perms.DentCorpApp.change_turno %}
+                                    <a href="{% url 'turnos_update' turno.pk %}" class="btn btn-warning btn-sm">
+                                        Cambiar reserva
                                     </a>
                                 {% endif %}
 
-                                {% if perms.catalogo.delete_ejemplar %}
-                                    <a href="{% url 'ejemplar_delete' ejemplar.pk %}" class="btn btn-danger btn-sm">
-                                        Eliminar
+                                {% if perms.DentCorpApp.delete_turno %}
+                                    <a href="{% url 'turnos_confirm_delete' turno.pk %}" class="btn btn-danger btn-sm">
+                                        Cancelar reserva
                                     </a>
                                 {% endif %}
                             </div>
@@ -61,13 +61,13 @@
             {% empty %}
                 <div class="col">
                     <div class="alert alert-danger" role="alert">
-                        ¡Oops! No tenemos Ejemplares de Libros en Catálogo.
+                        No se encuentran turnos disponibles.
                     </div>
                 </div>
             {% endfor %}
-        </div>
+        </div> -->
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-12 d-flex justify-content-center">
                 {% if page_obj.has_other_pages %}
                 <div class="p-3 pb-0">
@@ -112,5 +112,5 @@
             {% endif %}
             </div>
         </div>
-    </div>
+    </div> -->
 {% endblock %}
