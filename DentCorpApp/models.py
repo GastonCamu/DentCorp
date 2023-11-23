@@ -60,7 +60,7 @@ class Consultorios(models.Model):
 
 class ServiciosOdontologicos(models.Model):
     nombre_serv_odon = models.CharField(max_length=20)
-    costo_serv_odon = models.DecimalField(max_digits=6, decimal_places=2)
+    costo_serv_odon = models.DecimalField(max_digits=10, decimal_places=2)
 
     def get_absolute_url(self):
         return reverse('serviciosInfo', args=[str(self.id)])
@@ -102,7 +102,7 @@ class EspecXUsuario(models.Model):
         return reverse('infoEspecXUsuario', args=[str(self.id)])
 
     def __str__(self):
-        return self.matricula
+        return f'{self.matricula}'
     # consultaas ver
 
 class AsignacionesConsultorio(models.Model):
@@ -144,10 +144,10 @@ class FacturasServExt(models.Model):
         return reverse('infoFacturasServExt', args=[str(self.id)])
 
     def __str__(self):
-        return self.nom_prov
+        return f'{self.link_fact}, {self.costo_fact}, {self.fecha_cad_fact}, {self.fecha_pago_fact}, {self.comprobante_pago}'
 
 class PlanXCobertura(models.Model):
-    porcentaje_cob = models.Field(max_length=3)
+    porcentaje_cob = models.CharField(max_length=3)
     id_plan = models.ForeignKey(Planes, on_delete=models.PROTECT)
     id_cob = models.ForeignKey(Coberturas, on_delete=models.PROTECT)
 
@@ -155,7 +155,7 @@ class PlanXCobertura(models.Model):
         return reverse ('infoPanXCobertura', args=[str(self.id)])
 
     def __str__(self):
-        return self.porcentaje_cob
+        return f'{self.porcentaje_cob}'
 
 class CoberturasXUsuario(models.Model):
     id_rol_usu = models.ForeignKey(Group, related_name='coberturas_usuarios', on_delete=models.PROTECT)

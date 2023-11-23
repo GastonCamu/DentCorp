@@ -9,7 +9,7 @@
     {% include "partials/alerts.html" %}  
 
     <div class="col-12">
-        {% if perms.DentCorpApp.add_turno %}
+        {% if perms.DentCorpApp.add_turnos %}
             <a href="{% url 'turnos_create' %}" class="btn btn-success mb-3">
                 <i class="fas fa-plus mr-1"></i> Nuevo Turno
             </a>
@@ -45,16 +45,16 @@
                             </p> -->
                             <!-- <p class="card-text">Estado: {{ turno.autorizado }}</p> -->
                         </div>
-                        <!-- {% if perms.DentCorpApp.change_turno or perms.DentCorpApp.delete_turno %}
+                        {% if perms.DentCorpApp.change_turnos or perms.DentCorpApp.delete_turnos %}
                         <div class="card-footer">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 {% if perms.DentCorpApp.change_turno %}
                                     <a href="{% url 'turnos_update' turno.pk %}" class="btn btn-warning btn-sm">
                                         Cambiar reserva
                                     </a>
-                                {% endif %} -->
+                                {% endif %}
 
-                                {% if perms.DentCorpApp.delete_turno %}
+                                {% if perms.DentCorpApp.delete_turnos %}
                                     <a href="{% url 'turnos_confirm_delete' turno.pk %}" class="btn btn-danger btn-sm">
                                         Cancelar reserva
                                     </a>
