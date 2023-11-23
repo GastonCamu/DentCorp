@@ -96,7 +96,7 @@ class TurnosCreateView(LoginRequiredMixin, CreateView):
     model = Turnos
     template_name = 'turnos/turnos_create.html'
     context_object_name = 'turnos'
-    fields = ['fecha_hr_turno', 'autorizado', 'id_serv_odon', 'id_cob_usu', 'id_rol_usu', 'id_asig_cons']
+    fields = '__all__'
     success_url = reverse_lazy('turnos_list')
     success_message = "El turno se ha reservado con éxito."
 
@@ -104,16 +104,17 @@ class TurnosCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
     
-# class TurnosUpdateView(LoginRequiredMixin, UpdateView):
-#     model = Turnos
-#     template_name = 'template/turnos_update.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha actualizado con éxito"
+class TurnosUpdateView(LoginRequiredMixin, UpdateView):
+    model = Turnos
+    template_name = 'turnos/turnos_update.html'
+    context_object_name = 'turnos'
+    fields = '__all__'
+    success_url = reverse_lazy('turnos_list')
+    success_message = "El turno se ha actualizado con éxito"
 
-#     def form_valid(self,form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)
+    def form_valid(self,form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)
     
 # class TurnosDeleteView(LoginRequiredMixin, DeleteView):
 #     model = Turnos

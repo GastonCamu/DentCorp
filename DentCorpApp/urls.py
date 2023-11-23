@@ -16,6 +16,6 @@ urlpatterns = [
     path('turnos/', views.TurnosListView.as_view(), name="turnos_list"),
     # path('turnos/<uuid:pk>/', views.TurnosDetailView.as_view(), name="turnos_detail"),
     path('turnos/reservar/', TurnosCreateView.as_view(), name="turnos_create"),
-    # path('turnos/', views.TurnosUpdateView.as_view(), name="turnos_update"),
+    path('turnos/modificar/<uuid:pk>/', views.TurnosUpdateView.as_view(), name="turnos_update"),
     # path('turnos/', views.TurnosDeleteView.as_view(), name="turnos_delete"),
 ]

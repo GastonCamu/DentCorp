@@ -39,7 +39,7 @@
                             </p>
                             <p class="card-text">Estado: {{ turno.autorizado }}</p>
                         </div>
-                        <!-- {% if perms.DentCorpApp.change_turno or perms.DentCorpApp.delete_turno %}
+                        {% if perms.DentCorpApp.change_turno or perms.DentCorpApp.delete_turno %}
                         <div class="card-footer">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 {% if perms.DentCorpApp.change_turno %}
@@ -65,7 +65,7 @@
                     </div>
                 </div>
             {% endfor %}
-        </div> -->
+        </div>
 
 
 {% endblock %}
