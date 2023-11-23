@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .models import Consultorios
+from .models import Consultorios, Especialidades
 from django.shortcuts import render
 
 @login_required
@@ -113,6 +113,12 @@ class ConsultoriosListView(ListView):
     model = Consultorios
     template_name = 'atencion-medica/consultorios.html'
     context_object_name = 'consultorios'
+
+class EspecialidadesListView(ListView):
+    model = Especialidades
+    template_name='atencion-medica/especialidades.html'
+    context_object_name = 'especialidades'
+
     
     
 # class TurnosDetailView(LoginRequiredMixin, DetailView):
