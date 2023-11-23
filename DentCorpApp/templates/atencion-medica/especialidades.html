@@ -6,9 +6,12 @@
     <td class="fila__titulo__contenido">Codigo</td>
     <td class="fila__titulo__contenido">Descripción</td>
 {% endblock %}
+{% block example %} {% endblock %}
 {% block contenido_tabla %} 
-<tr class="fila__contenido">
-    <td>103243244</td>
-    <td>Ortodoncista</td>
-</tr>
+    {% for especialidad in especialidades %}
+        <tr class="fila__contenido">
+            <td>{{ especialidad.id }}</td>
+            <td>{{ especialidad.nombre_espec }}</td>
+        </tr>
+    {% endfor %}
 {% endblock %}

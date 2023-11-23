@@ -10,31 +10,38 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .models import Consultorios
+from .models import Consultorios, Especialidades, ServiciosOdontologicos, User, Turnos
 from django.shortcuts import render
 from django.contrib import messages
 from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
 
-
 @login_required
+
 def base(request):
+    context = {}
+    return render(request, 'base.html')
 
-    paciente = User.objects.all().count()
-    cobertura = Coberturas.objects.all().count()
-    servicio = ServiciosOdontologicos.objects.all().count()
-    nroConsultorio = Consultorios.objects.all().count()
-
-
-    context = {
-        'paciente': paciente,
-        'cobertura': cobertura,
-        'servicio': servicio,
-        'nroConsultorio': nroConsultorio,
-    }        
+def register(request):
+    if request.method == 'GET':
+        return render(request, 'registration/register.html', {'form': CustomUserCreationForm})
     
-    return render(request, 'base.html', context) #cambio momentaneo
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST, request.FILES)
 
-       
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+
+            user = authenticate(
+                email = form.cleaned_data['email'],
+                password = form.cleaned_data['password']
+            )
+            login(request, user)
+
+            return redirect('home')
+        else:
+            return render(request, 'registration/register.html', {"form":form})
+        
 
 def turnos(request):
     context = {}
@@ -73,16 +80,20 @@ class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
     template_name = 'turnos/turnos_list.html' 
     context_object_name = 'turnos'
-    permission_required = 'DentCorpApp.view_turnos'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+class TurnosCreateView(LoginRequiredMixin, CreateView):
+    model = Turnos
+    template_name = 'atencion-medica/modal-turnos.html'
+    fields = '__all__'
+    success_url = reverse_lazy('turnos')
+    success_message = "El turno se ha reservado con éxito."
+
+    def form_valid(self, form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)
     
-    def get_queryset(self):
-        return Turnos.objetcs.filter(estado = 'r')
-    
-class ConsultoriosListView(ListView):
+
+class ConsultoriosListView(LoginRequiredMixin, ListView):
     model = Consultorios
     template_name = 'atencion-medica/consultorios.html'
     context_object_name = 'consultorios'

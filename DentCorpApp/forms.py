@@ -2,7 +2,6 @@ from django import forms
 from django.core.exceptions import ValidationError
 from DentCorpApp.models import Turnos
 
-
 from django import forms
 from .models import Turnos
 
@@ -22,9 +21,9 @@ class TurnoForm(forms.ModelForm):
 
 #         if 'hola' in titulo:
 #             raise ValidationError("El titulo no debe contener la palabra 'hola'")
-        
+
 #         return titulo
-    
+
 #     # Validacion personalizada (una funcion para todos los campos) 
 #     def clean(self):
 #         cleaned_data = super().clean()
@@ -33,5 +32,5 @@ class TurnoForm(forms.ModelForm):
 #         if resumen:
 #             if 'mundo' in resumen:
 #                 self.add_error('resumen', "El resumen no debe contener la palabra 'mundo'")
-        
+
 #         return cleaned_data

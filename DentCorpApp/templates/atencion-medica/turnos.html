@@ -11,6 +11,31 @@
     <td class="fila__titulo__contenido">Cobertura</td>
     <td class="fila__titulo__contenido">Consultorio Asignado</td>
 {% endblock %}
+
+{% block boton_agregar %} 
+<button data-bs-toggle="modal" data-bs-target="#TurnosModalCrear">
+    AGREGAR TURNO
+</button>
+
+{% include 'atencion-medica/modal-turnos.html' %}
+{% endblock %}
+
+{% block boton_modificar %} 
+<button data-bs-toggle="modal" data-bs-target="#TurnosModalModificar">
+    MODIFICAR
+</button>
+
+{% include 'atencion-medica/modal-turnos.html' %}
+{% endblock %}
+
+{% block boton_eliminar %} 
+<button data-bs-toggle="modal" data-bs-target="#TurnosModalEliminar">
+    ELIMINAR
+</button>
+
+{% include 'atencion-medica/modal-turnos.html' %}
+{% endblock %}
+
 {% block contenido_tabla %} 
     {% for turno in turnos %}
         <tr class="fila__contenido">
