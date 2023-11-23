@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .models import Consultorios, Especialidades, ServiciosOdontologicos, User
+from .models import Consultorios, Especialidades, ServiciosOdontologicos, User, Turnos
 from django.shortcuts import render
 
 @login_required
@@ -101,30 +101,23 @@ class TurnosListView(LoginRequiredMixin, ListView):
     model = Turnos
     template_name = 'atencion-medica/turnos.html' 
     context_object_name = 'turnos'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
     
-    def get_queryset(self):
-        return Turnos.objetcs.filter(estado = 'r')
-    
-class ConsultoriosListView(ListView):
+class ConsultoriosListView(LoginRequiredMixin, ListView):
     model = Consultorios
     template_name = 'atencion-medica/consultorios.html'
     context_object_name = 'consultorios'
 
-class EspecialidadesListView(ListView):
+class EspecialidadesListView(LoginRequiredMixin, ListView):
     model = Especialidades
     template_name='atencion-medica/especialidades.html'
     context_object_name = 'especialidades'
 
-class ServiciosOdontologicosListView(ListView):
+class ServiciosOdontologicosListView(LoginRequiredMixin, ListView):
     model = ServiciosOdontologicos
     template_name='atencion-medica/servicios-odontologicos.html'
     context_object_name = 'servicios'
     
-class PacientesListView(ListView):
+class PacientesListView(LoginRequiredMixin, ListView):
     model = User
     template_name = 'atencion-medica/pacientes.html'
     context_object_name = 'pacientes'
