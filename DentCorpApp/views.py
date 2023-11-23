@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .models import Consultorios, Especialidades, ServiciosOdontologicos
+from .models import Consultorios, Especialidades, ServiciosOdontologicos, User
 from django.shortcuts import render
 
 @login_required
@@ -124,6 +124,10 @@ class ServiciosOdontologicosListView(ListView):
     template_name='atencion-medica/servicios-odontologicos.html'
     context_object_name = 'servicios'
     
+class PacientesListView(ListView):
+    model = User
+    template_name = 'atencion-medica/pacientes.html'
+    context_object_name = 'pacientes'
     
 # class TurnosDetailView(LoginRequiredMixin, DetailView):
 #     model = Turnos
