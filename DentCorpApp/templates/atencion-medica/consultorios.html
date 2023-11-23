@@ -8,16 +8,6 @@
 {% endblock %}
 
 
-{% block example %} 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#consultorioModal">
-    Agregar Consultorio
-</button>
-
-<!-- Incluye la ventana modal -->
-{% include 'atencion-medica/modal-consultorios.html' %}
-{% endblock %}
-
-
 {% block contenido_tabla %} 
     {% for consultorio in consultorios %}
         <tr class="fila__contenido">

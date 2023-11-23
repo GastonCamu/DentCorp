@@ -4,7 +4,6 @@
     {% load crispy_forms_tags %}
 <h2>{% block name_page %} {% endblock %}</h2>
 <div class="div-principal">
-    {% block example %} {% endblock %}
     <div class="div-tabla">
         <table>
             <tr class="fila__titulo">
@@ -26,9 +25,9 @@
                 <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>
             </div>
         </form>
-        <button class="modal-opener" data-modal-id="consultorioModal">AGREGAR {% block boton_agregar_name %} {% endblock %}</button>
-        <button>MODIFICAR</button>
-        <button>ELIMINAR</button>
+        {% block boton_agregar %} {% endblock %}
+        {% block boton_modificar %} {% endblock %}
+        {% block boton_eliminar %} {% endblock %}
         </div>
 </div>
 <script>
