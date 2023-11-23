@@ -12,17 +12,11 @@ from django.shortcuts import render, redirect
 from .models import Consultorios
 from django.shortcuts import render
 
+@login_required
 
-
-<<<<<<<<< Temporary merge branch 1
 def base(request):
     context = {}
     return render(request, 'base.html')
-=========
-@login_required
-def home(request):
-    context = {}
-    return render(request, 'base.html', context) #cambio momentaneo
 
 def register(request):
     if request.method == 'GET':
@@ -45,7 +39,6 @@ def register(request):
         else:
             return render(request, 'registration/register.html', {"form":form})
         
->>>>>>>>> Temporary merge branch 2
 
 def turnos(request):
     context = {}
