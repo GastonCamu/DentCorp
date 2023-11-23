@@ -7,10 +7,13 @@
 <td class="fila__titulo__contenido">Descripción</td>
 <td class="fila__titulo__contenido">Costo</td>
 {% endblock %}
+{% block example %} {% endblock %}
 {% block contenido_tabla %} 
-<tr class="fila__contenido">
-    <td>001</td>
-    <td>Endodoncia</td>
-    <td>3000$</td>
-</tr>
+    {% for servicio in servicios %}
+        <tr class="fila__contenido">
+            <td>{{ servicio.id }}</td>
+            <td>{{ servicio.nombre_serv_odon }}</td>
+            <td>{{ servicio.costo_serv_odon }}</td>
+        </tr>
+    {% endfor %}
 {% endblock %}
