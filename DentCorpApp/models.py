@@ -165,10 +165,6 @@ class CoberturasXUsuario(models.Model):
 
     def get_absolute_url(self):
         return reverse('infoCoberturasXUsuario', args=[str(self.id)])
-<<<<<<<<< Temporary merge branch 1
-
-=========
->>>>>>>>> Temporary merge branch 2
 
 class Turnos(models.Model):
     fecha_hr_turno = models.DateTimeField()
