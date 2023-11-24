@@ -72,9 +72,9 @@ def consultorios(request):
 
 class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
-    template_name = 'turnos/turnos_list.html' 
+    template_name = 'atencion-medica/turnos.html' 
     context_object_name = 'turnos'
-    permission_required = 'DentCorpApp.view_turnos'
+    permission_required = ('DentCorpApp.view_turnos',) 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -83,17 +83,17 @@ class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     # def get_queryset(self):
     #     return Turnos.objetcs.filter(estado = 'r')
     
-class ConsultoriosListView(ListView):
+class ConsultoriosListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
     model = Consultorios
     template_name = 'atencion-medica/consultorios.html'
     context_object_name = 'consultorios'
-    
+    permission_required = 'DentCorpApp.view_consultorios'
     
 class TurnosDetailView(PermissionRequiredMixin,LoginRequiredMixin, DetailView):
     model = Turnos
     template_name = 'turnos/turnos_detail.html'
     context_object_name = 'turno'
-    permission_required = 'DentCorpApp.view_turnos'
+    permission_required = ('DentCorpApp.view_turnos',) 
 
 class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     model = Turnos
@@ -101,7 +101,7 @@ class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     fields = '__all__'
     success_url = reverse_lazy('turnos_list')
     success_message = "El turno se ha reservado con éxito."
-    permission_required = 'DentCorpApp.add_turnos'
+    permission_required = ('DentCorpApp.add_turnos',) 
 
     def form_valid(self, form):
         messages.success(self.request, self.success_message)
@@ -110,7 +110,7 @@ class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
 class TurnosUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     model = Turnos
     template_name = 'turnos/turnos_update.html'
-    # fields = '__all__'     
+    fields = '__all__'     
     success_url = reverse_lazy('turnos_list')
     success_message = "El turno se ha actualizado con éxito"
     permission_required = 'DentCorpApp.change_turnos'

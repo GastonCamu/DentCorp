@@ -3,7 +3,7 @@
 {% block title %} Detalles de los Turnos {% endblock %}
 
 {% block content %}
-    <h1 class="my-3">Detalle del Turno</h1>
+    <h1 class="my-3">Detalles del Turno</h1>
     <hr>
 
     <div class="row">
@@ -21,11 +21,11 @@
                     <p>
                         <strong>Fecha de Reserva:</strong>
                         {% if turno.fecha_hr_turno %}
-                            {{ turno.fecha_hr_turno }}
+                            {{ turno.fecha_hr_turno|date:"F j, Y H:i" }}
                         {% else %}
                             ---
                         {% endif %}
-                    </p>
+                    </p>                    
                     <p>
                         <strong>Usuario:</strong>
                         {% if turno.id_rol_usu.name %}
@@ -39,7 +39,8 @@
                         <a href="#">{{ turno.autorizado }}</a>
                     </p>
                 </div>
-                {% if perms.catalogo.reserve_ejemplar %}
+
+                {% if perms.DentCorpApp.add_turnos %}
                     <div class="card-footer">
                         <a href="#" class="btn btn-primary btn-sm">
                             Solicitar turno
@@ -47,10 +48,11 @@
                     </div>
                 {% endif %}
             </div>
-            
+
             <a href="{% url 'turno_list' %}" class="btn btn-link">
                 <i class="fas fa-arrow-left mr-1"></i> Volver 
             </a>
         </div>
     </div>
 {% endblock %}
+

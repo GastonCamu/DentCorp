@@ -14,13 +14,13 @@
 {% block contenido_tabla %} 
     {% for turno in turnos %}
         <tr class="fila__contenido">
-            <td>{{ turno.paciente }}</td>
-            <td>{{ turno.fecha }}</td>
+            <td>{{ turno.id_rol_usu. }}</td>
+            <td>{{ turno.fecha_hr_turno }}</td>
             <td>{{ turno.autorizado }}</td>
-            <td>{{ turno.servicio }}</td>
-            <td>{{ turno.medico }}</td>
-            <td>{{ turno.cobertura }}</td>
-            <td>{{ turno.consultorio_asignado }}</td>
+            <td>{{ turno.id_serv_odon.nombre_serv_odon }}</td>
+            <td>{{ turno.id_rol_usu.name.user_id.first_name }}</td>
+            <td>{{ turno.id_cob_usu.id_plan_cob.id_cob.nom_cob }}</td>
+            <td>{{ turno.id_asig_cons.id_cons.num_cons }}</td>
         </tr>
     {% endfor %}
 {% endblock %}

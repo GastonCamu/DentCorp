@@ -13,9 +13,9 @@ urlpatterns = [
     path('consultorios/', ConsultoriosListView.as_view(), name='consultorios'),
     
     
-    path('turnos/', TurnosListView.as_view(), name="turnos_list"),
+    path('turnos/', TurnosListView.as_view(), name="turnos"),
     path('turno/<uuid:pk>/', TurnosDetailView.as_view(), name="turno_detail"),
     path('turno/reservar/', TurnosCreateView.as_view(), name="turno_create"),
-    path('turno/modificar/<uuid:pk>/', TurnosUpdateView.as_view(), name="turno_update"),
-    path('turno/cancelar/<uuid:pk>/', TurnosDeleteView.as_view(), name="turno_delete"),
+    path('turno/modificar/', TurnosUpdateView.as_view(), name="turno_update"),
+    path('turno/cancelar/', TurnosDeleteView.as_view(), name="turno_delete"),
 ]

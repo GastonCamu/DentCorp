@@ -19,17 +19,12 @@
             {% for turno in turnos %}
                 <div class="col-md-4 mb-1">
                     <div class="card shadow-sm">
-
-                        <!-- {% if turno.imagen %}
-                            <img src="{{ ejemplar.libro.imagen.url }}" class="card-img-top" alt="{{ turno }}">
-                        {% endif %} -->
-
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a href="{% url 'turno_detail' turno.pk %}">{{ turno.id }}</a>
+                                <a href="{% url 'turno_detail' pk=turno.id %}">{{ turno.id }}</a>
                             </h5>
                             <p class="card-text">Turno: {{ turno.id_rol_usu }}</p>
-                            <p>Fecha y hora del turno: {{ turno.fecha_hr_turno }}</p>
+                            <p>Fecha y hora del turno: {{ turno.fecha_hr_turno|date:"F j, Y H:i" }}</p>
                             <p>Autorizado: {{ turno.autorizado }}</p>
                             <p>Servicio odontológico: {{ turno.id_serv_odon.nombre_serv_odon }}</p>
                             <p>Cobertura del usuario: {{ turno.id_cob_usu.id_plan_cob.nom_cob }}</p>
