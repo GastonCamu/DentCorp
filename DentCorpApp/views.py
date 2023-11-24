@@ -61,7 +61,7 @@ def consultorios(request):
 
 class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
-    template_name = 'atencion-medica/turnos/turnos_list.html' 
+    template_name = 'atencion-medica/turnos/turnos.html' 
     context_object_name = 'turnos'
     permission_required = 'DentCorpApp.view_turnos'
     
