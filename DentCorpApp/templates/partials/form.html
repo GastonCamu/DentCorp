@@ -1,0 +1,19 @@
+{% load crispy_forms_tags %}
+
+<form method="POST" class="card" novalidate>
+    <div class="card-body">
+        {% csrf_token %}
+        
+        {{ form | crispy }}
+    </div>
+
+    <div class="card-footer d-flex justify-content-end">
+        <a href="{% url 'turnos' %}" class="btn btn-link">
+            <i class="fas fa-arrow-left mr-1"></i> Volver 
+        </a>
+        
+        <button type="submit" class="btn btn-success mr-1">
+            <i class="fas fa-save mr-1"></i> Reservar
+        </button>
+    </div>
+</form>
