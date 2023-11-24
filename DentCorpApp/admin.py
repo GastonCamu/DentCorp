@@ -42,12 +42,26 @@ class FacturasServExtAdmin(admin.ModelAdmin):
 class ServiciosOdontologicosAdmin(admin.ModelAdmin):
     pass
 
-class TurnosAdmin(admin.ModelAdmin):
-    list_display = ('fecha_hr_turno', 'autorizado', 'get_servicio_odontologico', 'get_cobertura_usuario', 'get_rol_usuario', 'get_asignacion_consultorio')
+from django.contrib import admin
 
-    def get_servicio_odontologico(self, obj):
-        return obj.id_serv_odon.nombre_serv_odon
-    get_servicio_odontologico.short_description = 'Servicio Odontológico'
+class TurnosAdmin(admin.ModelAdmin):
+    list_display = ('fecha_hr_turno', 'autorizado', 'get_paciente_nombre', 'get_paciente_apellido', 'get_medico_nombre', 'get_medico_apellido', 'get_cobertura_usuario', 'get_asignacion_consultorio')
+
+    def get_paciente_nombre(self, obj):
+        return obj.id_rol_usu.first_name if obj.id_rol_usu else None
+    get_paciente_nombre.short_description = 'Nombre del Paciente'
+
+    def get_paciente_apellido(self, obj):
+        return obj.id_rol_usu.last_name if obj.id_rol_usu else None
+    get_paciente_apellido.short_description = 'Apellido del Paciente'
+
+    def get_medico_nombre(self, obj):
+        return obj.id_asig_cons.id_espec_usu.id_rol_usu.first_name if obj.id_asig_cons and obj.id_asig_cons.id_espec_usu and obj.id_asig_cons.id_espec_usu.id_rol_usu else None
+    get_medico_nombre.short_description = 'Nombre del Médico'
+
+    def get_medico_apellido(self, obj):
+        return obj.id_asig_cons.id_espec_usu.id_rol_usu.last_name if obj.id_asig_cons and obj.id_asig_cons.id_espec_usu and obj.id_asig_cons.id_espec_usu.id_rol_usu else None
+    get_medico_apellido.short_description = 'Apellido del Médico'
 
     def get_cobertura_usuario(self, obj):
         return self.get_nom_cob(obj.id_cob_usu)
@@ -67,12 +81,9 @@ class TurnosAdmin(admin.ModelAdmin):
 
         return None
 
-    def get_rol_usuario(self, obj):
-        return obj.id_rol_usu.name if obj.id_rol_usu else None
-    get_rol_usuario.short_description = 'Rol del Usuario'
-
     def get_asignacion_consultorio(self, obj):
-        return getattr(obj, 'num_cons', None)
+        return obj.id_asig_cons.num_cons if obj.id_asig_cons else None
+    get_asignacion_consultorio.short_description = 'Número de Consultorio'
 
 
 class PlanesAdmin(admin.ModelAdmin):

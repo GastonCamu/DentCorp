@@ -1,6 +1,6 @@
 {% load crispy_forms_tags %}
 
-<form method="POST" class="card" novalidate>
+<form method="POST" class="card formulario-personalizado" novalidate>
     <div class="card-body">
         {% csrf_token %}
         
@@ -8,7 +8,7 @@
     </div>
 
     <div class="card-footer d-flex justify-content-end">
-        <a href="{% url 'turnos_list' %}" class="btn btn-link">
+        <a href="{% url 'turnos' %}" class="btn btn-link">
             <i class="fas fa-arrow-left mr-1"></i> Volver 
         </a>
         

@@ -37,10 +37,10 @@ def base(request):
 
        
 
-def turnos(request):
-    context = {}
-    template_name = 'atencion-medica/turnos.html'
-    return render(request, template_name)
+# def turnos(request):
+#     context = {}
+#     template_name = 'atencion-medica/turnos.html'
+#     return render(request, template_name)
 
 
         
@@ -99,7 +99,7 @@ class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     model = Turnos
     template_name = 'turnos/turnos_create.html'
     fields = '__all__'
-    success_url = reverse_lazy('turnos_list')
+    success_url = reverse_lazy('turnos')
     success_message = "El turno se ha reservado con éxito."
     permission_required = ('DentCorpApp.add_turnos',) 
 
@@ -111,7 +111,7 @@ class TurnosUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     model = Turnos
     template_name = 'turnos/turnos_update.html'
     fields = '__all__'     
-    success_url = reverse_lazy('turnos_list')
+    success_url = reverse_lazy('turno')
     success_message = "El turno se ha actualizado con éxito"
     permission_required = 'DentCorpApp.change_turnos'
 

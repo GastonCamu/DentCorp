@@ -35,5 +35,15 @@
         <button onclick="redirect()">ELIMINAR</button>
         </div>
 </div>
-
+<script>
+    function redirigir() {
+        window.location.href = "{% url 'turno_create' %}";
+    };
+    function redirect() {
+        window.location.href = "{% url 'turno_delete' %}";
+    };
+    function redir() {
+        window.location.href = "{% url 'turno_update' %}";
+    };
+ </script>
 {% endblock %}

@@ -95,7 +95,7 @@ class PagosServExt(models.Model):
     
 class EspecXUsuario(models.Model):
     matricula = models.IntegerField()
-    id_rol_usu = models.ForeignKey(Group, related_name='especialidad_usuario', on_delete=models.PROTECT)
+    id_rol_usu = models.ForeignKey(Group, related_name='especialidad_usuario', on_delete=models.PROTECT, db_column='id_rol_usu')
     id_espec = models.ForeignKey(Especialidades, on_delete=models.PROTECT, max_length=5)
 
     def get_absolute_url(self):
@@ -148,8 +148,8 @@ class FacturasServExt(models.Model):
 
 class PlanXCobertura(models.Model):
     porcentaje_cob = models.CharField(max_length=3)
-    id_plan = models.ForeignKey(Planes, on_delete=models.PROTECT)
-    id_cob = models.ForeignKey(Coberturas, on_delete=models.PROTECT)
+    id_plan = models.ForeignKey(Planes, on_delete=models.PROTECT, db_column='id_plan')
+    id_cob = models.ForeignKey(Coberturas, on_delete=models.PROTECT, db_column='id_cob')
 
     def get_absolute_url(self):
         return reverse ('infoPanXCobertura', args=[str(self.id)])
