@@ -14,9 +14,9 @@ urlpatterns = [
     path('turno/reservar/', TurnosCreateView.as_view(), name="turno_create"),
     
     
-    # path('turnos/', views.TurnosListView.as_view(), name="turnos_list"),
-    # path('turnos/<uuid:pk>/', views.TurnosDetailView.as_view(), name="turnos_detail"),
-    # path('turnos/', views.TurnosCreateView.as_view(), name="turnos_create"),
-    # path('turnos/', views.TurnosUpdateView.as_view(), name="turnos_update"),
-    # path('turnos/', views.TurnosDeleteView.as_view(), name="turnos_delete"),
+    # path('turnos/', TurnosListView.as_view(), name="turnos_list"),
+    # path('turno/<uuid:pk>/', TurnosDetailView.as_view(), name="turno_detail"),
+    # path('turno/reservar/', TurnosCreateView.as_view(), name="turno_create"),
+    # path('turno/modificar/<uuid:pk>/', TurnosUpdateView.as_view(), name="turno_update"),
+    # path('turno/cancelar/<uuid:pk>/', TurnosDeleteView.as_view(), name="turno_delete"),
 ]
