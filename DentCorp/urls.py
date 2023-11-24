@@ -17,19 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
-<<<<<<< HEAD
 # from DentCorpApp.views import register
-=======
->>>>>>> 389997cb3de62ca546de223049b38b9dc333b045
 
 urlpatterns = [
     path('DentCorp/admin/', admin.site.urls),
     path('DentCorp/', include('DentCorpApp.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-<<<<<<< HEAD
     # path('accounts/register/', register, name='register'),
 ]
-=======
-    
-]
->>>>>>> 389997cb3de62ca546de223049b38b9dc333b045

@@ -10,6 +10,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Especialidades
+from .forms import EspecialidadesForm
+
 
 @login_required
 def home(request):
@@ -99,3 +103,40 @@ class TurnosDeleteView(LoginRequiredMixin, DeleteView):
     def form_valid(self,form):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
+    
+
+def especialidades_list(request):
+    especialidades = Especialidades.objects.all()
+    return render(request, 'especialidades_list.html', {'especialidades': especialidades})
+
+def especialidades_detail(request, pk):
+    especialidad = get_object_or_404(Especialidades, pk=pk)
+    return render(request, 'especialidades_detail.html', {'especialidad': especialidad})
+
+def especialidades_new(request):
+    if request.method == "POST":
+        form = EspecialidadesForm(request.POST)
+        if form.is_valid():
+            especialidad = form.save(commit=False)
+            especialidad.save()
+            return redirect('especialidades_detail', pk=especialidad.pk)
+    else:
+        form = EspecialidadesForm()
+    return render(request, 'especialidades_edit.html', {'form': form})
+
+def especialidades_edit(request, pk):
+    especialidad = get_object_or_404(Especialidades, pk=pk)
+    if request.method == "POST":
+        form = EspecialidadesForm(request.POST, instance=especialidad)
+        if form.is_valid():
+            especialidad = form.save(commit=False)
+            especialidad.save()
+            return redirect('especialidades_detail', pk=especialidad.pk)
+    else:
+        form = EspecialidadesForm(instance=especialidad)
+    return render(request, 'especialidades_edit.html', {'form': form})
+
+def especialidades_delete(request, pk):
+    especialidad = get_object_or_404(Especialidades, pk=pk)
+    especialidad.delete()
+    return redirect('especialidades_list')

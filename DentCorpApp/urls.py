@@ -1,5 +1,7 @@
 from django.urls import path
 from DentCorpApp import views
+from .views import especialidades_list, especialidades_detail, especialidades_new, especialidades_edit, especialidades_delete
+
 
 urlpatterns = [
     # path('base', views.base, name= "base"),

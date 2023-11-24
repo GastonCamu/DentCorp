@@ -43,11 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
 ]
 
-<<<<<<< HEAD
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootsrap5'
-=======
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootrstrap5'
->>>>>>> 389997cb3de62ca546de223049b38b9dc333b045
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
@@ -87,7 +83,7 @@ WSGI_APPLICATION = 'DentCorp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dentcorp',
+        'NAME': 'dent_corp',
         'USER': 'root',
         'PASSWORD': '12345678',
         'HOST': 'localhost',

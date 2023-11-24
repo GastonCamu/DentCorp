@@ -1,0 +1,17 @@
+<!-- especialidades.html -->
+{% extends 'atencion-medica/tabla.html' %}
+{% block title %} ESPECIALIDADES {% endblock %}
+{% block name_page %} ESPECIALIDADES {% endblock%}
+{% block boton_agregar_name %} ESPECIALIDADES {% endblock%}
+{% block titulos_tabla %}
+    <td class="fila__titulo__contenido">Codigo</td>
+    <td class="fila__titulo__contenido">Descripción</td>
+{% endblock %}
+{% block contenido_tabla %} 
+    <ul>
+        {% for especialidad in especialidades %}
+        <li><a href="{% url 'especialidades_detail' pk=especialidad.pk %}">{{ especialidad.nombre_espec }}</a></li>
+        {% endfor %}
+    </ul>
+    {% include 'fragments/especialidades_list_fragment.html' %}
+{% endblock %}
