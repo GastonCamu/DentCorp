@@ -1,6 +1,8 @@
 from django.urls import path
 from DentCorpApp import views
 from .views import ConsultoriosListView, TurnosCreateView, TurnosDeleteView, TurnosDetailView, TurnosUpdateView, TurnosListView
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('base', views.base, name= "base"),
@@ -22,4 +24,9 @@ urlpatterns = [
 
     path('ajustes',views.ajustes,name="ajustes"),
     # path('verificar_contrasena/', views.verificar_contrasena, name='verificar_contrasena'),
+
+    # path('',UserListView.as_view(),name="user"),
 ]
+
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

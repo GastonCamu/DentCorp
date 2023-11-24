@@ -23,6 +23,17 @@ from django.contrib.auth.decorators import login_required
 
 # from django.http import JsonResponse
 # from django.contrib.auth.hashers import check_password
+
+
+# class UserListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
+#     model = User
+#     template_name = 'partials/navbar.html' 
+#     context_object_name = 'users'
+
+#     def get_queryset(self):
+#         return User.objects.filter(id=self.request.user.id)
+    
+
 @login_required
 def base(request):
 
@@ -43,17 +54,13 @@ def base(request):
 @login_required
 def actualizar_perfil(request):
     if request.method == 'POST':
-        # Accede a los datos del formulario
         nuevo_email = request.POST.get('email')
 
-        # Actualiza el correo electrónico del usuario actual
         request.user.email = nuevo_email
         request.user.save()
 
-        # Redirige a la página de perfil o a donde desees
         return redirect('nombre_de_la_url')
 
-    # Resto del código para renderizar el formulario
     return render(request, 'nombre_del_template.html')
 
 
@@ -71,16 +78,9 @@ def ajustes(request):
             request.user.save()
             messages.success(request, 'Foto de perfil actualizada exitosamente.')
             return redirect('ajustes')
-
-
     return render(request, 'ajustes/ajustes.html')
-# def verificar_contrasena(request):
-#     if request.method == 'POST':
-#         contrasena_ingresada = request.POST.get('contrasena')
-#         contrasena_hash = request.POST.get('hash')
-#         es_valida = check_password(contrasena_ingresada, contrasena_hash)
-#         return JsonResponse({'es_valida': es_valida})
-#     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
 
 def medicos(request):
     context = {}
