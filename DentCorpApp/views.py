@@ -10,10 +10,13 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-
+#eze cambios: logout
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.urls import reverse
 
 @login_required
-def home(request):
+def base(request):
     context = {}
     return render(request, 'base.html', context) #cambio momentaneo
 
@@ -68,6 +71,10 @@ def consultorios(request):
     context = {}
     template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
+
+def cerrar_sesion(request):
+    logout(request)
+    return redirect(reverse('base'))
 
 
 # class TurnosListView(LoginRequiredMixin, ListView):

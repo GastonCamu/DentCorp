@@ -1,6 +1,7 @@
 from django.urls import path
 from DentCorpApp import views
 
+
 urlpatterns = [
     path('base', views.base, name= "base"),
     path('turnos/', views.turnos, name = "turnos"),
@@ -9,6 +10,8 @@ urlpatterns = [
     path('medicos/', views.medicos, name = "medicos"),
     path('servicios-odontologicos/', views.servicios_odontologicos, name = "servicios odontologicos"),
     path('consultorios/', views.consultorios, name = "consultorios"),
+
+    path('cerrar_sesion/', views.cerrar_sesion, name="cerrar_sesion"),
     
     
     # path('turnos/', views.TurnosListView.as_view(), name="turnos_list"),

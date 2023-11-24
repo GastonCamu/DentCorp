@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'DentCorp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dent_corp',
+        'NAME': 'dentcorp',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '12345678',
         'HOST': 'localhost',
         'PORT': '3306'
     }

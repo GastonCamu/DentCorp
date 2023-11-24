@@ -3,72 +3,76 @@
     <div class="empresa-logo">
         <img src="{% static 'assets/img/Logo-DentCorp.png' %}" alt="Logo DentCorp">
     </div>
-    <div class="MENU">
-        <nav class="navbar navbar-expand">
+    {% if user.is_authenticated %}
+        <div class="MENU">
+            <nav class="navbar navbar-expand">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Atención Médica
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'turnos' %}">Turnos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'pacientes' %}">Pacientes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'medicos' %}">Medicos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'consultorios' %}">Consultorios</a></li>
+                            <li><a class="dropdown-item" href="{% url 'especialidades' %}">Especialidades</a></li>
+                            <li><a class="dropdown-item" href="{% url 'servicios odontologicos' %}">Servicios Odontologicos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Caja
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Apertura de caja</a></li>
+                            <li><a class="dropdown-item" href="#">Cierre de caja</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Servicios Externos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Facturas</a></li>
+                            <li><a class="dropdown-item" href="#">Comprobantes</a></li>
+                            <li><a class="dropdown-item" href="#">Servicios</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Resumen Estadístico
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Turnos</a></li>
+                            <li><a class="dropdown-item" href="#">Cajas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    
+        <div class="perfil">
             <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Atención Médica
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'turnos' %}">Turnos</a></li>
-                        <li><a class="dropdown-item" href="{% url 'pacientes' %}">Pacientes</a></li>
-                        <li><a class="dropdown-item" href="{% url 'medicos' %}">Medicos</a></li>
-                        <li><a class="dropdown-item" href="{% url 'consultorios' %}">Consultorios</a></li>
-                        <li><a class="dropdown-item" href="{% url 'especialidades' %}">Especialidades</a></li>
-                        <li><a class="dropdown-item" href="{% url 'servicios odontologicos' %}">Servicios Odontologicos</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Caja
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Apertura de caja</a></li>
-                        <li><a class="dropdown-item" href="#">Cierre de caja</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Servicios Externos
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Facturas</a></li>
-                        <li><a class="dropdown-item" href="#">Comprobantes</a></li>
-                        <li><a class="dropdown-item" href="#">Servicios</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Resumen Estadístico
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Turnos</a></li>
-                        <li><a class="dropdown-item" href="#">Cajas</a></li>
-                    </ul>
-                </li>
+            <li class="nav-item dropdown">
+                <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="./assets/img/logo-perfil.jpg" alt="img perfil">
+                    <div>
+                        <p class="nombre-usuario">
+                            Leandro Castillo
+                        </p>
+                        <p class="rol">
+                            Administrativo
+                        </p>
+                    </div>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="./pages/perfil/ajustes.html">Ajustes</a></li>
+                    <li><a class="dropdown-item" href="{% url 'cerrar_sesion' %}">Cerrar Sesion</a></li>
+                    
+                </ul>
+            </li>
             </ul>
-        </nav>
-    </div>
-    <div class="perfil">
-        <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-            <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./assets/img/logo-perfil.jpg" alt="img perfil">
-                <div>
-                    <p class="nombre-usuario">
-                        Leandro Castillo
-                    </p>
-                    <p class="rol">
-                        Administrativo
-                    </p>
-                </div>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="./pages/perfil/ajustes.html">Ajustes</a></li>
-                <li><a class="dropdown-item" href="#">Cerrar Sesion</a></li>
-            </ul>
-        </li>
-        </ul>
-    </div>
+        </div>
+    {% endif %}
 </header>
