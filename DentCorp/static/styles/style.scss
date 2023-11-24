@@ -160,6 +160,7 @@ body {
                     border-collapse: collapse;
                     tr {
                         cursor: pointer;
+                        word-wrap: break-word;
     
                         td {
                             text-align: center;
@@ -265,17 +266,554 @@ body {
         }
     }
     footer {
-        display: flex;
-        align-items: baseline;
+        text-align: center;
         justify-content: center;
         width: 100%;
         grid-area: footer;
         background-color: #000000da;
         color: white;
-        height: 5vh;
+        height: 100%;
 
         p {
             font-size: 18px;
+            height: 100%;
+            background-color: #000000da;
+        }
+    }
+}
+@media (min-width: 340px) and (max-width: 719px) {
+    body {
+        width: 100%;
+        grid-template-rows: auto 1fr auto min-content;
+        header {
+            display: flex;
+            flex-direction: column;
+            border-radius: 0px;
+            margin: 0px auto;
+            width: 100%;
+
+            div.empresa-logo {
+                order: 2;
+                display: none;
+            }
+            div.MENU {
+                order: 1;
+                margin: 0px auto;
+                width: 100%;
+                nav {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 0px auto;
+                    width: 70vw;
+                    ul {
+                        li {
+                            a {
+                                font-size: 1.7vw;
+                            }
+                            a:hover {
+                            }
+                            .nav-link.show {
+                            }
+                            ul {
+                                li {
+                                    a {
+                                    }
+                                    a:hover {
+                                    }
+    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            div.perfil {
+                margin: auto;
+                width: 50%;
+                margin-bottom: 10px;
+                ul {
+                    li {
+                        a {
+                            margin: auto;
+                            width: 40vw;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 15px;
+                            padding: 1px;
+                            white-space: nowrap;
+
+                            img {
+                                width: 40px;
+                                height: 40px;
+                                margin-right: 3px;
+                            }
+                            div {
+                                text-align: center;
+                                p.nombre-usuario {
+                                    font-size: 12px;
+                                }
+                                p.rol {
+                                    font-size: 8px;
+                                }
+                            }
+                        }
+                        a:hover {
+                            padding: 1px;
+                        }
+                        ul {
+                            li {
+                                a {
+                                    font-size: 10px;
+                                }
+                                a:hover {
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        main {
+            min-height: 100%;
+            width: 100%;
+            margin: auto;
+            h2 {
+                font-size: 20px;
+                margin: 15px;
+            }
+    
+            div.div-principal {
+                display: flex;
+                flex-direction: column;
+                padding: 20px;
+                width: 100%;
+                border-radius: 0px;
+                margin: 0px auto;
+
+                div.div-tabla {
+                    max-height: 800px;
+                    width: 100%;
+
+                    table {
+                        width: 100%;
+                        border-radius: collapse;
+                        table-layout: fixed;
+                        tr {
+                            font-size: 8px;
+                            td {
+                                font-size: 8px;
+                                padding: 1;
+                            }
+                            td.fila__titulo__contenido {
+                            }
+                        }
+                        tr.fila__titulo {
+                        }
+                        tr.selected {
+                            border-top: 2px solid black;
+                            border-bottom: 2px solid black;
+                        }
+                        tr.fila__contenido:hover {
+                        }
+                    }
+                }
+                div.div-botones {
+                    display: flex;
+                    flex-direction: row;
+                    margin-top: 15px;
+                    width: 90%;
+                    justify-content: center;
+                    form {
+    
+                        select {
+                            width: 50px;
+                            height: 18px;
+                            margin: 3px;
+                            font-size: 8px;
+                        }
+                        select:hover {
+                        }
+    
+                        div {
+    
+                            input {
+                                width: 90px;
+                                height: 18px;
+                            }
+                            input::placeholder {
+                                font-size: 10px;
+                            }
+                            button {
+                                width: 20px;
+                                margin-left: 5px;
+                                margin-right: 5px;
+                                height: 20px;
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+                        }
+                    }
+                    button {
+                        margin: 2px;
+                        padding: 1px;
+                        width: 100px;
+                        height: 15px;
+                        font-size: 8px;
+                        white-space: nowrap;
+                        text-align: center;
+                    }
+                    button:hover {
+                    }
+                }
+            }
+        }
+        footer {
+            display: none;
+            height: 4vh;
+            p {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+@media (min-width: 720px) and (max-width: 1023px) {
+    body {
+        
+        header {
+            width: 95%;
+            margin: 7px;
+            padding: 12px;
+            margin: auto;
+
+            div.empresa-logo {
+                display: none;
+            }
+            div.MENU {
+                width: 100%;
+                nav {
+                    ul {
+
+                        li {
+                            a {
+                                font-size: 12px;
+                            }
+                            a:hover {
+                            }
+                            .nav-link.show {
+                            }
+                            ul {
+                                li {
+                                    a {
+                                    }
+                                    a:hover {
+                                    }
+    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            div.perfil {
+                width: 30%;
+                ul {
+                    li {
+                        a {
+
+                            font-size: 15px;
+                            padding: 3px 7px;
+
+                            img {
+                                width: 40px;
+                                height: 40px;
+                                margin-right: 3px;
+                            }
+                            div {
+                                text-align: center;
+                                p.nombre-usuario {
+                                    font-size: 12px;
+                                }
+                                p.rol {
+                                    font-size: 8px;
+                                }
+                            }
+                        }
+                        a:hover {
+                            padding: 2px 5px;
+                        }
+                        ul {
+                            li {
+                                a {
+                                    font-size: 10px;
+                                }
+                                a:hover {
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        main {
+            margin-bottom: 30px;
+            h2 {
+                font-size: 26px;
+            }
+    
+            div.div-principal {
+                display: flex;
+                flex-direction: column;
+                padding: 20px;
+
+                div.div-tabla {
+                    max-height: 200px;
+                    width: 95%;
+
+                    table {
+                        tr {
+                            font-size: 12px;
+                            td {
+                                font-size: 12px;
+                                padding: 1px;
+                            }
+                            td.fila__titulo__contenido {
+                            }
+                        }
+                        tr.fila__titulo {
+                        }
+                        tr.selected {
+                            border-top: 2px solid black;
+                            border-bottom: 2px solid black;
+                        }
+                        tr.fila__contenido:hover {
+                        }
+                    }
+                }
+                div.div-botones {
+                    display: flex;
+                    flex-direction: row;
+                    margin-top: 15px;
+                    width: 90%;
+                    justify-content: center;
+                    form {
+    
+                        select {
+                            width: 60px;
+                            height: 20px;
+                            margin: 4px;
+                            font-size: 12px;
+                        }
+                        select:hover {
+                        }
+    
+                        div {
+    
+                            input {
+                                width: 100px;
+                                height: 20px;
+                            }
+                            input::placeholder {
+                                font-size: 10px;
+                            }
+                            button {
+                                width: 20px;
+                                margin-left: 5px;
+                                margin-right: 5px;
+                                height: 20px;
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+                        }
+                    }
+                    button {
+                        margin: 4px;
+                        padding: 2px;
+                        width: 120px;
+                        height: 20px;
+                        font-size: 12px;
+                        white-space: nowrap;
+                        text-align: center;
+                    }
+                    button:hover {
+                    }
+                }
+            }
+        }
+        footer {
+            height: 4vh;
+            p {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1200px) {
+    body {
+        
+        header {
+    
+            margin: 10px;
+            padding: 10px;
+
+            div.empresa-logo {
+                img {
+                    width: 170px;
+                    height: 50px;
+                }
+            }
+            div.MENU {
+    
+                nav {
+    
+                    ul {
+    
+                        li {
+    
+                            a {
+                            }
+                            a:hover {
+                            }
+                            .nav-link.show {
+                            }
+                            ul {
+                                li {
+                                    a {
+                                    }
+                                    a:hover {
+                                    }
+    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            div.perfil {
+                ul {
+                    li {
+                        a {
+
+                            font-size: 15px;
+                            padding: 3px 7px;
+
+                            img {
+                                width: 40px;
+                                height: 40px;
+                                margin-right: 3px;
+                            }
+                            div {
+    
+                                p.nombre-usuario {
+                                    font-size: 15px;
+                                }
+                                p.rol {
+                                    font-size: 10px;
+                                }
+                            }
+                        }
+                        a:hover {
+                            padding: 2px 5px;
+                        }
+                        ul {
+                            li {
+                                a {
+                                    font-size: 10px;
+                                }
+                                a:hover {
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        main {
+            margin-bottom: 30px;
+            h2 {
+            }
+    
+            div.div-principal {
+    
+                padding: 20px;
+
+                div.div-tabla {
+                    max-height: 250px;
+                    width: 65%;
+
+                    table {
+                        tr {
+        
+                            td {
+                                padding: 1px;
+                            }
+                            td.fila__titulo__contenido {
+                            }
+                        }
+                        tr.fila__titulo {
+                        }
+                        tr.selected {
+                            border-top: 2px solid black;
+                            border-bottom: 2px solid black;
+                        }
+                        tr.fila__contenido:hover {
+                        }
+                    }
+                }
+                div.div-botones {
+                    width: 25%;
+                    form {
+    
+                        select {
+                            width: 60px;
+                            height: 20px;
+                            margin: 4px;
+                            font-size: 12px;
+                        }
+                        select:hover {
+                        }
+    
+                        div {
+    
+                            input {
+                                width: 120px;
+                                height: 20px;
+                            }
+                            input::placeholder {
+                            }
+                            button {
+                                width: 20px;
+                                margin-left: 2px;
+                                img {
+                                    padding: 3px;
+                                }
+                            }
+                        }
+                    }
+                    button {
+                        margin: 4px;
+                        padding: 1px;
+                        width: 120px;
+                        font-size: 13px;
+                    }
+                    button:hover {
+                    }
+                }
+            }
+        }
+        footer {
+            height: 4vh;
+            p {
+                font-size: 14px;
+            }
         }
     }
 }
