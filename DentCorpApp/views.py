@@ -20,10 +20,10 @@ from .forms import SearchForm
 @login_required
 def base(request):
 
-    paciente = User.objects.all().count()
-    cobertura = Coberturas.objects.all().count()
-    servicio = ServiciosOdontologicos.objects.all().count()
-    nroConsultorio = Consultorios.objects.all().count()
+    paciente = User.objects.all()
+    cobertura = Coberturas.objects.all()
+    servicio = ServiciosOdontologicos.objects.all()
+    nroConsultorio = Consultorios.objects.all()
 
 
     context = {
@@ -80,8 +80,8 @@ class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         return context
     
-    def get_queryset(self):
-        return Turnos.objetcs.filter(estado = 'r')
+    # def get_queryset(self):
+    #     return Turnos.objetcs.filter(estado = 'r')
     
 class ConsultoriosListView(ListView):
     model = Consultorios
