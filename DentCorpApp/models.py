@@ -95,7 +95,7 @@ class PagosServExt(models.Model):
     
 class EspecXUsuario(models.Model):
     matricula = models.IntegerField()
-    id_rol_usu = models.ForeignKey(RolXUsuario, on_delete=models.CASCADE)
+    id_rol_usu = models.ForeignKey(Group, related_name='especialidad_usuario', on_delete=models.PROTECT)
     id_espec = models.ForeignKey(Especialidades, on_delete=models.CASCADE, max_length=5)
 
     def get_absolute_url(self):
@@ -158,7 +158,7 @@ class PlanXCobertura(models.Model):
         return f'{self.porcentaje_cob}'
 
 class CoberturasXUsuario(models.Model):
-    id_rol_usu = models.ForeignKey(RolXUsuario, on_delete=models.CASCADE)
+    id_rol_usu = models.ForeignKey(Group, related_name='coberturas_usuarios', on_delete=models.PROTECT)
     id_plan_cob = models.ForeignKey(PlanXCobertura, on_delete=models.CASCADE)
 
     def get_absolute_url(self):

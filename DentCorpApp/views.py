@@ -33,6 +33,14 @@ def base(request):
     }        
     
     return render(request, 'base.html', context) #cambio momentaneo
+def ajustes(request):
+    context = {}
+    template_name = 'ajustes/ajustes.html'
+    user = request.user
+    context = {'user': user}
+    template_name = 'ajustes/ajustes.html'
+    
+    return render(request, template_name, context)
 
 def medicos(request):
     context = {}

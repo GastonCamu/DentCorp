@@ -18,4 +18,6 @@ urlpatterns = [
     path('turnos/reservar/', TurnosCreateView.as_view(), name="turno_create"),
     path('turnos/modificar/<uuid:pk>/', TurnosUpdateView.as_view(), name="turno_update"),
     path('turnos/cancelar/<uuid:pk>/', TurnosDeleteView.as_view(), name="turno_delete"),
+
+    path('ajustes.html',views.ajustes,name="ajustes"),
 ]
