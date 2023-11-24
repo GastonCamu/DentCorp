@@ -50,16 +50,30 @@ class TurnosAdmin(admin.ModelAdmin):
     get_servicio_odontologico.short_description = 'Servicio Odontológico'
 
     def get_cobertura_usuario(self, obj):
-        return obj.id_cob_usu.nom_cob
+        return self.get_nom_cob(obj.id_cob_usu)
     get_cobertura_usuario.short_description = 'Cobertura del Usuario'
+
+    def get_nom_cob(self, obj):
+        id_cob_usu = getattr(obj, 'id_cob_usu', None)
+        
+        if id_cob_usu:
+            id_plan_cob = getattr(id_cob_usu, 'id_plan_cob', None)
+
+            if id_plan_cob:
+                id_cob = getattr(id_plan_cob, 'id_cob', None)
+
+                if id_cob:
+                    return id_cob.nom_cob
+
+        return None
 
     def get_rol_usuario(self, obj):
         return obj.id_rol_usu.name if obj.id_rol_usu else None
     get_rol_usuario.short_description = 'Rol del Usuario'
 
     def get_asignacion_consultorio(self, obj):
-        return obj.id_asig_cons.num_cons
-    get_asignacion_consultorio.short_description = 'Número de Consultorio'
+        return getattr(obj, 'num_cons', None)
+
 
 class PlanesAdmin(admin.ModelAdmin):
     pass
@@ -87,3 +101,4 @@ admin.site.register(Turnos, TurnosAdmin)
 admin.site.register(Planes, PlanesAdmin)
 admin.site.register(PlanXCobertura, PlanXCoberturaAdmin)
 admin.site.register(Permission)
+admin.site.register(FacturasOdontologicas, FacturasOdontologicasAdmin)

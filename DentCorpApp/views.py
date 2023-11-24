@@ -14,7 +14,8 @@ from .models import Consultorios
 from django.shortcuts import render
 from django.contrib import messages
 from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
-
+from .models import Provincias, Ciudades, User
+from .forms import SearchForm
 
 @login_required
 def base(request):
@@ -109,7 +110,7 @@ class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
 class TurnosUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     model = Turnos
     template_name = 'turnos/turnos_update.html'
-    fields = '__all__'
+    # fields = '__all__'     
     success_url = reverse_lazy('turnos_list')
     success_message = "El turno se ha actualizado con éxito"
     permission_required = 'DentCorpApp.change_turnos'
@@ -128,3 +129,28 @@ class TurnosDeleteView(PermissionRequiredMixin,LoginRequiredMixin, DeleteView):
     def form_valid(self,form):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
+    
+class SearchView(ListView):
+    template_name = 'tu_template.html'
+    context_object_name = 'results'
+    form_class = SearchForm
+
+    def get_queryset(self):
+        form = self.form_class(self.request.GET)
+        if form.is_valid():
+            search_term = form.cleaned_data.get('search_term')
+            if search_term:
+                queryset = (
+                    Provincias.objects.filter(nom_prov__icontains=search_term) |
+                    Ciudades.objects.filter(nom_ciu__icontains=search_term) |
+                    User.objects.filter(dni_usu__icontains=search_term) |
+                    User.objects.filter(dom_usu__icontains=search_term) |
+                    User.objects.filter(tel_usu__icontains=search_term)
+                )
+                return queryset
+        return []
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form_class(self.request.GET)
+        return context

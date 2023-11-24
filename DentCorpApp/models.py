@@ -9,14 +9,14 @@ class Provincias(models.Model):
     nom_prov = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.nom_prov    
+        return f'{self.nom_prov}'
     
 class Ciudades(models.Model):
     nom_ciu = models.CharField(max_length=20)
     id_prov = models.ForeignKey(Provincias, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.nom_ciu    
+        return f'{self.nom_ciu}'
 
 
 class User(AbstractUser):
@@ -50,13 +50,13 @@ class Especialidades(models.Model):
     nombre_espec = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.nombre_espec
+        return f'{self.nombre_espec}'
     
 class Consultorios(models.Model):
     num_cons = models.CharField(max_length=3)
 
     def __str__(self):
-        return self.num_cons
+        return f'{self.num_cons}'
 
 class ServiciosOdontologicos(models.Model):
     nombre_serv_odon = models.CharField(max_length=20)
@@ -74,13 +74,13 @@ class Planes(models.Model):
     nombre_plan = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.nombre_plan
+        return f'{self.nombre_plan}'
 
 class Coberturas(models.Model):
     nom_cob = models.CharField(max_length=20)
     
     def __str__(self):
-        return self.nom_cob
+        return f'{self.nom_cob}'
 
 class PagosServExt(models.Model):
     nombre_serv = models.CharField(max_length=50)
