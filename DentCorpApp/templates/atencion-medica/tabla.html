@@ -26,9 +26,10 @@
                 <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>
             </div>
         </form>
-        <button>AGREGAR {% block boton_agregar_name %} {% endblock %}</button>
-        <button>MODIFICAR</button>
-        <button>ELIMINAR</button>
+        
+        {% block boton_agregar %} {% endblock %}
+        {% block boton_modificar %} {% endblock %}
+        {% block boton_eliminar %} {% endblock %}
         </div>
 </div>
 {% endblock %}

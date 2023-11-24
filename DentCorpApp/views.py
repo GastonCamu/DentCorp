@@ -62,11 +62,13 @@ def consultorios(request):
 class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
     template_name = 'atencion-medica/turnos/turnos_list.html' 
+    template_name = 'atencion-medica/turnos/turnos_list.html' 
     context_object_name = 'turnos'
     permission_required = 'DentCorpApp.view_turnos'
     
 class TurnosDetailView(PermissionRequiredMixin,LoginRequiredMixin, DetailView):
     model = Turnos
+    template_name = 'atencion-medica/turnos/turnos_detail.html'
     template_name = 'atencion-medica/turnos/turnos_detail.html'
     context_object_name = 'turno'
     permission_required = 'DentCorpApp.view_turnos'
@@ -74,7 +76,9 @@ class TurnosDetailView(PermissionRequiredMixin,LoginRequiredMixin, DetailView):
 class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     model = Turnos
     template_name = 'atencion-medica/turnos/turnos_create.html'
+    template_name = 'atencion-medica/turnos/turnos_create.html'
     fields = '__all__'
+    success_url = reverse_lazy('turnos')
     success_url = reverse_lazy('turnos')
     success_message = "El turno se ha reservado con éxito."
     permission_required = 'DentCorpApp.add_turnos'
@@ -88,6 +92,9 @@ class TurnosUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     template_name = 'atencion-medica/turnos/turnos_update.html'
     fields = '__all__'     
     success_url = reverse_lazy('turnos')
+    template_name = 'atencion-medica/turnos/turnos_update.html'
+    fields = '__all__'     
+    success_url = reverse_lazy('turnos')
     success_message = "El turno se ha actualizado con éxito"
     permission_required = 'DentCorpApp.change_turnos'
 
@@ -97,6 +104,8 @@ class TurnosUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     
 class TurnosDeleteView(PermissionRequiredMixin,LoginRequiredMixin, DeleteView):
     model = Turnos
+    template_name = 'atencion-medica/turnos/turnos_confirm_delete.html'
+    success_url = reverse_lazy('turnos')
     template_name = 'atencion-medica/turnos/turnos_confirm_delete.html'
     success_url = reverse_lazy('turnos')
     success_message = "El turno se ha eliminado con éxito"
@@ -134,6 +143,5 @@ class SearchView(ListView):
 class ConsultoriosListView(ListView):
     model = Consultorios
     template_name = 'atencion-medica/consultorios.html'
-    context_object_name = 'consultorios'
     context_object_name = 'consultorios'
         
