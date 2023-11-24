@@ -17,7 +17,7 @@ class Provincias(models.Model):
 
 class Ciudades(models.Model):
     nom_ciu = models.CharField(max_length=20)
-    id_prov = models.ForeignKey(Provincias, on_delete=models.DO_NOTHING)
+    id_prov = models.ForeignKey(Provincias, on_delete=models.DO_NOTHING, db_column='id_prov')
 
     def __str__(self):
         return f'{self.nom_ciu}'
@@ -127,6 +127,7 @@ class EspecXUsuario(models.Model):
     matricula = models.IntegerField()
     id_rol_usu = models.ForeignKey(Group, related_name='especialidad_usuario', on_delete=models.PROTECT)
     id_espec = models.ForeignKey(Especialidades, on_delete=models.PROTECT, max_length=5)
+    id_usu = models.ForeignKey(User, on_delete=models.PROTECT, related_name='especialidad_usuario', db_column='id_usu')
 
     def get_absolute_url(self):
         return reverse('infoEspecXUsuario', args=[str(self.id)])
@@ -207,7 +208,6 @@ class PlanXCobertura(models.Model):
 
 
 class CoberturasXUsuario(models.Model):
-    
     id_plan_cob = models.ForeignKey(PlanXCobertura, on_delete=models.PROTECT)
 
     def get_absolute_url(self):
@@ -220,11 +220,11 @@ class CoberturasXUsuario(models.Model):
 class Turnos(models.Model):
     fecha_hr_turno = models.DateTimeField()
     autorizado = models.BooleanField()
-    id_serv_odon = models.ForeignKey(ServiciosOdontologicos, on_delete=models.PROTECT)
-    id_cob_usu = models.ForeignKey(CoberturasXUsuario, on_delete=models.PROTECT)
-    id_rol_usu = models.ForeignKey(Group, related_name='turnos_usuarios', on_delete=models.PROTECT)
-    id_asig_cons = models.ForeignKey(AsignacionesConsultorio, on_delete=models.PROTECT)
-    id_usu = models.ForeignKey(User, on_delete=models.PROTECT, related_name='turnos_usuarios')
+    id_serv_odon = models.ForeignKey(ServiciosOdontologicos, on_delete=models.PROTECT, db_column='id_serv_odon')
+    id_cob_usu = models.ForeignKey(CoberturasXUsuario, on_delete=models.PROTECT, db_column='id_cob_usu')
+    id_rol_usu = models.ForeignKey(Group, related_name='turnos_usuarios', on_delete=models.PROTECT, db_column='id_rol_usu')
+    id_asig_cons = models.ForeignKey(AsignacionesConsultorio, on_delete=models.PROTECT, db_column='id_asig_cons')
+    id_usu = models.ForeignKey(User, on_delete=models.PROTECT, related_name='turnos_usuarios', db_column='id_usu')
 
     def get_absolute_url(self):
         return reverse('infoTurnos', args=[str(self.id)])

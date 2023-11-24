@@ -17,14 +17,14 @@
     {% if turnos %}
         {% for turno in turnos %}
             <tr class="fila__contenido">
-                <td>{{ turno.id_rol_usu.group_id.first_name }}</td>
-                <td>{{ turno.last_name }}</td>
+                <td>{{ turno.id_usu.first_name }}</td>
+                <td>{{ turno.id_usu.last_name }}</td>
                 <td>{{ turno.fecha_hr_turno }}</td>
                 <td>{{ turno.autorizado }}</td>
                 <td>{{ turno.id_serv_odon.nombre_serv_odon }}</td>
-                <td>{{ turno.medico }}</td>
-                <td>{{ turno.id_cob_usu.id_plan_cob.nom_cob }}</td>
-                <td>{{ turno.id_asig_cons.num_cons }}</td>
+                <td>{{ turno.id_asig_cons.id_espec_usu.id_usu.first_name }} {{ turno.id_asig_cons.id_espec_usu.id_usu.last_name }}</td>
+                <td>{{ turno.id_cob_usu.id_plan_cob.id_cob.nom_cob }}</td>
+                <td>{{ turno.id_asig_cons.id_cons.num_cons }}</td>
             </tr>
         {% endfor %}
     {% else %}
@@ -40,7 +40,7 @@
     </a>
     {% if turnos %}
         {% for turno in turnos %}
-
+            
         {% endfor %}
     {% else %}
         <button>MODIFICAR</button> 
