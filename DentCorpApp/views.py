@@ -50,10 +50,6 @@ def medicos(request):
     template_name = 'atencion-medica/medicos.html'
     return render(request, template_name)
 
-def pacientes(request):
-    context = {}
-    template_name = 'atencion-medica/pacientes.html'
-    return render(request, template_name)
 
 def servicios_odontologicos(request):
     context = {}
@@ -69,6 +65,16 @@ def consultorios(request):
     context = {}
     template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
+
+class PacientesListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
+    model = User
+    template_name = 'atencion-medica/pacientes.html'
+    context_object_name = 'usuarios'
+    permission_required = ('DentCorpApp.view_user',)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context    
 
 class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
