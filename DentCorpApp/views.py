@@ -16,7 +16,13 @@ from django.contrib import messages
 from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
 from .models import Provincias, Ciudades, User
 from .forms import SearchForm
+from django.contrib.auth.decorators import login_required
 
+# from .forms import CustomUserChangeForm
+
+
+# from django.http import JsonResponse
+# from django.contrib.auth.hashers import check_password
 @login_required
 def base(request):
 
@@ -33,14 +39,48 @@ def base(request):
     }        
     
     return render(request, 'base.html', context) #cambio momentaneo
+
+@login_required
+def actualizar_perfil(request):
+    if request.method == 'POST':
+        # Accede a los datos del formulario
+        nuevo_email = request.POST.get('email')
+
+        # Actualiza el correo electrónico del usuario actual
+        request.user.email = nuevo_email
+        request.user.save()
+
+        # Redirige a la página de perfil o a donde desees
+        return redirect('nombre_de_la_url')
+
+    # Resto del código para renderizar el formulario
+    return render(request, 'nombre_del_template.html')
+
+
 def ajustes(request):
-    context = {}
-    template_name = 'ajustes/ajustes.html'
-    user = request.user
-    context = {'user': user}
-    template_name = 'ajustes/ajustes.html'
-    
-    return render(request, template_name, context)
+    if request.method == 'POST':
+        new_email = request.POST.get('email')
+        new_imagen = request.POST.get('imagen')
+        if new_email:
+            request.user.email = new_email
+            request.user.save()
+            messages.success(request, 'Dirección de correo actualizada exitosamente.')
+            return redirect('ajustes')
+        if new_imagen:
+            request.user.imagen=new_imagen
+            request.user.save()
+            messages.success(request, 'Foto de perfil actualizada exitosamente.')
+            return redirect('ajustes')
+
+
+    return render(request, 'ajustes/ajustes.html')
+# def verificar_contrasena(request):
+#     if request.method == 'POST':
+#         contrasena_ingresada = request.POST.get('contrasena')
+#         contrasena_hash = request.POST.get('hash')
+#         es_valida = check_password(contrasena_ingresada, contrasena_hash)
+#         return JsonResponse({'es_valida': es_valida})
+#     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 def medicos(request):
     context = {}

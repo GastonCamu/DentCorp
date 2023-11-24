@@ -1,6 +1,8 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from DentCorpApp.models import Turnos
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.models import User
 
 
 from django import forms
@@ -13,3 +15,21 @@ class TurnoForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     search_term = forms.CharField(max_length=100, required=False)
+
+# class CustomUserChangeForm(UserChangeForm):
+#     class Meta:
+#         model = User
+#         fields = ('email',)
+
+
+
+class CustomUserChangeForm(UserChangeForm):
+    image = forms.ImageField(required=False)
+    class Meta:
+        model = User
+        fields = (
+            'email','image'
+        )
+        labels = {
+            'email': 'Correo Electrónico',
+        }

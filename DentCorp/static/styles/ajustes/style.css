@@ -35,5 +35,11 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
+    padding-bottom: 40px;
+  }
+  .form-control{
+    margin-left: 0px;
+  }
+  .col-sm-2{
+    margin-right: 0px;
   }
