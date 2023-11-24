@@ -1,6 +1,7 @@
 from django.contrib import admin
 from DentCorpApp.models import User, Ciudades, Provincias, Coberturas, Cajas,CoberturasXUsuario,Consultorios,AsignacionesConsultorio,Especialidades,EspecXUsuario,PagosServExt,FacturasServExt,ServiciosOdontologicos,Turnos,Planes,PlanXCobertura,FacturasOdontologicas
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Permission
 
 class UserAdmin(UserAdmin):
     list_display = ('username', 'first_name', 'last_name', 'image', )
@@ -49,8 +50,11 @@ class TurnosAdmin(admin.ModelAdmin):
     get_servicio_odontologico.short_description = 'Servicio Odontológico'
 
     def get_cobertura_usuario(self, obj):
-        return obj.id_cob_usu.nom_cob
+        return self.get_nom_cob(obj.id_cob_usu)
     get_cobertura_usuario.short_description = 'Cobertura del Usuario'
+
+    def get_nom_cob(self, obj):
+        return obj.id_plan_cob.id_cob.nom_cob if obj.id_plan_cob and obj.id_plan_cob.id_cob else None
 
     def get_rol_usuario(self, obj):
         return obj.id_rol_usu.name if obj.id_rol_usu else None
@@ -85,3 +89,4 @@ admin.site.register(ServiciosOdontologicos, ServiciosOdontologicosAdmin)
 admin.site.register(Turnos, TurnosAdmin)
 admin.site.register(Planes, PlanesAdmin)
 admin.site.register(PlanXCobertura, PlanXCoberturaAdmin)
+admin.site.register(Permission)
