@@ -10,11 +10,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">¿Estás seguro de eliminar esta reservación?</h4>
+                    <h4 class="card-title">¿Deseas cancelar esta reservación?</h4>
                     
                     <p><strong>Turno:</strong> {{ turno }}</p>
-                    <p><strong>Libro:</strong> {{ ejemplar.libro }}</p>
-                    <p><strong>Estado:</strong> {{ ejemplar.get_estado_display }}</p>
+                    <p><strong>Fecha:</strong> {{ turno.fecha_hr_turno }}</p>
+                    <p><strong>Servicio:</strong> {{ turno.serv }}</p>
                 </div>
 
                 <div class="card-footer">
@@ -22,7 +22,7 @@
                         {% csrf_token %}
 
                         <button type="submit" class="btn btn-danger">Eliminar</button>
-                        <a href="{% url 'ejemplar_list' %}" class="btn btn-secondary">Cancelar</a>
+                        <a href="{% url 'turnos_list' %}" class="btn btn-secondary">Cancelar</a>
                     </form>
                 </div>
             </div>

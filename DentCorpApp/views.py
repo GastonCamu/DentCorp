@@ -3,27 +3,47 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic import  ListView, DetailView, DeleteView, CreateView,UpdateView
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
 from .models import Turnos
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Especialidades
-from .forms import EspecialidadesForm
-
+from .models import Consultorios
+from django.shortcuts import render
+from django.contrib import messages
+from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
+from .models import Provincias, Ciudades, User
+from .forms import SearchForm
 
 @login_required
-def home(request):
-    context = {}
-    return render(request, 'base.html')
+def base(request):
+
+    paciente = User.objects.all()
+    cobertura = Coberturas.objects.all()
+    servicio = ServiciosOdontologicos.objects.all()
+    nroConsultorio = Consultorios.objects.all()
+
+
+    context = {
+        'paciente': paciente,
+        'cobertura': cobertura,
+        'servicio': servicio,
+        'nroConsultorio': nroConsultorio,
+    }        
+    
+    return render(request, 'base.html', context) #cambio momentaneo
+
+       
 
 def turnos(request):
     context = {}
     template_name = 'atencion-medica/turnos.html'
     return render(request, template_name)
+
+
+        
 
 def medicos(request):
     context = {}
@@ -50,93 +70,87 @@ def consultorios(request):
     template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
 
-class TurnosListView(LoginRequiredMixin, ListView):
+class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
-    template_name = 'atencion-medica/turnos.html'
+    template_name = 'atencion-medica/turnos.html' 
     context_object_name = 'turnos'
-    paginate_by = 4
+    permission_required = ('DentCorpApp.view_turnos',) 
 
-# class TurnosListView(LoginRequiredMixin, ListView):
-#     model = Turnos
-#     template_name = 'templates/turnos_list.html'
-#     context_object_name = 'turnos'
-#     paginate_by = 4
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+    
     # def get_queryset(self):
     #     return Turnos.objetcs.filter(estado = 'r')
     
-
-class TurnosDetailView(LoginRequiredMixin, DetailView):
+class ConsultoriosListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
+    model = Consultorios
+    template_name = 'atencion-medica/consultorios.html'
+    context_object_name = 'consultorios'
+    permission_required = 'DentCorpApp.view_consultorios'
+    
+class TurnosDetailView(PermissionRequiredMixin,LoginRequiredMixin, DetailView):
     model = Turnos
-    template_name = 'templates/turnos_detail.html'
-    context_object_name = 'det_turno'
+    template_name = 'turnos/turnos_detail.html'
+    context_object_name = 'turno'
+    permission_required = ('DentCorpApp.view_turnos',) 
 
-class TurnosCreateView(LoginRequiredMixin, CreateView):
+class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     model = Turnos
-    template_name = 'templates/turnos_create.html'
+    template_name = 'turnos/turnos_create.html'
     fields = '__all__'
     success_url = reverse_lazy('turnos_list')
     success_message = "El turno se ha reservado con éxito."
+    permission_required = ('DentCorpApp.add_turnos',) 
 
     def form_valid(self, form):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
     
-class TurnosUpdateView(LoginRequiredMixin, UpdateView):
+class TurnosUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     model = Turnos
-    template_name = 'template/turnos_update.html'
-    fields = '__all__'
+    template_name = 'turnos/turnos_update.html'
+    fields = '__all__'     
     success_url = reverse_lazy('turnos_list')
     success_message = "El turno se ha actualizado con éxito"
+    permission_required = 'DentCorpApp.change_turnos'
 
     def form_valid(self,form):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
     
-class TurnosDeleteView(LoginRequiredMixin, DeleteView):
+class TurnosDeleteView(PermissionRequiredMixin,LoginRequiredMixin, DeleteView):
     model = Turnos
-    template_name = 'template/turnos_confirm_delete.html'
-    fields = '__all__'
+    template_name = 'turnos/turnos_confirm_delete.html'
     success_url = reverse_lazy('turnos_list')
     success_message = "El turno se ha eliminado con éxito"
+    permission_required = 'DentCorpApp.delete_turnos'
 
     def form_valid(self,form):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
     
+class SearchView(ListView):
+    template_name = 'tu_template.html'
+    context_object_name = 'results'
+    form_class = SearchForm
 
-def especialidades_list(request):
-    especialidades = Especialidades.objects.all()
-    return render(request, 'especialidades_list.html', {'especialidades': especialidades})
-
-def especialidades_detail(request, pk):
-    especialidad = get_object_or_404(Especialidades, pk=pk)
-    return render(request, 'especialidades_detail.html', {'especialidad': especialidad})
-
-def especialidades_new(request):
-    if request.method == "POST":
-        form = EspecialidadesForm(request.POST)
+    def get_queryset(self):
+        form = self.form_class(self.request.GET)
         if form.is_valid():
-            especialidad = form.save(commit=False)
-            especialidad.save()
-            return redirect('especialidades_detail', pk=especialidad.pk)
-    else:
-        form = EspecialidadesForm()
-    return render(request, 'especialidades_edit.html', {'form': form})
+            search_term = form.cleaned_data.get('search_term')
+            if search_term:
+                queryset = (
+                    Provincias.objects.filter(nom_prov__icontains=search_term) |
+                    Ciudades.objects.filter(nom_ciu__icontains=search_term) |
+                    User.objects.filter(dni_usu__icontains=search_term) |
+                    User.objects.filter(dom_usu__icontains=search_term) |
+                    User.objects.filter(tel_usu__icontains=search_term)
+                )
+                return queryset
+        return []
 
-def especialidades_edit(request, pk):
-    especialidad = get_object_or_404(Especialidades, pk=pk)
-    if request.method == "POST":
-        form = EspecialidadesForm(request.POST, instance=especialidad)
-        if form.is_valid():
-            especialidad = form.save(commit=False)
-            especialidad.save()
-            return redirect('especialidades_detail', pk=especialidad.pk)
-    else:
-        form = EspecialidadesForm(instance=especialidad)
-    return render(request, 'especialidades_edit.html', {'form': form})
-
-def especialidades_delete(request, pk):
-    especialidad = get_object_or_404(Especialidades, pk=pk)
-    especialidad.delete()
-    return redirect('especialidades_list')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form_class(self.request.GET)
+        return context

@@ -21,13 +21,19 @@
                 <option value="Medico">Medico</option>
             </select>
             <div>
-                <input type="search" placeholder="BUSCAR">
-                <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>
+                <form method="get">
+                    {{ form.as_p }}
+                    <input type="search" placeholder="BUSCAR">
+                    <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>                    
+                </form>
+
             </div>
         </form>
-        <button>AGREGAR {% block boton_agregar_name %} {% endblock %}</button>
-        <button>MODIFICAR</button>
-        <button>ELIMINAR</button>
+        
+        <button onclick="redirigir()">AGREGAR {% block boton_agregar_name %} {% endblock %}</button>
+        <button onclick="redir()">MODIFICAR</button> 
+        <button onclick="redirect()">ELIMINAR</button>
         </div>
 </div>
+
 {% endblock %}
