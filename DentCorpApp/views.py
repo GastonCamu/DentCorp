@@ -87,7 +87,6 @@ class TurnosCreateView(LoginRequiredMixin, CreateView):
     model = Turnos
     form_class = TurnoForm
     template_name = 'atencion-medica/modal-turnos.html'
-    # fields = '__all__'
     success_url = reverse_lazy('turnos')
     success_message = "El turno se ha reservado con éxito."
 
