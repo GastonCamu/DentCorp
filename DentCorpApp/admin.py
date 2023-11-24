@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Permission
 
 class UserAdmin(UserAdmin):
-    list_display = ('username', 'first_name', 'last_name', 'image', )
+    list_display = ('username', 'first_name', 'last_name','dni_usu','dom_usu','tel_usu',)
 
 class CiudadesAdmin(admin.ModelAdmin):
     pass
@@ -43,37 +43,28 @@ class ServiciosOdontologicosAdmin(admin.ModelAdmin):
     pass
 
 class TurnosAdmin(admin.ModelAdmin):
-    list_display = ('fecha_hr_turno', 'autorizado', 'get_servicio_odontologico', 'get_cobertura_usuario', 'get_rol_usuario', 'get_asignacion_consultorio')
+    list_display = ('fecha_hr_turno', 'autorizado', 'get_servicio_odontologico', 'get_cobertura_usuario','get_plan_cob', 'get_rol_usuario', 'get_asignacion_consultorio')
 
     def get_servicio_odontologico(self, obj):
-        return obj.id_serv_odon.nombre_serv_odon
-    get_servicio_odontologico.short_description = 'Servicio Odontológico'
+        return obj.id_serv_odon.nombre_serv_odon if obj.id_serv_odon else None
+    get_servicio_odontologico.short_description = 'Servicio'
 
     def get_cobertura_usuario(self, obj):
-        return self.get_nom_cob(obj.id_cob_usu)
-    get_cobertura_usuario.short_description = 'Cobertura del Usuario'
+        return obj.id_cob_usu.id_plan_cob.id_cob.nom_cob if obj.id_cob_usu else None
+    get_cobertura_usuario.short_description = 'Cobertura'
 
-    def get_nom_cob(self, obj):
-        id_cob_usu = getattr(obj, 'id_cob_usu', None)
-        
-        if id_cob_usu:
-            id_plan_cob = getattr(id_cob_usu, 'id_plan_cob', None)
-
-            if id_plan_cob:
-                id_cob = getattr(id_plan_cob, 'id_cob', None)
-
-                if id_cob:
-                    return id_cob.nom_cob
-
-        return None
 
     def get_rol_usuario(self, obj):
         return obj.id_rol_usu.name if obj.id_rol_usu else None
-    get_rol_usuario.short_description = 'Rol del Usuario'
+    get_rol_usuario.short_description = 'Usuario'
 
     def get_asignacion_consultorio(self, obj):
-        return getattr(obj, 'num_cons', None)
+        return obj.id_asig_cons.id_cons.num_cons
+    get_asignacion_consultorio.short_desciption = 'Consultorio'
 
+    def get_plan_cob(self,obj):
+        return obj.id_cob_usu.id_plan_cob.id_plan.nombre_plan
+    get_plan_cob.short_description = "Tipo de plan"
 
 class PlanesAdmin(admin.ModelAdmin):
     pass

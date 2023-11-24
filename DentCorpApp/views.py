@@ -37,14 +37,6 @@ def base(request):
 
        
 
-# def turnos(request):
-#     context = {}
-#     template_name = 'atencion-medica/turnos.html'
-#     return render(request, template_name)
-
-
-        
-
 def medicos(request):
     context = {}
     template_name = 'atencion-medica/medicos.html'
