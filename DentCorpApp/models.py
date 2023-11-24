@@ -1,16 +1,20 @@
 from django.db import models
-from django.contrib.auth.models import  AbstractUser, Group, Permission
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from DentCorp import settings
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-    
-    
+
+
+
 class Provincias(models.Model):
     nom_prov = models.CharField(max_length=50)
 
     def __str__(self):
         return f'{self.nom_prov}'
-    
+
+    class Meta:
+        db_table = 'provincias'
+
 class Ciudades(models.Model):
     nom_ciu = models.CharField(max_length=20)
     id_prov = models.ForeignKey(Provincias, on_delete=models.DO_NOTHING)
@@ -18,9 +22,11 @@ class Ciudades(models.Model):
     def __str__(self):
         return f'{self.nom_ciu}'
 
+    class Meta:
+        db_table = 'ciudades'
 
 class User(AbstractUser):
-    user_permissions = models.ManyToManyField(Permission, related_name='DentCorpApp_users_permissions')
+    user_permissions = models.ManyToManyField(Permission, related_name='users_permissions')
     image = models.ImageField(upload_to='users/%Y/%m/%d', null=True, blank=True)
     email = models.EmailField(_('email address'), unique=True)
     fecha_alta_usu = models.DateField(null=True, blank=True)
@@ -29,6 +35,7 @@ class User(AbstractUser):
     dom_usu = models.CharField(max_length=50)
     tel_usu = models.CharField(max_length=14)
     id_ciu = models.ForeignKey(Ciudades, null=True, blank=True, on_delete=models.PROTECT)
+    
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -36,27 +43,37 @@ class User(AbstractUser):
     def get_image(self):
         if self.image:
             return '{}{}'.format(settings.MEDIA_URL, self.image)
-        
+
         return '{}{}'.format(settings.STATIC_URL, 'img/user-default.png')
-    
+
     def get_absolute_url(self):
         return reverse('infoUsuarios', args=[str(self.id)])
 
     def __str__(self):
         return f'{self.dni_usu}, {self.dom_usu}, {self.tel_usu}, {self.email}'
+
+    class Meta:
+        db_table = 'users'
         
-    
 class Especialidades(models.Model):
     nombre_espec = models.CharField(max_length=50)
 
     def __str__(self):
         return f'{self.nombre_espec}'
-    
+
+    class Meta:
+        db_table = 'especialidades'
+
+
 class Consultorios(models.Model):
     num_cons = models.CharField(max_length=3)
 
     def __str__(self):
         return f'{self.num_cons}'
+
+    class Meta:
+        db_table = 'consultorios'
+
 
 class ServiciosOdontologicos(models.Model):
     nombre_serv_odon = models.CharField(max_length=20)
@@ -68,6 +85,8 @@ class ServiciosOdontologicos(models.Model):
     def __str__(self):
         return f'{self.nombre_serv_odon}, {self.costo_serv_odon}'
 
+    class Meta:
+        db_table = 'servicios_odontologicos'
 
 
 class Planes(models.Model):
@@ -76,11 +95,19 @@ class Planes(models.Model):
     def __str__(self):
         return f'{self.nombre_plan}'
 
+    class Meta:
+        db_table = 'planes'
+
+
 class Coberturas(models.Model):
     nom_cob = models.CharField(max_length=20)
     
     def __str__(self):
         return f'{self.nom_cob}'
+
+    class Meta:
+        db_table = 'coberturas'
+
 
 class PagosServExt(models.Model):
     nombre_serv = models.CharField(max_length=50)
@@ -92,7 +119,10 @@ class PagosServExt(models.Model):
     def __str__(self):
         return f'{self.nombre_serv}, {self.fecha_cad_cont}'
 
-    
+    class Meta:
+        db_table = 'pagos_serv_ext'
+
+
 class EspecXUsuario(models.Model):
     matricula = models.IntegerField()
     id_rol_usu = models.ForeignKey(Group, related_name='especialidad_usuario', on_delete=models.PROTECT)
@@ -103,7 +133,10 @@ class EspecXUsuario(models.Model):
 
     def __str__(self):
         return f'{self.matricula}'
-    # consultaas ver
+
+    class Meta:
+        db_table = 'espec_x_usuario'
+
 
 class AsignacionesConsultorio(models.Model):
     fecha_inicio_asig = models.DateTimeField()
@@ -116,6 +149,10 @@ class AsignacionesConsultorio(models.Model):
 
     def __str__(self):
         return f'{self.fecha_inicio_asig}, {self.fecha_fin_asig}'
+
+    class Meta:
+        db_table = 'asignaciones_consultorio'
+
 
 class Cajas(models.Model):
     fecha_hr_ap_cj = models.DateTimeField()
@@ -130,6 +167,10 @@ class Cajas(models.Model):
 
     def __str__(self):
         return f'{self.fecha_hr_ap_cj}, {self.fecha_hr_cr_cj}, {self.monto_ap_cj}, {self.monto_cr_cj}, {self.comentarios}'
+
+    class Meta:
+        db_table = 'cajas'
+
 
 class FacturasServExt(models.Model):
     link_fact = models.CharField(max_length=200)
@@ -146,6 +187,10 @@ class FacturasServExt(models.Model):
     def __str__(self):
         return f'{self.link_fact}, {self.costo_fact}, {self.fecha_cad_fact}, {self.fecha_pago_fact}, {self.comprobante_pago}'
 
+    class Meta:
+        db_table = 'facturas_serv_ext'
+
+
 class PlanXCobertura(models.Model):
     porcentaje_cob = models.CharField(max_length=3)
     id_plan = models.ForeignKey(Planes, on_delete=models.PROTECT)
@@ -157,12 +202,19 @@ class PlanXCobertura(models.Model):
     def __str__(self):
         return f'{self.porcentaje_cob}'
 
+    class Meta:
+        db_table = 'plan_x_cobertura'
+
+
 class CoberturasXUsuario(models.Model):
-    id_rol_usu = models.ForeignKey(Group, related_name='coberturas_usuarios', on_delete=models.PROTECT)
+    
     id_plan_cob = models.ForeignKey(PlanXCobertura, on_delete=models.PROTECT)
 
     def get_absolute_url(self):
         return reverse('infoCoberturasXUsuario', args=[str(self.id)])
+
+    class Meta:
+        db_table = 'coberturas_x_usuario'
 
 
 class Turnos(models.Model):
@@ -172,12 +224,17 @@ class Turnos(models.Model):
     id_cob_usu = models.ForeignKey(CoberturasXUsuario, on_delete=models.PROTECT)
     id_rol_usu = models.ForeignKey(Group, related_name='turnos_usuarios', on_delete=models.PROTECT)
     id_asig_cons = models.ForeignKey(AsignacionesConsultorio, on_delete=models.PROTECT)
+    id_usu = models.ForeignKey(User, on_delete=models.PROTECT, related_name='turnos_usuarios')
 
     def get_absolute_url(self):
         return reverse('infoTurnos', args=[str(self.id)])
 
     def __str__(self):
         return f'{self.fecha_hr_turno}, {self.autorizado}'
+
+    class Meta:
+        db_table = 'turnos'
+
 
 class FacturasOdontologicas(models.Model):
     costo_fact_pac = models.FloatField()
@@ -192,3 +249,6 @@ class FacturasOdontologicas(models.Model):
 
     def __str__(self):
         return f'{self.costo_fact_cob}, {self.costo_fact_pac}, {self.costo_total_fact_odon}'
+
+    class Meta:
+        db_table = 'facturas_odontologicas'

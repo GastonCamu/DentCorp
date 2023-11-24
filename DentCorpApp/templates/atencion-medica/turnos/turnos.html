@@ -3,7 +3,8 @@
 {% block name_page %} TURNOS {% endblock%}
 {% block boton_agregar_name %} TURNO {% endblock%}
 {% block titulos_tabla %}
-    <td class="fila__titulo__contenido">Paciente</td>
+    <td class="fila__titulo__contenido">Nombre</td>
+    <td class="fila__titulo__contenido">Apellido</td>
     <td class="fila__titulo__contenido">Fecha</td>
     <td class="fila__titulo__contenido">Autorizado</td>
     <td class="fila__titulo__contenido">Servicio</td>
@@ -16,7 +17,8 @@
     {% if turnos %}
         {% for turno in turnos %}
             <tr class="fila__contenido">
-                <td>{{ turno.paciente }}</td>
+                <td>{{ turno.id_rol_usu.group_id.first_name }}</td>
+                <td>{{ turno.last_name }}</td>
                 <td>{{ turno.fecha_hr_turno }}</td>
                 <td>{{ turno.autorizado }}</td>
                 <td>{{ turno.id_serv_odon.nombre_serv_odon }}</td>
@@ -38,12 +40,7 @@
     </a>
     {% if turnos %}
         {% for turno in turnos %}
-            <a href="{% url 'turno_update' turno.pk %}">
-                <button>MODIFICAR</button>
-            </a>
-            <a href="{% url 'turno_eliminar' turno.pk %}">
-                <button>ELIMINAR</button>
-            </a>
+
         {% endfor %}
     {% else %}
         <button>MODIFICAR</button> 
