@@ -11,16 +11,40 @@
     <td class="fila__titulo__contenido">Cobertura</td>
     <td class="fila__titulo__contenido">Consultorio Asignado</td>
 {% endblock %}
+
+{% block boton_agregar %} 
+<a href="{% url 'turno_create' %}">
+    <button>AGREGAR TURNO</button>
+</a>
+{% endblock %}
+
+{% for turno in turnos %}
+    {% block boton_modificar %} 
+        <a href="{% url 'turno_update' turno.pk %}">
+            <button>MODIFICAR</button>
+        </a>
+    {% endblock %}
+
+    {% block boton_eliminar %} 
+        <a href="{% url 'turno_eliminar' turno.pk %}">
+            <button>ELIMINAR</button>
+        </a>
+    {% endblock %}
+{% endfor %}
+
 {% block contenido_tabla %} 
     {% for turno in turnos %}
         <tr class="fila__contenido">
             <td>{{ turno.paciente }}</td>
-            <td>{{ turno.fecha }}</td>
+            <td>{{ turno.fecha_hr_turno }}</td>
             <td>{{ turno.autorizado }}</td>
-            <td>{{ turno.servicio }}</td>
+            <td>{{ turno.id_serv_odon.nombre_serv_odon }}</td>
             <td>{{ turno.medico }}</td>
-            <td>{{ turno.cobertura }}</td>
-            <td>{{ turno.consultorio_asignado }}</td>
+            <td>{{ turno.id_cob_usu.id_plan_cob.nom_cob }}</td>
+            <td>{{ turno.id_asig_cons.num_cons }}</td>
         </tr>
+        {% if turnos %} 
+            
+        {% endif %}
     {% endfor %}
 {% endblock %}

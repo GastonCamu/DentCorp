@@ -30,20 +30,9 @@
             </div>
         </form>
         
-        <button onclick="redirigir()">AGREGAR {% block boton_agregar_name %} {% endblock %}</button>
-        <button onclick="redir()">MODIFICAR</button> 
-        <button onclick="redirect()">ELIMINAR</button>
+        {% block boton_agregar %} {% endblock %}
+        {% block boton_modificar %} {% endblock %}
+        {% block boton_eliminar %} {% endblock %}
         </div>
 </div>
-<script>
-    function redirigir() {
-        window.location.href = "{% url 'turno_create' %}";
-    };
-    function redirect() {
-        window.location.href = "{% url 'turno_delete' %}";
-    };
-    function redir() {
-        window.location.href = "{% url 'turno_update' %}";
-    };
- </script>
 {% endblock %}

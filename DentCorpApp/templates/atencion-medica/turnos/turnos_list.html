@@ -9,16 +9,10 @@
     {% include "partials/alerts.html" %}  
 
     <div class="col-12">
-        {% if perms.DentCorpApp.add_turnos %}
-            <a href="{% url 'turno_create' %}" class="btn btn-success mb-3">
-                <i class="fas fa-plus mr-1"></i> Nuevo Turno
-            </a>
-        {% endif %}
-
         <div class="row">
             {% for turno in turnos %}
                 <div class="col-md-4 mb-1">
-                    <div class="card shadow-sm">
+                    <!-- <div class="card shadow-sm">
 
                         <!-- {% if turno.imagen %}
                             <img src="{{ ejemplar.libro.imagen.url }}" class="card-img-top" alt="{{ turno }}">
@@ -44,7 +38,7 @@
                                 {% endif %}
                             </p> -->
                             <!-- <p class="card-text">Estado: {{ turno.autorizado }}</p> -->
-                        </div>
+                        </div> -->
                         {% if perms.DentCorpApp.change_turnos or perms.DentCorpApp.delete_turnos %}
                         <div class="card-footer">
                             <div class="btn-group" role="group" aria-label="Basic example">
@@ -64,13 +58,7 @@
                         {% endif %}
                     </div>
                 </div>
-            {% empty %}
-                <div class="col">
-                    <div class="alert alert-danger" role="alert">
-                        No se encuentran turnos disponibles.
-                    </div>
-                </div>
-            {% endfor %}
+
         </div>
 
 
