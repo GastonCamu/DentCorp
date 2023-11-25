@@ -2,7 +2,6 @@ from django import forms
 from django.core.exceptions import ValidationError
 from DentCorpApp.models import Turnos
 
-
 from django import forms
 from .models import Turnos, User, Ciudades
 
@@ -19,7 +18,6 @@ class UserForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
-        # Puedes personalizar el formulario aquí si es necesario
         self.fields['fecha_alta_usu'].widget.attrs.update({'class': 'datepicker'})  # Añadir una clase para un datepicker, por ejemplo
 
 class SearchForm(forms.Form):

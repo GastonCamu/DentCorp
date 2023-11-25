@@ -1,0 +1,49 @@
+{% extends 'atencion-medica/tabla.html' %}
+{% block title %} TURNOS {% endblock %}
+{% block name_page %} TURNOS {% endblock%}
+{% block boton_agregar_name %} TURNO {% endblock%}
+{% block titulos_tabla %}
+    <td class="fila__titulo__contenido">Nombre</td>
+    <td class="fila__titulo__contenido">Apellido</td>
+    <td class="fila__titulo__contenido">Fecha</td>
+    <td class="fila__titulo__contenido">Autorizado</td>
+    <td class="fila__titulo__contenido">Servicio</td>
+    <td class="fila__titulo__contenido">Médico</td>
+    <td class="fila__titulo__contenido">Cobertura</td>
+    <td class="fila__titulo__contenido">Consultorio Asignado</td>
+{% endblock %}
+
+{% block contenido_tabla %} 
+    {% if turnos %}
+        {% for turno in turnos %}
+            <tr class="fila__contenido">
+                <td>{{ turno.id_usu.first_name }}</td>
+                <td>{{ turno.id_usu.last_name }}</td>
+                <td>{{ turno.fecha_hr_turno }}</td>
+                <td>{{ turno.autorizado }}</td>
+                <td>{{ turno.id_serv_odon.nombre_serv_odon }}</td>
+                <td>{{ turno.id_asig_cons.id_espec_usu.id_usu.first_name }} {{ turno.id_asig_cons.id_espec_usu.id_usu.last_name }}</td>
+                <td>{{ turno.id_cob_usu.id_plan_cob.id_cob.nom_cob }}</td>
+                <td>{{ turno.id_asig_cons.id_cons.num_cons }}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="8">No hay turnos registrados</td>
+        </tr>
+    {% endif %}
+{% endblock %}
+
+{% block botones %} 
+    <a href="{% url 'turno_create' %}">
+        <button>AGREGAR TURNO</button>
+    </a>
+    {% if turnos %}
+        {% for turno in turnos %}
+            
+        {% endfor %}
+    {% else %}
+        <button>MODIFICAR</button> 
+        <button>ELIMINAR</button>
+    {% endif %}
+{% endblock %}

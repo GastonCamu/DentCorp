@@ -22,11 +22,10 @@
                         {% csrf_token %}
 
                         <button type="submit" class="btn btn-danger">Eliminar</button>
-                        <a href="{% url 'turnos_list' %}" class="btn btn-secondary">Cancelar</a>
+                        <a href="{% url 'turnos' %}" class="btn btn-secondary">Cancelar</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
-

@@ -10,15 +10,22 @@
     <td class="fila__titulo__contenido">Email</td>
     <td class="fila__titulo__contenido">Ciudad</td>
 {% endblock %}
+
 {% block contenido_tabla %} 
-    {% for usuario in usuarios %}
-        <tr class="fila__contenido">
-            <td>{{ usuario.dni_usu }}</td>
-            <td>{{ usuario.first_name }}</td>
-            <td>{{ usuario.last_name }}</td>
-            <td>{{ usuario.dom_usu }}</td>
-            <td>{{ usuario.email }}</td>
-            <td>{{ usuario.id_ciu.nom_ciu }}</td>
-        </tr>
-    {% endfor %}
+    {% if usuarios %}
+        {% for usuario in usuarios %}
+            <tr class="fila__contenido">
+                <td>{{ usuario.dni_usu }}</td>
+                <td>{{ usuario.first_name }}</td>
+                <td>{{ usuario.last_name }}</td>
+                <td>{{ usuario.dom_usu }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>{{ usuario.id_ciu.nom_ciu }}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+    <tr>
+        <td colspan="7">No hay pacientes registrados</td>
+    </tr>
+{% endif %}
 {% endblock %}
