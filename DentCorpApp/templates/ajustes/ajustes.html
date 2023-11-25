@@ -1,0 +1,120 @@
+{% load static %}
+    <link rel="stylesheet" href="{% static 'libs/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/ajustes/style.css' %}">
+    
+    <body>
+        <h1>Ajustes de Perfil</h1>
+    
+        <div class="container mt-5">
+            <h2 class="mb-4">Ajustes generales</h2>
+    
+            <form method="post" action="{% url 'ajustes' %}">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="{{user.first_name}}" readonly>
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label for="apellido" class="col-sm-2 col-form-label">Apellido:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="apellido" name="apellido" placeholder="{{user.last_name}}" readonly>
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label for="dni" class="col-sm-2 col-form-label">DNI:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="dni" name="dni" placeholder="{{user.dni_usu}}" readonly>
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label for="ciudad" class="col-sm-2 col-form-label">Ciudad:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ingrese su ciudad">
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <label for="email" class="col-sm-2 col-form-label">Nuevo email:</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="{{user.email}}"value="{{ user.email }}">
+                    </div>
+                </div>
+    
+                <div class="col-sm-10">
+                    <label for="dni" class="col-sm-2 col-form-label">Recordatorios:</label>
+                    <div class="col-sm-4">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="recordatorios" id="si" value="si">
+                            <label class="form-check-label" for="si">Sí</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="recordatorios" id="no" value="no">
+                            <label class="form-check-label" for="no">No</label>
+                        </div>
+                    </div>
+                </div>
+    
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+        </div>
+    
+
+
+        <div class="container mt-5">
+            <h2 class="mb-4">Foto de Perfil</h2>
+            <form>
+                <div class="form-group">
+                    <label for="imagen">Seleccionar Imagen:</label>
+                    <input type="file" class="form-control-file" id="imagen" name="imagen" accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+        </div>
+    
+
+
+        <div class="container mt-5">
+            <h2 class="mb-4">Ajustes de Perfil</h2>
+            <form onsubmit="return validarContrasenas()">
+                <div class="form-group row" id="camposNuevaContrasena">
+                    <label for="nuevaContrasena" class="col-sm-2 col-form-label">Nueva Contraseña:</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="nuevaContrasena" name="nuevaContrasena" placeholder="Ingrese su nueva contraseña">
+                    </div>
+                </div>
+    
+                <div class="form-group row" id="camposConfirmarContrasena">
+                    <label for="confirmarContrasena" class="col-sm-2 col-form-label">Confirmar Contraseña:</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="confirmarContrasena" name="confirmarContrasena" placeholder="Confirme su nueva contraseña">
+                    </div>
+                </div>
+    
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+        </div>
+    
+        <div class="volver"><a href="{% url 'base' %}" class="btn btn-primary">Ir atrás</a></div>
+    
+        <script>
+            function validarContrasenas() {
+                var nuevaContrasena = document.getElementById('nuevaContrasena').value;
+                var confirmarContrasena = document.getElementById('confirmarContrasena').value;
+    
+                if (nuevaContrasena !== confirmarContrasena) {
+                    alert('Las contraseñas no coinciden. Por favor, vuelva a ingresarlas.');
+                    return false;
+                }
+                return true;
+            }
+        </script>
+    
+        <script src="{% static 'libs/bootstrap/popper.min.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/bootstrap.min.js' %}"></script>
+    </body>
+    

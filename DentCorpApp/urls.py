@@ -9,9 +9,6 @@ urlpatterns = [
     path('servicios-odontologicos/', ServiciosOdontologicosListView.as_view(), name = "servicios odontologicos"),
     # path('consultorios/', views.consultorios, name = "consultorios"),
     path('consultorios/', ConsultoriosListView.as_view(), name='consultorios'),
-    path('pacientes/', PacientesListView.as_view(), name='pacientes'),
-    path('turnos/', TurnosListView.as_view(), name = "turnos"),
-    path('turno/reservar/', TurnosCreateView.as_view(), name="turno_create"),
     
     
     # path('turnos/', views.TurnosListView.as_view(), name="turnos_list"),

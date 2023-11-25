@@ -8,20 +8,21 @@ from django.urls import reverse
 class Provincias(models.Model):
     nom_prov = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.nom_prov    
+    def _str_(self):
+        return f'{self.nom_prov}'
     
 class Ciudades(models.Model):
     nom_ciu = models.CharField(max_length=20)
     id_prov = models.ForeignKey(Provincias, on_delete=models.DO_NOTHING)
 
-    def __str__(self):
-        return self.nom_ciu    
+    def _str_(self):
+        return f'{self.nom_ciu}'
 
 
 class User(AbstractUser):
     user_permissions = models.ManyToManyField(Permission, related_name='DentCorpApp_users_permissions')
-    image = models.ImageField(upload_to='users/%Y/%m/%d', null=True, blank=True)
+    # image = models.ImageField(upload_to='users/%Y/%m/%d', null=True, blank=True)
+    image = models.ImageField(upload_to='img/', null=True, blank=True)
     email = models.EmailField(_('email address'), unique=True)
     fecha_alta_usu = models.DateField(null=True, blank=True)
     fecha_baja_usu = models.DateField(null=True, blank=True)
@@ -42,30 +43,30 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse('infoUsuarios', args=[str(self.id)])
 
-    def __str__(self):
+    def _str_(self):
         return f'{self.dni_usu}, {self.dom_usu}, {self.tel_usu}, {self.email}'
         
     
 class Especialidades(models.Model):
     nombre_espec = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.nombre_espec
+    def _str_(self):
+        return f'{self.nombre_espec}'
     
 class Consultorios(models.Model):
     num_cons = models.CharField(max_length=3)
 
-    def __str__(self):
-        return self.num_cons
+    def _str_(self):
+        return f'{self.num_cons}'
 
 class ServiciosOdontologicos(models.Model):
     nombre_serv_odon = models.CharField(max_length=20)
-    costo_serv_odon = models.DecimalField(max_digits=6, decimal_places=2)
+    costo_serv_odon = models.DecimalField(max_digits=10, decimal_places=2)
 
     def get_absolute_url(self):
         return reverse('serviciosInfo', args=[str(self.id)])
 
-    def __str__(self):
+    def _str_(self):
         return f'{self.nombre_serv_odon}, {self.costo_serv_odon}'
 
 
@@ -73,14 +74,14 @@ class ServiciosOdontologicos(models.Model):
 class Planes(models.Model):
     nombre_plan = models.CharField(max_length=20)
 
-    def __str__(self):
-        return self.nombre_plan
+    def _str_(self):
+        return f'{self.nombre_plan}'
 
 class Coberturas(models.Model):
     nom_cob = models.CharField(max_length=20)
     
-    def __str__(self):
-        return self.nom_cob
+    def _str_(self):
+        return f'{self.nom_cob}'
 
 class PagosServExt(models.Model):
     nombre_serv = models.CharField(max_length=50)
@@ -89,7 +90,7 @@ class PagosServExt(models.Model):
     def get_absolute_url(self):
         return reverse('pagosServInfo', args=[str(self.id)])
 
-    def __str__(self):
+    def _str_(self):
         return f'{self.nombre_serv}, {self.fecha_cad_cont}'
 
     
@@ -101,8 +102,8 @@ class EspecXUsuario(models.Model):
     def get_absolute_url(self):
         return reverse('infoEspecXUsuario', args=[str(self.id)])
 
-    def __str__(self):
-        return self.matricula
+    def _str_(self):
+        return f'{self.matricula}'
     # consultaas ver
 
 class AsignacionesConsultorio(models.Model):
@@ -114,7 +115,7 @@ class AsignacionesConsultorio(models.Model):
     def get_absolute_url(self):
         return reverse('asignacionesConsultorio', args=[str(self.id)])
 
-    def __str__(self):
+    def _str_(self):
         return f'{self.fecha_inicio_asig}, {self.fecha_fin_asig}'
 
 class Cajas(models.Model):
@@ -147,7 +148,7 @@ class FacturasServExt(models.Model):
         return self.nom_prov
 
 class PlanXCobertura(models.Model):
-    porcentaje_cob = models.Field(max_length=3)
+    porcentaje_cob = models.CharField(max_length=3)
     id_plan = models.ForeignKey(Planes, on_delete=models.PROTECT)
     id_cob = models.ForeignKey(Coberturas, on_delete=models.PROTECT)
 
@@ -158,7 +159,7 @@ class PlanXCobertura(models.Model):
         return self.porcentaje_cob
 
 class CoberturasXUsuario(models.Model):
-    id_rol_usu = models.ForeignKey(Group, related_name='coberturas_usuarios', on_delete=models.PROTECT)
+    
     id_plan_cob = models.ForeignKey(PlanXCobertura, on_delete=models.PROTECT)
 
     def get_absolute_url(self):
@@ -190,5 +191,5 @@ class FacturasOdontologicas(models.Model):
     def get_absolute_url(self):
         return reverse('facturasOdontologicas', args=[str(self.id)])
 
-    def __str__(self):
+    def _str_(self):
         return f'{self.costo_fact_cob}, {self.costo_fact_pac}, {self.costo_total_fact_odon}'

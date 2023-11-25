@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from DentCorpApp.models import Turnos
 
 from django import forms
-from .models import Turnos
+from .models import Turnos, User
 
 class TurnoForm(forms.ModelForm):
     class Meta:

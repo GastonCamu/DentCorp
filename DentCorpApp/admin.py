@@ -1,6 +1,7 @@
 from django.contrib import admin
 from DentCorpApp.models import User, Ciudades, Provincias, Coberturas, Cajas,CoberturasXUsuario,Consultorios,AsignacionesConsultorio,Especialidades,EspecXUsuario,PagosServExt,FacturasServExt,ServiciosOdontologicos,Turnos,Planes,PlanXCobertura,FacturasOdontologicas
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Permission
 
 class UserAdmin(UserAdmin):
     list_display = ('username', 'first_name', 'last_name', 'image', )

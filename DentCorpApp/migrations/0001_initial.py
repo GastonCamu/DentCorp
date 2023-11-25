@@ -97,7 +97,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nombre_serv_odon', models.CharField(max_length=20)),
-                ('costo_serv_odon', models.DecimalField(decimal_places=2, max_digits=6)),
+                ('costo_serv_odon', models.DecimalField(decimal_places=2, max_digits=10)),
             ],
         ),
         migrations.CreateModel(
@@ -118,8 +118,6 @@ class Migration(migrations.Migration):
                 ('fecha_alta_usu', models.DateField(blank=True, null=True)),
                 ('fecha_baja_usu', models.DateField(blank=True, null=True)),
                 ('dni_usu', models.CharField(max_length=9)),
-                ('nom_usu', models.CharField(max_length=50)),
-                ('ape_usu', models.CharField(max_length=50)),
                 ('dom_usu', models.CharField(max_length=50)),
                 ('tel_usu', models.CharField(max_length=14)),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
@@ -151,7 +149,7 @@ class Migration(migrations.Migration):
             name='PlanXCobertura',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('porcentaje_cob', models.Field(max_length=3)),
+                ('porcentaje_cob', models.CharField(max_length=3)),
                 ('id_cob', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='DentCorpApp.coberturas')),
                 ('id_plan', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='DentCorpApp.planes')),
             ],
@@ -194,11 +192,6 @@ class Migration(migrations.Migration):
             model_name='coberturasxusuario',
             name='id_plan_cob',
             field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='DentCorpApp.planxcobertura'),
-        ),
-        migrations.AddField(
-            model_name='coberturasxusuario',
-            name='id_rol_usu',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='coberturas_usuarios', to='auth.group'),
         ),
         migrations.AddField(
             model_name='ciudades',
