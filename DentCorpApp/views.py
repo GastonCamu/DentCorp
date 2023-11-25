@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .models import Consultorios
+from .models import Consultorios, Especialidades, ServiciosOdontologicos, User, Turnos
 from django.shortcuts import render
 from django.contrib import messages
 from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
@@ -87,10 +87,6 @@ def medicos(request):
     template_name = 'atencion-medica/medicos.html'
     return render(request, template_name)
 
-def pacientes(request):
-    context = {}
-    template_name = 'atencion-medica/pacientes.html'
-    return render(request, template_name)
 
 def servicios_odontologicos(request):
     context = {}
@@ -107,6 +103,16 @@ def consultorios(request):
     template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
 
+class PacientesListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
+    model = User
+    template_name = 'atencion-medica/pacientes.html'
+    context_object_name = 'usuarios'
+    permission_required = ('DentCorpApp.view_user',)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context    
+
 class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
     template_name = 'atencion-medica/turnos/turnos.html' 
@@ -116,19 +122,16 @@ class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
 class TurnosDetailView(PermissionRequiredMixin,LoginRequiredMixin, DetailView):
     model = Turnos
     template_name = 'atencion-medica/turnos/turnos_detail.html'
-    template_name = 'atencion-medica/turnos/turnos_detail.html'
     context_object_name = 'turno'
     permission_required = 'DentCorpApp.view_turnos'
 
 class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     model = Turnos
     template_name = 'atencion-medica/turnos/turnos_create.html'
-    template_name = 'atencion-medica/turnos/turnos_create.html'
     fields = '__all__'
     success_url = reverse_lazy('turnos')
-    success_url = reverse_lazy('turnos')
     success_message = "El turno se ha reservado con éxito."
-    permission_required = 'DentCorpApp.add_turnos'
+    permission_required = ('DentCorpApp.add_turnos',) 
 
     def form_valid(self, form):
         messages.success(self.request, self.success_message)
@@ -136,9 +139,6 @@ class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     
 class TurnosUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     model = Turnos
-    template_name = 'atencion-medica/turnos/turnos_update.html'
-    fields = '__all__'     
-    success_url = reverse_lazy('turnos')
     template_name = 'atencion-medica/turnos/turnos_update.html'
     fields = '__all__'     
     success_url = reverse_lazy('turnos')
@@ -151,8 +151,6 @@ class TurnosUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     
 class TurnosDeleteView(PermissionRequiredMixin,LoginRequiredMixin, DeleteView):
     model = Turnos
-    template_name = 'atencion-medica/turnos/turnos_confirm_delete.html'
-    success_url = reverse_lazy('turnos')
     template_name = 'atencion-medica/turnos/turnos_confirm_delete.html'
     success_url = reverse_lazy('turnos')
     success_message = "El turno se ha eliminado con éxito"
@@ -181,14 +179,67 @@ class SearchView(ListView):
                 )
                 return queryset
         return []
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = self.form_class(self.request.GET)
         return context
+
     
-class ConsultoriosListView(ListView):
+class ConsultoriosListView(LoginRequiredMixin, ListView):
     model = Consultorios
     template_name = 'atencion-medica/consultorios.html'
     context_object_name = 'consultorios'
-        
+
+class EspecialidadesListView(LoginRequiredMixin, ListView):
+    model = Especialidades
+    template_name='atencion-medica/especialidades.html'
+    context_object_name = 'especialidades'
+
+class ServiciosOdontologicosListView(LoginRequiredMixin, ListView):
+    model = ServiciosOdontologicos
+    template_name='atencion-medica/servicios-odontologicos.html'
+    context_object_name = 'servicios'
+    
+class PacientesListView(LoginRequiredMixin, ListView):
+    model = User
+    template_name = 'atencion-medica/pacientes.html'
+    context_object_name = 'pacientes'
+    
+# class TurnosDetailView(LoginRequiredMixin, DetailView):
+#     model = Turnos
+#     template_name = 'templates/turnos_detail.html'
+#     context_object_name = 'det_turno'
+
+# class TurnosCreateView(LoginRequiredMixin, CreateView):
+#     model = Turnos
+#     template_name = 'templates/turnos_create.html'
+#     fields = '__all__'
+#     success_url = reverse_lazy('turnos_list')
+#     success_message = "El turno se ha reservado con éxito."
+
+#     def form_valid(self, form):
+#         messages.success(self.request, self.success_message)
+#         return super().form_valid(form)
+    
+# class TurnosUpdateView(LoginRequiredMixin, UpdateView):
+#     model = Turnos
+#     template_name = 'template/turnos_update.html'
+#     fields = '__all__'
+#     success_url = reverse_lazy('turnos_list')
+#     success_message = "El turno se ha actualizado con éxito"
+
+#     def form_valid(self,form):
+#         messages.success(self.request, self.success_message)
+#         return super().form_valid(form)
+    
+# class TurnosDeleteView(LoginRequiredMixin, DeleteView):
+#     model = Turnos
+#     template_name = 'template/turnos_confirm_delete.html'
+#     fields = '__all__'
+#     success_url = reverse_lazy('turnos_list')
+#     success_message = "El turno se ha eliminado con éxito"
+
+#     def form_valid(self,form):
+#         messages.success(self.request, self.success_message)
+#         return super().form_valid(form)
