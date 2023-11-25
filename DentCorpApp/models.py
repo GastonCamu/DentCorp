@@ -215,6 +215,7 @@ class PlanXCobertura(models.Model):
 class CoberturasXUsuario(models.Model):
     
     id_plan_cob = models.ForeignKey(PlanXCobertura, on_delete=models.PROTECT)
+    id_rol_usu = models.ForeignKey(Group, related_name='coberturas_usuarios', on_delete=models.PROTECT)
 
     def get_absolute_url(self):
         return reverse('infoCoberturasXUsuario', args=[str(self.id)])
