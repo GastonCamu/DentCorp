@@ -21,28 +21,15 @@
                 <option value="Medico">Medico</option>
             </select>
             <div>
-                <input type="search" placeholder="BUSCAR">
-                <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>
+                <form method="get">
+                    {{ form.as_p }}
+                    <input type="search" placeholder="BUSCAR">
+                    <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>                    
+                </form>
+
             </div>
         </form>
-        {% block boton_agregar %} {% endblock %}
-        {% block boton_modificar %} {% endblock %}
-        {% block boton_eliminar %} {% endblock %}
+        {% block botones %} {% endblock %}
         </div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Obtén todos los botones con la clase "modal-opener"
-        const modalOpeners = document.querySelectorAll('.modal-opener');
-
-        // Manejar la apertura de la ventana modal al hacer clic en cualquier botón con la clase "modal-opener"
-        modalOpeners.forEach(function (opener) {
-            opener.addEventListener('click', function () {
-                const modalId = this.getAttribute('data-modal-id');
-                const modal = new bootstrap.Modal(document.getElementById(modalId));
-                modal.show();
-            });
-        });
-    });
-</script>
 {% endblock %}
