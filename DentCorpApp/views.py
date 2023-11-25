@@ -5,7 +5,7 @@ from django.views.generic import  ListView, DetailView, DeleteView, CreateView,U
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
-from .models import Turnos
+from .models import Especialidades, Turnos
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
@@ -13,8 +13,8 @@ from django.shortcuts import render, redirect
 from .models import Consultorios
 from django.shortcuts import render
 from django.contrib import messages
-from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
-from .models import Provincias, Ciudades, User
+from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos, Especialidades
+from .models import Provincias, Ciudades, User, Especialidades
 from .forms import SearchForm
 
 @login_required
@@ -65,6 +65,15 @@ def consultorios(request):
     context = {}
     template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
+class EspecialidadesListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
+    model = Especialidades
+    template_name = 'atencion-medica/especialidades.html'
+    context_object_name = 'especialidades'
+    permission_required = ('DentCorpApp.view_especialidades')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 class PacientesListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = User
@@ -93,7 +102,7 @@ class ConsultoriosListView(PermissionRequiredMixin, LoginRequiredMixin, ListView
     model = Consultorios
     template_name = 'atencion-medica/consultorios.html'
     context_object_name = 'consultorios'
-    permission_required = 'DentCorpApp.view_consultorios'
+    permission_required = ('DentCorpApp.view_consultorios')
     
 class TurnosDetailView(PermissionRequiredMixin,LoginRequiredMixin, DetailView):
     model = Turnos
@@ -116,7 +125,7 @@ class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
 class TurnosUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     model = Turnos
     template_name = 'turnos/turnos_update.html'
-    fields = '__all__'     
+    fields = '__all__'
     success_url = reverse_lazy('turno')
     success_message = "El turno se ha actualizado con éxito"
     permission_required = 'DentCorpApp.change_turnos'
