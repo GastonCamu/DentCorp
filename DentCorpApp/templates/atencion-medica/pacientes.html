@@ -25,7 +25,27 @@
         {% endfor %}
     {% else %}
     <tr>
-        <td colspan="7">No hay pacientes registrados</td>
+        <td colspan="6">No hay pacientes registrados</td>
     </tr>
 {% endif %}
+{% endblock %}
+{% block botones %} 
+
+    <a href="">
+        <button>AGREGAR PACIENTES</button>
+    </a>
+    <a href="">
+        <button>MODIFICAR</button>           
+    </a>
+    <a href="">
+        <button>ELIMINAR</button>    
+    </a>
+
+    {% if turnos %}
+        {% for turno in turnos %}
+        
+        {% endfor %}
+    {% else %}
+
+    {% endif %}
 {% endblock %}

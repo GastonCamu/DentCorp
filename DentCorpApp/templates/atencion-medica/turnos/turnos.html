@@ -35,15 +35,21 @@
 {% endblock %}
 
 {% block botones %} 
+
     <a href="{% url 'turno_create' %}">
         <button>AGREGAR TURNO</button>
     </a>
+    <a href="">
+        <button>MODIFICAR</button>
+    </a>
     {% if turnos %}
         {% for turno in turnos %}
-            
+
         {% endfor %}
     {% else %}
-        <button>MODIFICAR</button> 
-        <button>ELIMINAR</button>
+
+    <a href="">
+         <button>ELIMINAR</button>       
+    </a>
     {% endif %}
 {% endblock %}

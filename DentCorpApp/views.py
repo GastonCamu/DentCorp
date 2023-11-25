@@ -102,6 +102,7 @@ def consultorios(request):
     context = {}
     template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
+
 class EspecialidadesListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
     model = Especialidades
     template_name = 'atencion-medica/especialidades.html'
@@ -162,14 +163,12 @@ class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     
 class TurnosUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     model = Turnos
-    template_name = 'turnos/turnos_update.html'
-    fields = '__all__'
-    success_url = reverse_lazy('turno')
     template_name = 'atencion-medica/turnos/turnos_update.html'
     fields = '__all__'     
     success_url = reverse_lazy('turnos')
     success_message = "El turno se ha actualizado con éxito"
     permission_required = 'DentCorpApp.change_turnos'
+    pk_url_kwarg = 'id'
 
     def form_valid(self,form):
         messages.success(self.request, self.success_message)
@@ -185,7 +184,8 @@ class TurnosDeleteView(PermissionRequiredMixin,LoginRequiredMixin, DeleteView):
     def form_valid(self,form):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
-    
+
+
 class SearchView(ListView):
     template_name = 'tu_template.html'
     context_object_name = 'results'
