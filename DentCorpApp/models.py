@@ -13,6 +13,7 @@ class Provincias(models.Model):
 
     class Meta:
         db_table = 'provincias'
+        verbose_name_plural = "Provincias"
 
 class Ciudades(models.Model):
     nom_ciu = models.CharField(max_length=20)
@@ -23,6 +24,7 @@ class Ciudades(models.Model):
 
     class Meta:
         db_table = 'ciudades'
+        verbose_name_plural = "Ciudades"
 
 class User(AbstractUser):
     user_permissions = models.ManyToManyField(Permission, related_name='DentCorpApp_users_permissions')
@@ -53,6 +55,7 @@ class User(AbstractUser):
     
     class Meta:
         db_table = 'users'
+        verbose_name_plural = "Usuarios"
         
     
 class Especialidades(models.Model):
@@ -63,6 +66,7 @@ class Especialidades(models.Model):
     
     class Meta:
         db_table = 'especialidades'
+        verbose_name_plural = "Especialidades"
     
 class Consultorios(models.Model):
     num_cons = models.CharField(max_length=3)
@@ -72,6 +76,7 @@ class Consultorios(models.Model):
     
     class Meta:
         db_table = 'consultorios'
+        verbose_name_plural = "Consultorios"
 
 class ServiciosOdontologicos(models.Model):
     nombre_serv_odon = models.CharField(max_length=20)
@@ -85,6 +90,7 @@ class ServiciosOdontologicos(models.Model):
 
     class Meta:
         db_table = 'servicios_odontologicos'
+        verbose_name_plural = "Servicios Odontológicos"
 
 class Planes(models.Model):
     nombre_plan = models.CharField(max_length=20)
@@ -94,6 +100,7 @@ class Planes(models.Model):
 
     class Meta:
         db_table = 'planes'
+        verbose_name_plural = "Planes"
 
 class Coberturas(models.Model):
     nom_cob = models.CharField(max_length=20)
@@ -103,6 +110,7 @@ class Coberturas(models.Model):
 
     class Meta:
         db_table = 'coberturas'
+        verbose_name_plural = "Coberturas"
 
 class PagosServExt(models.Model):
     nombre_serv = models.CharField(max_length=50)
@@ -115,6 +123,7 @@ class PagosServExt(models.Model):
         return f'{self.nombre_serv}, {self.fecha_cad_cont}'
     class Meta:
         db_table = 'pagos_serv_ext'
+        verbose_name_plural = "Pagos de servicios"
 
     
 class EspecXUsuario(models.Model):
@@ -131,6 +140,7 @@ class EspecXUsuario(models.Model):
     
     class Meta:
         db_table = 'espec_x_usuario'
+        verbose_name_plural = "Especialidades por Usuario"
 
 class AsignacionesConsultorio(models.Model):
     fecha_inicio_asig = models.DateTimeField()
@@ -146,6 +156,7 @@ class AsignacionesConsultorio(models.Model):
     
     class Meta:
         db_table = 'asignaciones_consultorio'
+        verbose_name_plural = "Asignación de Consultorios"
 
 class Cajas(models.Model):
     fecha_hr_ap_cj = models.DateTimeField()
@@ -163,6 +174,7 @@ class Cajas(models.Model):
     
     class Meta:
         db_table = 'cajas'
+        verbose_name_plural = "Cajas"
 
 class FacturasServExt(models.Model):
     link_fact = models.CharField(max_length=200)
@@ -181,6 +193,7 @@ class FacturasServExt(models.Model):
 
     class Meta:
         db_table = 'facturas_serv_ext'
+        verbose_name_plural = "Facturas de Servicios"
 
 
 class PlanXCobertura(models.Model):
@@ -196,6 +209,7 @@ class PlanXCobertura(models.Model):
 
     class Meta:
         db_table = 'planesxcobertura'
+        verbose_name_plural = "Planes x Coberturas"
 
 
 class CoberturasXUsuario(models.Model):
@@ -226,6 +240,7 @@ class Turnos(models.Model):
 
     class Meta:
         db_table = 'turnos'
+        verbose_name_plural = "Turnos"
 
 class FacturasOdontologicas(models.Model):
     costo_fact_pac = models.FloatField()
@@ -243,3 +258,4 @@ class FacturasOdontologicas(models.Model):
     
     class Meta:
         db_table = 'facturas_odontologicas'
+        verbose_name_plural = "Facturas Odontológicas"
