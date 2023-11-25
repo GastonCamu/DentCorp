@@ -1,4 +1,5 @@
 {% load static %}
+
 <header>
     <div class="empresa-logo">
         <img src="{% static 'assets/img/Logo-DentCorp.png' %}" alt="Logo DentCorp">
@@ -51,24 +52,28 @@
         </nav>
     </div>
     <div class="perfil">
+
+        
         <ul class="navbar-nav">
         <li class="nav-item dropdown">
             <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./assets/img/logo-perfil.jpg" alt="img perfil">
+                <!-- <img src="./assets/img/logo-perfil.jpg" alt="img perfil"> -->
+                
                 <div>
                     <p class="nombre-usuario">
-                        Leandro Castillo
+                        {{user.first_name}} {{user.last_name}}
                     </p>
                     <p class="rol">
-                        Administrativo
+                        Recepcionista
                     </p>
                 </div>
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="./pages/perfil/ajustes.html">Ajustes</a></li>
+                <li><a class="dropdown-item" href="{% url 'ajustes' %}">Ajustes</a></li>
                 <li><a class="dropdown-item" href="#">Cerrar Sesion</a></li>
             </ul>
         </li>
         </ul>
+
     </div>
 </header>

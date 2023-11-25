@@ -1,19 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %} Eliminación de Especialidad {% endblock %}
+{% block title %} Cancelar reserva {% endblock %}
 
 {% block content %}
-    <h1 class="my-3">Confirmar Eliminación</h1>
+    <h1 class="my-3">¿Confirmar cancelación?</h1>
     <hr>
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">¿Estás seguro de eliminar esta especialidad?</h4>
+                    <h4 class="card-title">¿Deseas cancelar esta reservación?</h4>
                     
-                    <p><strong>Especialidad:</strong> {{ especialidad.descripcion }}</p>
-                    <p><strong>Código de especialidad:</strong> {{ especialidad.id }}</p>
+                    <p><strong>Turno:</strong> {{ turno }}</p>
+                    <p><strong>Fecha:</strong> {{ turno.fecha_hr_turno }}</p>
+                    <p><strong>Servicio:</strong> {{ turno.serv }}</p>
                 </div>
 
                 <div class="card-footer">
@@ -21,7 +22,7 @@
                         {% csrf_token %}
 
                         <button type="submit" class="btn btn-danger">Eliminar</button>
-                        <a href="{% url 'ejemplar_list' %}" class="btn btn-secondary">Cancelar</a>
+                        <a href="{% url 'turnos' %}" class="btn btn-secondary">Cancelar</a>
                     </form>
                 </div>
             </div>

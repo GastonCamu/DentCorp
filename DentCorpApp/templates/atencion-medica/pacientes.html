@@ -10,13 +10,22 @@
     <td class="fila__titulo__contenido">Email</td>
     <td class="fila__titulo__contenido">Ciudad</td>
 {% endblock %}
+
 {% block contenido_tabla %} 
-<tr class="fila__contenido">
-    <td>44111222</td>
-    <td>Gaston</td>
-    <td>Camu</td>
-    <td>08 de octubre 341</td>
-    <td>camgas@gmail.com</td>
-    <td>Salta Capital</td>
-</tr>
+    {% if usuarios %}
+        {% for usuario in usuarios %}
+            <tr class="fila__contenido">
+                <td>{{ usuario.dni_usu }}</td>
+                <td>{{ usuario.first_name }}</td>
+                <td>{{ usuario.last_name }}</td>
+                <td>{{ usuario.dom_usu }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>{{ usuario.id_ciu.nom_ciu }}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+    <tr>
+        <td colspan="7">No hay pacientes registrados</td>
+    </tr>
+{% endif %}
 {% endblock %}

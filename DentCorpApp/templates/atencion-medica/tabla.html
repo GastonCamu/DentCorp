@@ -21,24 +21,15 @@
                 <option value="Medico">Medico</option>
             </select>
             <div>
-                <input type="search" placeholder="BUSCAR">
-                <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>
+                <form method="get">
+                    {{ form.as_p }}
+                    <input type="search" placeholder="BUSCAR">
+                    <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>                    
+                </form>
+
             </div>
         </form>
-        <button onclick="redirigir()">AGREGAR {% block boton_agregar_name %} {% endblock %}</button>
-        <button onclick="redir()">MODIFICAR</button> 
-        <button onclick="redirect()">ELIMINAR</button>
+        {% block botones %} {% endblock %}
         </div>
 </div>
-<script>
-    function redirigir() {
-        window.location.href = "{% url 'turno_create' %}";
-    };
-    function redirect() {
-        window.location.href = "{% url 'turno_delete' %}";
-    };
-    function redir() {
-        window.location.href = "{% url 'turno_update' %}";
-    };
- </script>
 {% endblock %}
