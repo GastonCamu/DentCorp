@@ -21,8 +21,8 @@ class Ciudades(models.Model):
 
 class User(AbstractUser):
     user_permissions = models.ManyToManyField(Permission, related_name='DentCorpApp_users_permissions')
-    # image = models.ImageField(upload_to='users/%Y/%m/%d', null=True, blank=True)
-    image = models.ImageField(upload_to='img/', null=True, blank=True)
+    image = models.ImageField(upload_to='users/image', null=True, blank=True)
+    # image = models.ImageField(upload_to='img/', null=True, blank=True)
     email = models.EmailField(_('email address'), unique=True)
     fecha_alta_usu = models.DateField(null=True, blank=True)
     fecha_baja_usu = models.DateField(null=True, blank=True)
