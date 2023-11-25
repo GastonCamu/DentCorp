@@ -3,34 +3,22 @@ from django.core.exceptions import ValidationError
 from DentCorpApp.models import Turnos
 
 from django import forms
-from .models import Turnos, User
+from .models import Turnos, User, Ciudades
 
 class TurnoForm(forms.ModelForm):
     class Meta:
         model = Turnos
         fields = ['fecha_hr_turno', 'autorizado', 'id_serv_odon', 'id_cob_usu', 'id_rol_usu', 'id_asig_cons']
 
-# class TurnoForm(forms.ModelForm):
-#     class Meta:
-#         model = Turnos
-#         fields = '__all__'  # Esto incluirá todos los campos del modelo en el formulario
 
-#     # Validacion personalizada (funcion por cada campo)
-#     def clean_titulo(self):
-#         titulo = self.cleaned_data.get('titulo')
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name','last_name','email', 'fecha_alta_usu', 'fecha_baja_usu', 'dni_usu', 'dom_usu', 'tel_usu', 'id_ciu']
 
-#         if 'hola' in titulo:
-#             raise ValidationError("El titulo no debe contener la palabra 'hola'")
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['fecha_alta_usu'].widget.attrs.update({'class': 'datepicker'})  # Añadir una clase para un datepicker, por ejemplo
 
-#         return titulo
-
-#     # Validacion personalizada (una funcion para todos los campos) 
-#     def clean(self):
-#         cleaned_data = super().clean()
-#         resumen = cleaned_data.get('resumen')
-
-#         if resumen:
-#             if 'mundo' in resumen:
-#                 self.add_error('resumen', "El resumen no debe contener la palabra 'mundo'")
-
-#         return cleaned_data
+class SearchForm(forms.Form):
+    search_term = forms.CharField(max_length=100, required=False)

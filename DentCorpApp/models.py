@@ -10,7 +10,10 @@ class Provincias(models.Model):
 
     def _str_(self):
         return f'{self.nom_prov}'
-    
+
+    class Meta:
+        verbose_name_plural = "Provincias"
+
 class Ciudades(models.Model):
     nom_ciu = models.CharField(max_length=20)
     id_prov = models.ForeignKey(Provincias, on_delete=models.DO_NOTHING)
@@ -18,6 +21,8 @@ class Ciudades(models.Model):
     def _str_(self):
         return f'{self.nom_ciu}'
 
+    class Meta:
+        verbose_name_plural = "Ciudades"
 
 class User(AbstractUser):
     user_permissions = models.ManyToManyField(Permission, related_name='DentCorpApp_users_permissions')
@@ -53,11 +58,17 @@ class Especialidades(models.Model):
     def _str_(self):
         return f'{self.nombre_espec}'
     
+    class Meta:
+        verbose_name_plural = "Especialidades"
+    
 class Consultorios(models.Model):
     num_cons = models.CharField(max_length=3)
 
     def _str_(self):
         return f'{self.num_cons}'
+    
+    class Meta:
+        verbose_name_plural = "Consultorios"
 
 class ServiciosOdontologicos(models.Model):
     nombre_serv_odon = models.CharField(max_length=20)
@@ -69,7 +80,8 @@ class ServiciosOdontologicos(models.Model):
     def _str_(self):
         return f'{self.nombre_serv_odon}, {self.costo_serv_odon}'
 
-
+    class Meta:
+        verbose_name_plural = "Servicios Odontológicos"
 
 class Planes(models.Model):
     nombre_plan = models.CharField(max_length=20)
@@ -77,11 +89,17 @@ class Planes(models.Model):
     def _str_(self):
         return f'{self.nombre_plan}'
 
+    class Meta:
+        verbose_name_plural = "Planes"
+
 class Coberturas(models.Model):
     nom_cob = models.CharField(max_length=20)
     
     def _str_(self):
         return f'{self.nom_cob}'
+
+    class Meta:
+        verbose_name_plural = "Coberturas"
 
 class PagosServExt(models.Model):
     nombre_serv = models.CharField(max_length=50)
@@ -96,7 +114,7 @@ class PagosServExt(models.Model):
     
 class EspecXUsuario(models.Model):
     matricula = models.IntegerField()
-    id_rol_usu = models.ForeignKey(Group, related_name='especialidad_usuario', on_delete=models.PROTECT)
+    id_rol_usu = models.ForeignKey(Group, related_name='especialidad_usuario', on_delete=models.PROTECT, db_column='id_rol_usu')
     id_espec = models.ForeignKey(Especialidades, on_delete=models.PROTECT, max_length=5)
 
     def get_absolute_url(self):
@@ -131,6 +149,9 @@ class Cajas(models.Model):
 
     def __str__(self):
         return f'{self.fecha_hr_ap_cj}, {self.fecha_hr_cr_cj}, {self.monto_ap_cj}, {self.monto_cr_cj}, {self.comentarios}'
+    
+    class Meta:
+        verbose_name_plural = "Cajas"
 
 class FacturasServExt(models.Model):
     link_fact = models.CharField(max_length=200)
@@ -145,18 +166,30 @@ class FacturasServExt(models.Model):
         return reverse('infoFacturasServExt', args=[str(self.id)])
 
     def __str__(self):
-        return self.nom_prov
+        return f'{self.link_fact}, {self.costo_fact}, {self.fecha_cad_fact}, {self.fecha_pago_fact}, {self.comprobante_pago}'
+
+    class Meta:
+        verbose_name_plural = "Facturas serv ext"
+
+    class Meta:
+        verbose_name_plural = "Facturas serv ext"
 
 class PlanXCobertura(models.Model):
     porcentaje_cob = models.CharField(max_length=3)
-    id_plan = models.ForeignKey(Planes, on_delete=models.PROTECT)
-    id_cob = models.ForeignKey(Coberturas, on_delete=models.PROTECT)
+    id_plan = models.ForeignKey(Planes, on_delete=models.PROTECT, db_column='id_plan')
+    id_cob = models.ForeignKey(Coberturas, on_delete=models.PROTECT, db_column='id_cob')
 
     def get_absolute_url(self):
         return reverse ('infoPanXCobertura', args=[str(self.id)])
 
     def __str__(self):
-        return self.porcentaje_cob
+        return f'{self.porcentaje_cob}'
+
+    class Meta:
+        verbose_name_plural = "Planes x Coberturas"
+
+    class Meta:
+        verbose_name_plural = "Planes x Coberturas"
 
 class CoberturasXUsuario(models.Model):
     
@@ -180,6 +213,9 @@ class Turnos(models.Model):
     def __str__(self):
         return f'{self.fecha_hr_turno}, {self.autorizado}'
 
+    class Meta:
+        verbose_name_plural = "Turnos"
+
 class FacturasOdontologicas(models.Model):
     costo_fact_pac = models.FloatField()
     costo_fact_cob = models.FloatField()
@@ -193,3 +229,6 @@ class FacturasOdontologicas(models.Model):
 
     def _str_(self):
         return f'{self.costo_fact_cob}, {self.costo_fact_pac}, {self.costo_total_fact_odon}'
+    
+    class Meta:
+        verbose_name_plural = "Facturas Odontológicas"

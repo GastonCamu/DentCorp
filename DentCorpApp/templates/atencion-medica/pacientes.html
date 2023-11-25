@@ -12,14 +12,14 @@
 {% endblock %}
 {% block example %} {% endblock %}
 {% block contenido_tabla %} 
-    {% for paciente in pacientes %}
+    {% for usuario in usuarios %}
         <tr class="fila__contenido">
-            <td>{{ paciente.dni_usu }}</td>
-            <td>{{ paciente.nom_usu }}</td>
-            <td>{{ paciente.ape_usu }}</td>
-            <td>{{ paciente.dom_usu }}</td>
-            <td>{{ paciente.email }}</td>
-            <!-- <td>{% if paciente.id_ciu %}{{ paciente.id_ciu.nombre_ciudad }}{% endif %}</td> -->
+            <td>{{ usuario.dni_usu }}</td>
+            <td>{{ usuario.first_name }}</td>
+            <td>{{ usuario.last_name }}</td>
+            <td>{{ usuario.dom_usu }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.id_ciu.nom_ciu }}</td>
         </tr>
     {% endfor %}
 {% endblock %}

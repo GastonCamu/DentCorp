@@ -87,10 +87,6 @@ def medicos(request):
     template_name = 'atencion-medica/medicos.html'
     return render(request, template_name)
 
-def pacientes(request):
-    context = {}
-    template_name = 'atencion-medica/pacientes.html'
-    return render(request, template_name)
 
 def servicios_odontologicos(request):
     context = {}
@@ -107,6 +103,16 @@ def consultorios(request):
     template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
 
+class PacientesListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
+    model = User
+    template_name = 'atencion-medica/pacientes.html'
+    context_object_name = 'usuarios'
+    permission_required = ('DentCorpApp.view_user',)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context    
+
 class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
     template_name = 'atencion-medica/turnos/turnos.html' 
@@ -118,7 +124,7 @@ class TurnosDetailView(PermissionRequiredMixin,LoginRequiredMixin, DetailView):
     template_name = 'atencion-medica/turnos/turnos_detail.html'
     template_name = 'atencion-medica/turnos/turnos_detail.html'
     context_object_name = 'turno'
-    permission_required = 'DentCorpApp.view_turnos'
+    permission_required = ('DentCorpApp.view_turnos',) 
 
 class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     model = Turnos
@@ -128,7 +134,7 @@ class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('turnos')
     success_url = reverse_lazy('turnos')
     success_message = "El turno se ha reservado con éxito."
-    permission_required = 'DentCorpApp.add_turnos'
+    permission_required = ('DentCorpApp.add_turnos',) 
 
     def form_valid(self, form):
         messages.success(self.request, self.success_message)
