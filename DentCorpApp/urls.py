@@ -7,7 +7,7 @@ urlpatterns = [
     path('especialidades/', EspecialidadesListView.as_view(), name = "especialidades"),
     path('medicos/', views.medicos, name = "medicos"),
     path('servicios-odontologicos/', ServiciosOdontologicosListView.as_view(), name = "servicios odontologicos"),
-    # path('consultorios/', views.consultorios, name = "consultorios"),
+    
     path('consultorios/', ConsultoriosListView.as_view(), name='consultorios'),
     path('pacientes/', PacientesListView.as_view(), name = "pacientes"),
     path('turnos/', TurnosListView.as_view(), name="turnos"),
