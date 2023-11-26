@@ -13,26 +13,49 @@ from django.shortcuts import render, redirect
 from .models import Consultorios, Especialidades, ServiciosOdontologicos, User, Turnos
 from django.shortcuts import render
 from django.contrib import messages
-from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos, Especialidades
-from .models import Provincias, Ciudades, User, Especialidades
-from .forms import SearchForm
+from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
+from .models import Provincias, Ciudades, User
+from .forms import SearchForm,UserProfileForm
 from django.contrib.auth.decorators import login_required
 
-# from .forms import CustomUserChangeForm
+from django.shortcuts import render
+from django.views.generic import ListView
+from .models import User
 
 
-# from django.http import JsonResponse
-# from django.contrib.auth.hashers import check_password
+class PacientesListView(ListView):
+    model = User
+    template_name = 'atencion-medica/pacientes/pacientes.html'
+    context_object_name = 'users'
+    def get_queryset(self):
+        
+        return User.objects.filter(is_superuser=False, groups__name='paciente')
 
+class PacientesCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
+    model = User
+    template_name = 'atencion-medica/pacientes/pacientes_create.html'
+    fields = '__all__'
+    success_url = reverse_lazy('pacientes')
+    success_message = "El paciente se ha registrado con éxito."
+    permission_required = ('DentCorpApp.add_user',) 
+    fields = ['dni_usu', 'first_name', 'last_name', 'username','dom_usu', 'email', 'id_ciu', 'password']
 
-# class UserListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
-#     model = User
-#     template_name = 'partials/navbar.html' 
-#     context_object_name = 'users'
+    def form_valid(self, form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)
 
-#     def get_queryset(self):
-#         return User.objects.filter(id=self.request.user.id)
-    
+class PacientesUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'atencion-medica/pacientes/pacientes_update.html'
+    fields = '__all__'     
+    success_url = reverse_lazy('pacientes')
+    success_message = "Los datos del paciente se han actualizado con éxito"
+    permission_required = 'DentCorpApp.change_user'
+    fields = ['dni_usu', 'first_name', 'last_name', 'username','dom_usu', 'email', 'id_ciu', 'password']
+
+    def form_valid(self,form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)    
 
 @login_required
 def base(request):
@@ -67,19 +90,23 @@ def actualizar_perfil(request):
 def ajustes(request):
     if request.method == 'POST':
         new_email = request.POST.get('email')
-        new_imagen = request.POST.get('imagen')
+        new_username=request.POST.get("username")
+        user_instance = User.objects.get(id=request.user.id)
+        user_form = UserProfileForm(request.POST or None, request.FILES or None, instance=user_instance)
         if new_email:
             request.user.email = new_email
             request.user.save()
             messages.success(request, 'Dirección de correo actualizada exitosamente.')
-            return redirect('ajustes')
-        if new_imagen:
-            request.user.imagen=new_imagen
+        if new_username:
+            request.user.username = new_username
             request.user.save()
-            messages.success(request, 'Foto de perfil actualizada exitosamente.')
-            return redirect('ajustes')
-    return render(request, 'ajustes/ajustes.html')
-
+            messages.success(request, 'Nombre de usuario actualizado exitosamente.')
+        if user_form.is_valid():
+            user_form.save()
+        return redirect('ajustes')
+    else:
+        user_form = UserProfileForm(instance=request.user)
+    return render(request, 'ajustes/ajustes.html', {'user_form': user_form})
 
 
 def medicos(request):
@@ -103,25 +130,7 @@ def consultorios(request):
     template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
 
-class EspecialidadesListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
-    model = Especialidades
-    template_name = 'atencion-medica/especialidades.html'
-    context_object_name = 'especialidades'
-    permission_required = ('DentCorpApp.view_especialidades')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-class PacientesListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
-    model = User
-    template_name = 'atencion-medica/pacientes.html'
-    context_object_name = 'usuarios'
-    permission_required = ('DentCorpApp.view_user',)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context    
 
 class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
@@ -226,45 +235,4 @@ class ServiciosOdontologicosListView(LoginRequiredMixin, ListView):
     template_name='atencion-medica/servicios-odontologicos.html'
     context_object_name = 'servicios'
     
-class PacientesListView(LoginRequiredMixin, ListView):
-    model = User
-    template_name = 'atencion-medica/pacientes.html'
-    context_object_name = 'pacientes'
     
-# class TurnosDetailView(LoginRequiredMixin, DetailView):
-#     model = Turnos
-#     template_name = 'templates/turnos_detail.html'
-#     context_object_name = 'det_turno'
-
-# class TurnosCreateView(LoginRequiredMixin, CreateView):
-#     model = Turnos
-#     template_name = 'templates/turnos_create.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha reservado con éxito."
-
-#     def form_valid(self, form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)
-    
-# class TurnosUpdateView(LoginRequiredMixin, UpdateView):
-#     model = Turnos
-#     template_name = 'template/turnos_update.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha actualizado con éxito"
-
-#     def form_valid(self,form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)
-    
-# class TurnosDeleteView(LoginRequiredMixin, DeleteView):
-#     model = Turnos
-#     template_name = 'template/turnos_confirm_delete.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha eliminado con éxito"
-
-#     def form_valid(self,form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)

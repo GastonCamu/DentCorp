@@ -30,6 +30,13 @@
                         <input type="text" class="form-control" id="dni" name="dni" placeholder="{{user.dni_usu}}" readonly>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label for="username" class="col-sm-2 col-form-label">Username:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="{{user.username}}"value="{{ user.username }}">
+                    </div>
+                </div>
     
                 <div class="form-group row">
                     <label for="ciudad" class="col-sm-2 col-form-label">Ciudad:</label>
@@ -67,11 +74,9 @@
 
         <div class="container mt-5">
             <h2 class="mb-4">Foto de Perfil</h2>
-            <form>
-                <div class="form-group">
-                    <label for="imagen">Seleccionar Imagen:</label>
-                    <input type="file" class="form-control-file" id="imagen" name="imagen" accept="image/*">
-                </div>
+            <form method="post" action="{% url 'ajustes' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ user_form.as_table }}
                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             </form>
         </div>
