@@ -18,6 +18,10 @@ from .models import Provincias, Ciudades, User
 from .forms import SearchForm
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.urls import reverse
+
 # from .forms import CustomUserChangeForm
 
 
@@ -205,6 +209,10 @@ class PacientesListView(LoginRequiredMixin, ListView):
     model = User
     template_name = 'atencion-medica/pacientes.html'
     context_object_name = 'pacientes'
+
+def cerrar_sesion(request):
+    logout(request)
+    return redirect(reverse('login'))
     
 # class TurnosDetailView(LoginRequiredMixin, DetailView):
 #     model = Turnos

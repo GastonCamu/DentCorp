@@ -14,4 +14,6 @@ urlpatterns = [
     path('turnos/reservar/', TurnosCreateView.as_view(), name="turno_create"),
     path('turno/modificar/<uuid:pk>/', TurnosUpdateView.as_view(), name="turno_update"),
     # path('turno/cancelar/', TurnosDeleteView.as_view(), name="turno_delete"),
+    path('cerrar_sesion/', views.cerrar_sesion, name="cerrar_sesion"),
+
 ]
