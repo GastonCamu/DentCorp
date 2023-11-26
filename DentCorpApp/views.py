@@ -22,6 +22,8 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from .models import User
 
+from django.contrib.auth.models import Group
+
 
 class PacientesListView(ListView):
     model = User
@@ -41,8 +43,12 @@ class PacientesCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView
     fields = ['dni_usu', 'first_name', 'last_name', 'username','dom_usu', 'email', 'id_ciu', 'password']
 
     def form_valid(self, form):
+        response = super().form_valid(form)
+        rol_paciente, _ = Group.objects.get_or_create(name='paciente')
+        form.instance.groups.add(rol_paciente)
+        
         messages.success(self.request, self.success_message)
-        return super().form_valid(form)
+        return response
 
 class PacientesUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     model = User
