@@ -28,7 +28,7 @@ class PacientesListView(ListView):
     template_name = 'atencion-medica/pacientes/pacientes.html'
     context_object_name = 'users'
     def get_queryset(self):
-        # Filtra los usuarios excluyendo aquellos que son superusuarios
+        
         return User.objects.filter(is_superuser=False, groups__name='paciente')
 
 class PacientesCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
@@ -40,21 +40,22 @@ class PacientesCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView
     permission_required = ('DentCorpApp.add_user',) 
     fields = ['dni_usu', 'first_name', 'last_name', 'username','dom_usu', 'email', 'id_ciu', 'password']
 
-# from .forms import CustomUserChangeForm
+    def form_valid(self, form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)
 
+class PacientesUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'atencion-medica/pacientes/pacientes_update.html'
+    fields = '__all__'     
+    success_url = reverse_lazy('pacientes')
+    success_message = "Los datos del paciente se han actualizado con éxito"
+    permission_required = 'DentCorpApp.change_user'
+    fields = ['dni_usu', 'first_name', 'last_name', 'username','dom_usu', 'email', 'id_ciu', 'password']
 
-# from django.http import JsonResponse
-# from django.contrib.auth.hashers import check_password
-
-
-# class UserListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
-#     model = User
-#     template_name = 'partials/navbar.html' 
-#     context_object_name = 'users'
-
-#     def get_queryset(self):
-#         return User.objects.filter(id=self.request.user.id)
-    
+    def form_valid(self,form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)    
 
 @login_required
 def base(request):
@@ -129,15 +130,7 @@ def consultorios(request):
     template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
 
-# class PacientesListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
-#     model = User
-#     template_name = 'atencion-medica/pacientes.html'
-#     context_object_name = 'usuarios'
-#     permission_required = ('DentCorpApp.view_user',)
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         return context    
 
 class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
@@ -228,40 +221,3 @@ class ServiciosOdontologicosListView(LoginRequiredMixin, ListView):
     context_object_name = 'servicios'
     
     
-# class TurnosDetailView(LoginRequiredMixin, DetailView):
-#     model = Turnos
-#     template_name = 'templates/turnos_detail.html'
-#     context_object_name = 'det_turno'
-
-# class TurnosCreateView(LoginRequiredMixin, CreateView):
-#     model = Turnos
-#     template_name = 'templates/turnos_create.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha reservado con éxito."
-
-#     def form_valid(self, form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)
-    
-# class TurnosUpdateView(LoginRequiredMixin, UpdateView):
-#     model = Turnos
-#     template_name = 'template/turnos_update.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha actualizado con éxito"
-
-#     def form_valid(self,form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)
-    
-# class TurnosDeleteView(LoginRequiredMixin, DeleteView):
-#     model = Turnos
-#     template_name = 'template/turnos_confirm_delete.html'
-#     fields = '__all__'
-#     success_url = reverse_lazy('turnos_list')
-#     success_message = "El turno se ha eliminado con éxito"
-
-#     def form_valid(self,form):
-#         messages.success(self.request, self.success_message)
-#         return super().form_valid(form)

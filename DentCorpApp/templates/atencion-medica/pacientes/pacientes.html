@@ -23,6 +23,11 @@
                 <td>{{ user.dom_usu }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.id_ciu.nom_ciu }}</td>
+                <td class="td_botones">
+                    <a href="{% url 'paciente_update' user.pk %}">
+                        <button class="td_botones__boton">MODIFICAR</button>
+                    </a>
+                </td>                
             </tr>
         {% endfor %}
     {% else %}
@@ -32,15 +37,7 @@
     {% endif %}
 {% endblock %}
 {% block botones %} 
-    <a href="{% url 'pacientes_create' %}">
+    <a href="{% url 'paciente_create' %}">
         <button>AGREGAR PACIENTE</button>
     </a>
-    {% if users %}
-        {% for user in users %}
-
-        {% endfor %}
-    {% else %}
-        <button>MODIFICAR</button> 
-        <button>ELIMINAR</button>
-    {% endif %}
 {% endblock %}
