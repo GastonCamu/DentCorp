@@ -27,6 +27,9 @@ class PacientesListView(ListView):
     model = User
     template_name = 'atencion-medica/pacientes/pacientes.html'
     context_object_name = 'users'
+    def get_queryset(self):
+        # Filtra los usuarios excluyendo aquellos que son superusuarios
+        return User.objects.filter(is_superuser=False)
 
 class PacientesCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     model = User
@@ -35,7 +38,7 @@ class PacientesCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView
     success_url = reverse_lazy('pacientes')
     success_message = "El paciente se ha registrado con éxito."
     permission_required = ('DentCorpApp.add_user',) 
-    fields = ['dni_usu', 'first_name', 'last_name', 'dom_usu', 'email', 'id_ciu', 'password']
+    fields = ['dni_usu', 'first_name', 'last_name', 'username','dom_usu', 'email', 'id_ciu', 'password']
 
 # from .forms import CustomUserChangeForm
 
