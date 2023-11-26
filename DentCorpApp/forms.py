@@ -18,7 +18,7 @@ class UserForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
-        self.fields['fecha_alta_usu'].widget.attrs.update({'class': 'datepicker'})  # Añadir una clase para un datepicker, por ejemplo
+        self.fields['fecha_alta_usu'].widget.attrs.update({'class': 'datepicker'})  
 
 class SearchForm(forms.Form):
     search_term = forms.CharField(max_length=100, required=False)

@@ -33,10 +33,10 @@ class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     fecha_alta_usu = models.DateField(null=True, blank=True)
     fecha_baja_usu = models.DateField(null=True, blank=True)
-    dni_usu = models.CharField(max_length=9)
-    dom_usu = models.CharField(max_length=50)
+    dni_usu = models.CharField(max_length=9, verbose_name='DNI')
+    dom_usu = models.CharField(max_length=50, verbose_name='Domicilio')
     tel_usu = models.CharField(max_length=14, verbose_name='teléfono' )
-    id_ciu = models.ForeignKey(Ciudades, null=True, blank=True, on_delete=models.PROTECT)
+    id_ciu = models.ForeignKey(Ciudades, null=True, blank=True, on_delete=models.PROTECT, verbose_name='Ciudad')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
