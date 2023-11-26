@@ -185,7 +185,6 @@ class TurnosDeleteView(PermissionRequiredMixin,LoginRequiredMixin, DeleteView):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
 
-
 class SearchView(ListView):
     template_name = 'tu_template.html'
     context_object_name = 'results'
