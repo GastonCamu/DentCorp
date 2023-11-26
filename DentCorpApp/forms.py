@@ -5,6 +5,16 @@ from DentCorpApp.models import Turnos
 from django import forms
 from .models import Turnos, User, Ciudades
 
+# from django import forms
+# from django.contrib.auth.forms import AuthenticationForm
+
+# class CustomAuthenticationForm(AuthenticationForm):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         # Agregar placeholders a los campos de usuario y contraseña
+#         self.fields['username'].widget.attrs['placeholder'] = 'Ingrese su usuario'
+#         self.fields['password'].widget.attrs['placeholder'] = 'Ingrese su contraseña'
+
 class TurnoForm(forms.ModelForm):
     class Meta:
         model = Turnos

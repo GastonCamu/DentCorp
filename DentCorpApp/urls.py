@@ -1,6 +1,8 @@
 from django.urls import path
 from DentCorpApp import views
 from .views import ConsultoriosListView, EspecialidadesListView, ServiciosOdontologicosListView, PacientesCreateView,PacientesListView, TurnosListView, TurnosCreateView, TurnosUpdateView
+from django.contrib.auth.views import LoginView
+
 urlpatterns = [
     path('base', views.base, name= "base"),
     path('ajustes', views.ajustes, name = "ajustes"),
@@ -16,4 +18,5 @@ urlpatterns = [
     # path('turno/cancelar/', TurnosDeleteView.as_view(), name="turno_delete"),
     path('pacientes/', PacientesListView.as_view(), name="pacientes"),
     path('pacientes/registrar/', PacientesCreateView.as_view(), name="pacientes_create"),
+    
 ]

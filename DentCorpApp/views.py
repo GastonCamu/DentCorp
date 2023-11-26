@@ -21,9 +21,23 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.generic import ListView
 from .models import User
+# from django.contrib.auth.views import LoginView
 
 
+# class CustomLoginView(LoginView):
+#     def form_valid(self, form):
+#         response = super().form_valid(form)
 
+#         # Acceder al perfil del usuario
+#         profile = self.request.user.profile
+
+#         # Verificamos el valor del campo created_by_admin
+        
+
+#         return response
+
+#     def get_success_url(self):
+#         return super().get_success_url()
 
 # from .forms import CustomUserChangeForm
 
@@ -59,18 +73,16 @@ def base(request):
     return render(request, 'base.html', context) #cambio momentaneo
 
 @login_required
-def actualizar_perfil(request):
-    if request.method == 'POST':
-        nuevo_email = request.POST.get('email')
+# def actualizar_perfil(request):
+#     if request.method == 'POST':
+#         nuevo_email = request.POST.get('email')
 
-        request.user.email = nuevo_email
-        request.user.save()
+#         request.user.email = nuevo_email
+#         request.user.save()
 
-        return redirect('nombre_de_la_url')
+#         return redirect('nombre_de_la_url')
 
-    return render(request, 'nombre_del_template.html')
-
-
+#     return render(request, 'nombre_del_template.html')
 def ajustes(request):
     if request.method == 'POST':
         new_email = request.POST.get('email')
