@@ -225,13 +225,13 @@ class CoberturasXUsuario(models.Model):
 
 
 class Turnos(models.Model):
-    fecha_hr_turno = models.DateTimeField()
-    autorizado = models.BooleanField()
-    id_serv_odon = models.ForeignKey(ServiciosOdontologicos, on_delete=models.PROTECT, verbose_name='servicios')
-    id_cob_usu = models.ForeignKey(CoberturasXUsuario, on_delete=models.PROTECT)
-    id_rol_usu = models.ForeignKey(Group, related_name='turnos_usuarios', on_delete=models.PROTECT)
-    id_asig_cons = models.ForeignKey(AsignacionesConsultorio, on_delete=models.PROTECT)
-    id_usu = models.ForeignKey(User, on_delete=models.PROTECT, related_name='turnos_usuarios', db_column='id_usu')
+    fecha_hr_turno = models.DateTimeField( verbose_name='Fecha y hora del turno')
+    autorizado = models.BooleanField(verbose_name='¿Esta autorizado?')
+    id_serv_odon = models.ForeignKey(ServiciosOdontologicos, on_delete=models.PROTECT, verbose_name='servicio')
+    id_cob_usu = models.ForeignKey(CoberturasXUsuario, on_delete=models.PROTECT, verbose_name='cobertura')
+    id_rol_usu = models.ForeignKey(Group, related_name='turnos_usuarios', on_delete=models.PROTECT, verbose_name='rol')
+    id_asig_cons = models.ForeignKey(AsignacionesConsultorio, on_delete=models.PROTECT, verbose_name='consultorio')
+    id_usu = models.ForeignKey(User, on_delete=models.PROTECT, related_name='turnos_usuarios', db_column='id_usu', verbose_name='paciente')
 
     def get_absolute_url(self):
         return reverse('infoTurnos', args=[str(self.id)])
