@@ -61,7 +61,7 @@
                 <img src="{% if user.image %}{{ user.image.url }}{% else %}{% static 'assets/img/default.png' %}{% endif %}" alt="{{ user.first_name }}">
                 <div>
                     <p class="nombre-usuario">
-                        {{user.first_name}} {{user.last_name}}
+                        {{user.first_name}} {{user.last_name}}                            
                     </p>
                     <p class="rol">
                         {{ user.groups.first.name }}

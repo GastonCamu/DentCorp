@@ -133,6 +133,8 @@ body main div.div-principal div.div-tabla table {
   background: rgb(210, 210, 255);
   width: 100%;
   border-collapse: collapse;
+  border-radius: collapse;
+  table-layout: fixed;
 }
 body main div.div-principal div.div-tabla table tr {
   cursor: pointer;
@@ -144,6 +146,7 @@ body main div.div-principal div.div-tabla table tr td {
   padding: 2px;
 }
 body main div.div-principal div.div-tabla table tr td.td_botones {
+  width: 100%;
   background: rgb(99, 99, 99);
 }
 body main div.div-principal div.div-tabla table tr td.td_botones button.td_botones__boton {
@@ -152,10 +155,10 @@ body main div.div-principal div.div-tabla table tr td.td_botones button.td_boton
   border: 1px solid rgb(0, 0, 0);
   border-radius: 50px;
   padding: 0.2vw;
-  width: 8vw;
+  width: 10vw;
   max-width: 100%;
   text-align: center;
-  font-size: 1.1vw;
+  font-size: 0.9vw;
   font-weight: bolder;
 }
 body main div.div-principal div.div-tabla table tr td.td_botones button.td_botones__boton:hover {
@@ -167,6 +170,7 @@ body main div.div-principal div.div-tabla table tr td.fila__titulo__contenido {
   color: white;
   font-weight: bolder;
   background: rgb(83, 83, 155);
+  font-size: 1.1vw;
 }
 body main div.div-principal div.div-tabla table tr td.fila__titulo__contenido:last-child {
   background: rgb(99, 99, 99);
