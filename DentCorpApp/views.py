@@ -18,6 +18,13 @@ from .models import Provincias, Ciudades, User
 from .forms import SearchForm
 from django.contrib.auth.decorators import login_required
 
+from django.shortcuts import render
+from django.views.generic import ListView
+from .models import User
+
+
+
+
 # from .forms import CustomUserChangeForm
 
 
@@ -103,15 +110,23 @@ def consultorios(request):
     template_name = 'atencion-medica/consultorios.html'
     return render(request, template_name)
 
-class PacientesListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
+class PacientesListView(ListView):
     model = User
-    template_name = 'atencion-medica/pacientes.html'
-    context_object_name = 'usuarios'
-    permission_required = ('DentCorpApp.view_user',)
+    template_name = 'atencion-medica/pacientes/pacientes.html'
+    context_object_name = 'users'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context    
+# class PacientesListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
+#     model = User
+#     template_name = 'atencion-medica/pacientes/pacientes.html' 
+#     context_object_name = 'pacientes'
+#     permission_required = 'DentCorpApp.view_turnos'
+class PacientesCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
+    model = User
+    template_name = 'atencion-medica/pacientes/pacientes_create.html'
+    fields = '__all__'
+    success_url = reverse_lazy('pacientes')
+    success_message = "El paciente se ha registrado con éxito."
+    permission_required = ('DentCorpApp.add_user',) 
 
 class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
@@ -201,10 +216,10 @@ class ServiciosOdontologicosListView(LoginRequiredMixin, ListView):
     template_name='atencion-medica/servicios-odontologicos.html'
     context_object_name = 'servicios'
     
-class PacientesListView(LoginRequiredMixin, ListView):
-    model = User
-    template_name = 'atencion-medica/pacientes.html'
-    context_object_name = 'pacientes'
+# class PacientesListView(LoginRequiredMixin, ListView):
+#     model = User
+#     template_name = 'atencion-medica/pacientes.html'
+#     context_object_name = 'pacientes'
     
 # class TurnosDetailView(LoginRequiredMixin, DetailView):
 #     model = Turnos

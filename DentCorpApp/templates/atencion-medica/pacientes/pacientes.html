@@ -1,0 +1,45 @@
+{% extends 'atencion-medica/tabla.html' %}
+{% block title %} PACIENTES {% endblock %}
+{% block name_page %} PACIENTES {% endblock%}
+{% block boton_agregar_name %} PACIENTE {% endblock%}
+{% block titulos_tabla %}
+    <td class="fila__titulo__contenido">DNI</td>
+    <td class="fila__titulo__contenido">Nombre</td>
+    <td class="fila__titulo__contenido">Apellido</td>
+    <td class="fila__titulo__contenido">Domicilio</td>
+    <td class="fila__titulo__contenido">Email</td>
+    <td class="fila__titulo__contenido">Ciudad</td>
+{% endblock %}
+
+{% block contenido_tabla %} 
+    
+    {% if users %}
+        {% for user in users %}
+            <tr class="fila__contenido">
+                <td>{{ user.dni_usu }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.dom_usu }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.id_ciu.nom_ciu }}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="7">No hay pacientes registrados</td>
+        </tr>
+    {% endif %}
+{% endblock %}
+{% block botones %} 
+    <a href="{% url 'pacientes_create' %}">
+        <button>AGREGAR PACIENTE</button>
+    </a>
+    {% if users %}
+        {% for user in users %}
+        
+        {% endfor %}
+    {% else %}
+        <button>MODIFICAR</button> 
+        <button>ELIMINAR</button>
+    {% endif %}
+{% endblock %}
