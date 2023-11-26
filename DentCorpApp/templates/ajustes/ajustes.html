@@ -74,11 +74,9 @@
 
         <div class="container mt-5">
             <h2 class="mb-4">Foto de Perfil</h2>
-            <form>
-                <div class="form-group">
-                    <label for="imagen">Seleccionar Imagen:</label>
-                    <input type="file" class="form-control-file" id="imagen" name="imagen" accept="image/*">
-                </div>
+            <form method="post" action="{% url 'ajustes' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ user_form.as_table }}
                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             </form>
         </div>
