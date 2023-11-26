@@ -1,7 +1,6 @@
 from django.urls import path
 from DentCorpApp import views
 from .views import ConsultoriosListView, EspecialidadesListView, ServiciosOdontologicosListView, PacientesCreateView,PacientesListView, TurnosListView, TurnosCreateView, TurnosUpdateView
-from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     path('base', views.base, name= "base"),
