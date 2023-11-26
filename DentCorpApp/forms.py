@@ -22,3 +22,8 @@ class UserForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     search_term = forms.CharField(max_length=100, required=False)
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['image']

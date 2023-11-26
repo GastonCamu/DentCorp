@@ -15,7 +15,7 @@ from django.shortcuts import render
 from django.contrib import messages
 from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
 from .models import Provincias, Ciudades, User
-from .forms import SearchForm
+from .forms import SearchForm,UserProfileForm
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
@@ -91,7 +91,8 @@ def ajustes(request):
     if request.method == 'POST':
         new_email = request.POST.get('email')
         new_username=request.POST.get("username")
-        new_imagen = request.POST.get('imagen')
+        user_instance = User.objects.get(id=request.user.id)
+        user_form = UserProfileForm(request.POST or None, request.FILES or None, instance=user_instance)
         if new_email:
             request.user.email = new_email
             request.user.save()
@@ -100,13 +101,12 @@ def ajustes(request):
             request.user.username = new_username
             request.user.save()
             messages.success(request, 'Nombre de usuario actualizado exitosamente.')
-        if new_imagen:
-            request.user.imagen=new_imagen
-            request.user.save()
-            messages.success(request, 'Foto de perfil actualizada exitosamente.')
+        if user_form.is_valid():
+            user_form.save()
         return redirect('ajustes')
-    return render(request, 'ajustes/ajustes.html')
-
+    else:
+        user_form = UserProfileForm(instance=request.user)
+    return render(request, 'ajustes/ajustes.html', {'user_form': user_form})
 
 
 def medicos(request):
