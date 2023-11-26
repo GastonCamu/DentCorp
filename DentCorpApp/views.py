@@ -29,7 +29,7 @@ class PacientesListView(ListView):
     context_object_name = 'users'
     def get_queryset(self):
         # Filtra los usuarios excluyendo aquellos que son superusuarios
-        return User.objects.filter(is_superuser=False)
+        return User.objects.filter(is_superuser=False, groups__name='paciente')
 
 class PacientesCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
     model = User
