@@ -67,17 +67,21 @@ def actualizar_perfil(request):
 def ajustes(request):
     if request.method == 'POST':
         new_email = request.POST.get('email')
+        new_username=request.POST.get("username")
         new_imagen = request.POST.get('imagen')
         if new_email:
             request.user.email = new_email
             request.user.save()
             messages.success(request, 'Dirección de correo actualizada exitosamente.')
-            return redirect('ajustes')
+        if new_username:
+            request.user.username = new_username
+            request.user.save()
+            messages.success(request, 'Nombre de usuario actualizado exitosamente.')
         if new_imagen:
             request.user.imagen=new_imagen
             request.user.save()
             messages.success(request, 'Foto de perfil actualizada exitosamente.')
-            return redirect('ajustes')
+        return redirect('ajustes')
     return render(request, 'ajustes/ajustes.html')
 
 
