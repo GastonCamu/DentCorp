@@ -143,10 +143,33 @@ body main div.div-principal div.div-tabla table tr td {
   border: 1px solid rgb(192, 192, 252);
   padding: 2px;
 }
+body main div.div-principal div.div-tabla table tr td.td_botones {
+  background: rgb(99, 99, 99);
+}
+body main div.div-principal div.div-tabla table tr td.td_botones button.td_botones__boton {
+  margin: 0.1vw;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 50px;
+  padding: 0.2vw;
+  width: 8vw;
+  max-width: 100%;
+  text-align: center;
+  font-size: 1.1vw;
+  font-weight: bolder;
+}
+body main div.div-principal div.div-tabla table tr td.td_botones button.td_botones__boton:hover {
+  background-color: rgb(168, 168, 235);
+  border: 1px solid rgb(0, 0, 255);
+  transition: background 300ms;
+}
 body main div.div-principal div.div-tabla table tr td.fila__titulo__contenido {
   color: white;
   font-weight: bolder;
   background: rgb(83, 83, 155);
+}
+body main div.div-principal div.div-tabla table tr td.fila__titulo__contenido:last-child {
+  background: rgb(99, 99, 99);
 }
 body main div.div-principal div.div-tabla table tr.fila__titulo {
   -webkit-user-select: none;
@@ -340,8 +363,6 @@ body footer p {
   }
   body main div.div-principal div.div-tabla table {
     width: 100%;
-    border-radius: collapse;
-    table-layout: fixed;
   }
   body main div.div-principal div.div-tabla table tr {
     font-size: 8px;
@@ -562,8 +583,26 @@ body footer p {
     max-height: 250px;
     width: 65%;
   }
+  body main div.div-principal div.div-tabla table {
+    border-radius: collapse;
+    table-layout: fixed;
+  }
   body main div.div-principal div.div-tabla table tr td {
     padding: 1px;
+  }
+  body main div.div-principal div.div-tabla table tr td.td_botones {
+    background: rgb(99, 99, 99);
+  }
+  body main div.div-principal div.div-tabla table tr td.td_botones button.td_botones__boton {
+    margin: 0.1vw;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 50px;
+    padding: 0.2vw;
+    width: 5.4vw;
+    max-width: 100%;
+    text-align: center;
+    font-size: 0.8vw;
+    font-weight: bolder;
   }
   body main div.div-principal div.div-tabla table tr.selected {
     border-top: 2px solid black;

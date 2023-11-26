@@ -167,10 +167,34 @@ body {
                             border: 1px solid rgb(192, 192, 252);
                             padding: 2px;
                         }
+                        td.td_botones {
+                            background: rgb(99, 99, 99);
+                            button.td_botones__boton {
+                                margin: 0.1vw;
+                                background-color: rgb(255, 255, 255);
+                                border: 1px solid rgb(0, 0, 0);
+                                border-radius: 50px;
+                                padding: 0.2vw;
+                                width: 8vw;
+                                max-width: 100%;
+                                text-align: center;
+                                font-size: 1.1vw;
+                                font-weight: bolder;
+                            }
+                            button.td_botones__boton:hover {
+                                background-color: rgb(168, 168, 235);
+                                border: 1px solid rgb(0, 0, 255);
+                                transition: background 300ms;
+                            }
+                        }
+
                         td.fila__titulo__contenido {
                             color: white;
                             font-weight: bolder;
                             background: rgb(83, 83, 155);
+                        }
+                        td.fila__titulo__contenido:last-child {
+                            background: rgb(99, 99, 99);
                         }
                     }
                     tr.fila__titulo {
@@ -399,8 +423,6 @@ body {
 
                     table {
                         width: 100%;
-                        border-radius: collapse;
-                        table-layout: fixed;
                         tr {
                             font-size: 8px;
                             td {
@@ -750,11 +772,31 @@ body {
                     width: 65%;
 
                     table {
+                        border-radius: collapse;
+                        table-layout: fixed;
                         tr {
         
                             td {
                                 padding: 1px;
                             }
+
+                            td.td_botones {
+                                background: rgb(99, 99, 99);
+                                button.td_botones__boton {
+                                    margin: 0.1vw;
+                                    border: 1px solid rgb(0, 0, 0);
+                                    border-radius: 50px;
+                                    padding: 0.2vw;
+                                    width: 5.4vw;
+                                    max-width: 100%;
+                                    text-align: center;
+                                    font-size: 0.8vw;
+                                    font-weight: bolder;
+                                }
+                                button.td_botones__boton:hover {
+                                }
+                            }
+
                             td.fila__titulo__contenido {
                             }
                         }

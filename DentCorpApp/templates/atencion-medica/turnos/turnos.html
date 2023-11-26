@@ -11,6 +11,7 @@
     <td class="fila__titulo__contenido">Médico</td>
     <td class="fila__titulo__contenido">Cobertura</td>
     <td class="fila__titulo__contenido">Consultorio Asignado</td>
+    <td class="fila__titulo__contenido">BOTONES</td>
 {% endblock %}
 
 {% block contenido_tabla %} 
@@ -25,12 +26,12 @@
                 <td>{{ turno.id_asig_cons.id_espec_usu.id_usu.first_name }} {{ turno.id_asig_cons.id_espec_usu.id_usu.last_name }}</td>
                 <td>{{ turno.id_cob_usu.id_plan_cob.id_cob.nom_cob }}</td>
                 <td>{{ turno.id_asig_cons.id_cons.num_cons }}</td>
-                <td>
+                <td class="td_botones">
                     <a href="{% url 'turno_update' turno.pk %}">
-                        <button>MODIFICAR</button> 
+                        <button class="td_botones__boton">MODIFICAR</button> 
                     </a>
                     <a href="{% url 'turno_delete' turno.pk %}">
-                        <button>CANCELAR</button>
+                        <button class="td_botones__boton">CANCELAR</button>
                     </a>
                 </td>
             </tr>
