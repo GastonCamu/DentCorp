@@ -35,6 +35,7 @@ class PacientesCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView
     success_url = reverse_lazy('pacientes')
     success_message = "El paciente se ha registrado con éxito."
     permission_required = ('DentCorpApp.add_user',) 
+    fields = ['dni_usu', 'first_name', 'last_name', 'dom_usu', 'email', 'id_ciu', 'password']
 
 # from .forms import CustomUserChangeForm
 
