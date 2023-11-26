@@ -25,6 +25,14 @@
                 <td>{{ turno.id_asig_cons.id_espec_usu.id_usu.first_name }} {{ turno.id_asig_cons.id_espec_usu.id_usu.last_name }}</td>
                 <td>{{ turno.id_cob_usu.id_plan_cob.id_cob.nom_cob }}</td>
                 <td>{{ turno.id_asig_cons.id_cons.num_cons }}</td>
+                <td>
+                    <a href="{% url 'turno_update' turno.pk %}">
+                        <button>MODIFICAR</button> 
+                    </a>
+                    <a href="{% url 'turno_delete' turno.pk %}">
+                        <button>CANCELAR</button>
+                    </a>
+                </td>
             </tr>
         {% endfor %}
     {% else %}
@@ -38,12 +46,4 @@
     <a href="{% url 'turno_create' %}">
         <button>AGREGAR TURNO</button>
     </a>
-    {% if turnos %}
-        {% for turno in turnos %}
-            
-        {% endfor %}
-    {% else %}
-        <button>MODIFICAR</button> 
-        <button>ELIMINAR</button>
-    {% endif %}
 {% endblock %}

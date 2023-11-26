@@ -10,18 +10,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">¿Deseas cancelar esta reservación?</h4>
-                    
-                    <p><strong>Turno:</strong> {{ turno }}</p>
-                    <p><strong>Fecha:</strong> {{ turno.fecha_hr_turno }}</p>
-                    <p><strong>Servicio:</strong> {{ turno.serv }}</p>
-                </div>
+                    <h4 class="card-title">¿Deseas cancelar este turno?</h4>
 
                 <div class="card-footer">
                     <form method="POST" action=".">
                         {% csrf_token %}
 
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <button type="submit" class="btn btn-danger">Cancelar</button>
                         <a href="{% url 'turnos' %}" class="btn btn-secondary">Cancelar</a>
                     </form>
                 </div>

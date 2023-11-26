@@ -35,7 +35,7 @@ class User(AbstractUser):
     fecha_baja_usu = models.DateField(null=True, blank=True)
     dni_usu = models.CharField(max_length=9)
     dom_usu = models.CharField(max_length=50)
-    tel_usu = models.CharField(max_length=14)
+    tel_usu = models.CharField(max_length=14, verbose_name='teléfono' )
     id_ciu = models.ForeignKey(Ciudades, null=True, blank=True, on_delete=models.PROTECT)
 
     USERNAME_FIELD = 'email'
@@ -227,7 +227,7 @@ class CoberturasXUsuario(models.Model):
 class Turnos(models.Model):
     fecha_hr_turno = models.DateTimeField()
     autorizado = models.BooleanField()
-    id_serv_odon = models.ForeignKey(ServiciosOdontologicos, on_delete=models.PROTECT)
+    id_serv_odon = models.ForeignKey(ServiciosOdontologicos, on_delete=models.PROTECT, verbose_name='servicios')
     id_cob_usu = models.ForeignKey(CoberturasXUsuario, on_delete=models.PROTECT)
     id_rol_usu = models.ForeignKey(Group, related_name='turnos_usuarios', on_delete=models.PROTECT)
     id_asig_cons = models.ForeignKey(AsignacionesConsultorio, on_delete=models.PROTECT)
