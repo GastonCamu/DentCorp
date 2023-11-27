@@ -29,6 +29,7 @@ class PacientesListView(ListView):
     model = User
     template_name = 'atencion-medica/pacientes/pacientes.html'
     context_object_name = 'users'
+    permission_required = ('DentCorpApp.view_user',) 
     def get_queryset(self):
         
         return User.objects.filter(is_superuser=False, groups__name='paciente')
@@ -93,6 +94,7 @@ def actualizar_perfil(request):
     return render(request, 'nombre_del_template.html')
 
 
+@login_required
 def ajustes(request):
     if request.method == 'POST':
         new_email = request.POST.get('email')
@@ -115,22 +117,25 @@ def ajustes(request):
     return render(request, 'ajustes/ajustes.html', {'user_form': user_form})
 
 
+@login_required
 def medicos(request):
     context = {}
     template_name = 'atencion-medica/medicos.html'
     return render(request, template_name)
 
-
+@login_required
 def servicios_odontologicos(request):
     context = {}
     template_name = 'atencion-medica/servicios-odontologicos.html'
     return render(request, template_name)
 
+@login_required
 def especialidades(request):
     context = {}
     template_name = 'atencion-medica/especialidades.html'
     return render(request, template_name)
 
+@login_required
 def consultorios(request):
     context = {}
     template_name = 'atencion-medica/consultorios.html'
@@ -211,19 +216,22 @@ class SearchView(ListView):
         return context
 
     
-class ConsultoriosListView(LoginRequiredMixin, ListView):
+class ConsultoriosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Consultorios
     template_name = 'atencion-medica/consultorios.html'
     context_object_name = 'consultorios'
+    permission_required = ('DentCorpApp.view_consultorios',) 
 
-class EspecialidadesListView(LoginRequiredMixin, ListView):
+class EspecialidadesListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Especialidades
     template_name='atencion-medica/especialidades.html'
     context_object_name = 'especialidades'
+    permission_required = ('DentCorpApp.view_especialidades',) 
 
-class ServiciosOdontologicosListView(LoginRequiredMixin, ListView):
+class ServiciosOdontologicosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = ServiciosOdontologicos
     template_name='atencion-medica/servicios-odontologicos.html'
     context_object_name = 'servicios'
+    permission_required = ('DentCorpApp.view_serviciosodontologicos',) 
     
     
