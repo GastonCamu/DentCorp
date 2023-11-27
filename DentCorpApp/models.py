@@ -20,7 +20,7 @@ class Ciudades(models.Model):
     id_prov = models.ForeignKey(Provincias, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return f'{self.nom_ciu}'
+        return f'{self.nom_ciu} {self.id_prov.nom_prov}'
 
     class Meta:
         db_table = 'ciudades'
@@ -44,7 +44,7 @@ class User(AbstractUser):
         return reverse('infoUsuarios', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.dni_usu}, {self.dom_usu}, {self.tel_usu}, {self.email}'
+        return f'{self.dni_usu}, {self.dom_usu}, {self.tel_usu}, {self.email} '
     
     class Meta:
         db_table = 'users'
@@ -79,7 +79,7 @@ class ServiciosOdontologicos(models.Model):
         return reverse('serviciosInfo', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.nombre_serv_odon}, {self.costo_serv_odon}'
+        return f'{self.nombre_serv_odon}, ${self.costo_serv_odon}'
 
     class Meta:
         db_table = 'servicios_odontologicos'
@@ -129,7 +129,7 @@ class EspecXUsuario(models.Model):
         return reverse('infoEspecXUsuario', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.matricula}'
+        return f'{self.matricula} {self.id_usu.first_name} {self.id_usu.last_name} {self.id_espec.nombre_espec} {self.id_rol_usu}'
     
     class Meta:
         db_table = 'espec_x_usuario'
@@ -145,7 +145,7 @@ class AsignacionesConsultorio(models.Model):
         return reverse('asignacionesConsultorio', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.fecha_inicio_asig}, {self.fecha_fin_asig}'
+        return f'{self.fecha_inicio_asig}, {self.fecha_fin_asig} {self.id_cons.num_cons} {self.id_espec_usu.id_espec} {self.id_espec_usu.id_rol_usu} {self.id_espec_usu.id_usu.first_name} {self.id_espec_usu.id_usu.last_name}'
     
     class Meta:
         db_table = 'asignaciones_consultorio'
@@ -163,7 +163,7 @@ class Cajas(models.Model):
         return reverse('infoCajas', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.fecha_hr_ap_cj}, {self.fecha_hr_cr_cj}, {self.monto_ap_cj}, {self.monto_cr_cj}, {self.comentarios}'
+        return f'{self.fecha_hr_ap_cj}, {self.fecha_hr_cr_cj}, {self.monto_ap_cj}, {self.monto_cr_cj}, {self.comentarios} {self.id_rol_usu}'
     
     class Meta:
         db_table = 'cajas'
@@ -182,7 +182,7 @@ class FacturasServExt(models.Model):
         return reverse('infoFacturasServExt', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.link_fact}, {self.costo_fact}, {self.fecha_cad_fact}, {self.fecha_pago_fact}, {self.comprobante_pago}'
+        return f'{self.link_fact}, {self.costo_fact}, {self.fecha_cad_fact}, {self.fecha_pago_fact}, {self.comprobante_pago} {self.id_caja.id_rol_usu}'
 
     class Meta:
         db_table = 'facturas_serv_ext'
@@ -198,7 +198,7 @@ class PlanXCobertura(models.Model):
         return reverse ('infoPanXCobertura', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.porcentaje_cob}'
+        return f'{self.porcentaje_cob} {self.id_plan.nombre_plan} {self.id_cob.nom_cob}'
 
     class Meta:
         db_table = 'planesxcobertura'
@@ -211,7 +211,7 @@ class CoberturasXUsuario(models.Model):
     id_rol_usu = models.ForeignKey(Group, related_name='coberturas_usuarios', on_delete=models.PROTECT)
 
     def __str__(self):
-        return f'{self.id_plan_cob}'
+        return f'{self.id_plan_cob} {self.id_rol_usu}'
 
     def get_absolute_url(self):
         return reverse('infoCoberturasXUsuario', args=[str(self.id)])
@@ -233,7 +233,7 @@ class Turnos(models.Model):
         return reverse('infoTurnos', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.fecha_hr_turno}, {self.autorizado}'
+        return f'{self.fecha_hr_turno}, {self.autorizado} {self.id_serv_odon.nombre_serv_odon} {self.id_cob_usu.id_plan_cob.id_cob.nom_cob} {self.id_cob_usu.id_plan_cob.id_plan.nombre_plan} {self.id_asig_cons.id_cons} {self.id_asig_cons.id_cons.num_cons}'
 
     class Meta:
         db_table = 'turnos'
@@ -251,7 +251,7 @@ class FacturasOdontologicas(models.Model):
         return reverse('facturasOdontologicas', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.costo_fact_cob}, {self.costo_fact_pac}, {self.costo_total_fact_odon}'
+        return f'{self.costo_fact_cob}, {self.costo_fact_pac}, {self.costo_total_fact_odon} {self.fecha_fact_odon} {self.id_turno.id_usu.first_name} {self.id_turno.id_usu.last_name} {self.id_caja}'
     
     class Meta:
         db_table = 'facturas_odontologicas'
