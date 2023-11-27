@@ -259,3 +259,6 @@ class FacturasOdontologicas(models.Model):
     class Meta:
         db_table = 'facturas_odontologicas'
         verbose_name_plural = "Facturas Odontológicas"
+    
+    
+    

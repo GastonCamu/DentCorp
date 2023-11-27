@@ -21,4 +21,5 @@ class UserForm(forms.ModelForm):
         self.fields['fecha_alta_usu'].widget.attrs.update({'class': 'datepicker'})  # Añadir una clase para un datepicker, por ejemplo
 
 class SearchForm(forms.Form):
-    search_term = forms.CharField(max_length=100, required=False)
+    search_term = forms.CharField(required=False)
+    filtro = forms.CharField(required=False)

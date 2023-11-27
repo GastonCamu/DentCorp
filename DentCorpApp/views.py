@@ -17,6 +17,7 @@ from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologi
 from .models import Provincias, Ciudades, User
 from .forms import SearchForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # from .forms import CustomUserChangeForm
 
@@ -159,33 +160,7 @@ class TurnosDeleteView(PermissionRequiredMixin,LoginRequiredMixin, DeleteView):
     def form_valid(self,form):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
-    
-class SearchView(ListView):
-    template_name = 'tu_template.html'
-    context_object_name = 'results'
-    form_class = SearchForm
-
-    def get_queryset(self):
-        form = self.form_class(self.request.GET)
-        if form.is_valid():
-            search_term = form.cleaned_data.get('search_term')
-            if search_term:
-                queryset = (
-                    Provincias.objects.filter(nom_prov__icontains=search_term) |
-                    Ciudades.objects.filter(nom_ciu__icontains=search_term) |
-                    User.objects.filter(dni_usu__icontains=search_term) |
-                    User.objects.filter(dom_usu__icontains=search_term) |
-                    User.objects.filter(tel_usu__icontains=search_term)
-                )
-                return queryset
-        return []
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = self.form_class(self.request.GET)
-        return context
-
-    
+     
 class ConsultoriosListView(LoginRequiredMixin, ListView):
     model = Consultorios
     template_name = 'atencion-medica/consultorios.html'
@@ -206,6 +181,10 @@ class PacientesListView(LoginRequiredMixin, ListView):
     template_name = 'atencion-medica/pacientes.html'
     context_object_name = 'pacientes'
     
+def index(request):
+    conspaci=Turnos.objects.filter(estado__exact='d')
+    
+
 # class TurnosDetailView(LoginRequiredMixin, DetailView):
 #     model = Turnos
 #     template_name = 'templates/turnos_detail.html'
