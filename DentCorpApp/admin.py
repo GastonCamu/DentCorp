@@ -4,46 +4,58 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Permission
 
 class UserAdmin(UserAdmin):
-    list_display = ('username', 'first_name', 'last_name','dni_usu','dom_usu','tel_usu',)
+    list_display = ('username', 'first_name', 'last_name','dni_usu','dom_usu',)
 
 class CiudadesAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('nom_ciu','id_prov',)
+
+    # def get_provincias (self, obj):
+    #     return obj.id_prov_id.nombre_prov
+    # get_provincias.short_description = 'Provincias'
 
 class ProvinciasAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('nom_prov',)
 
 class CoberturasAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('nom_cob',)
 
 class CajasAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('fecha_hr_ap_cj', 'fecha_hr_cr_cj', 'monto_ap_cj', 'monto_cr_cj', 'comentarios', 'id_rol_usu',)
 
 class CoberturasXUsuarioAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id_plan_cob', 'id_rol_usu',)
 
 class ConsultoriosAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('num_cons',)
 
 class AsignacionesConsultorioAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('fecha_inicio_asig', 'fecha_fin_asig', 'get_consultorios', 'get_especialidades',)
+
+    def get_consultorios(self, obj):
+        return obj.id_cons_id.num_cons if obj.id_cons_id else None
+    get_consultorios.short_description = 'Número de Consultorio'
+
+    def get_especialidades(self, obj):
+        return obj.id_espec_usu_id.id_espec.nombre_espec if obj.id_cons_usu_id else None
+    get_especialidades.short_description = 'Especialidad'
 
 class EspecialidadesAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('nombre_espec',)
 
 class EspecXUsuarioAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('matricula',);
 
 class PagosServExtAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('nombre_serv', 'fecha_cad_cont',)
 
 class FacturasServExtAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('link_fact', 'costo_fact', 'fecha_cad_fact', 'fecha_pago_fact', 'comprobante_pago', 'id_caja', 'id_serv_ext',)
 
 class ServiciosOdontologicosAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('nombre_serv_odon', 'costo_serv_odon',)
 
 class TurnosAdmin(admin.ModelAdmin):
-    list_display = ('fecha_hr_turno', 'autorizado', 'get_servicio_odontologico', 'get_cobertura_usuario','get_plan_cob', 'get_rol_usuario', 'get_asignacion_consultorio')
+    list_display = ('fecha_hr_turno', 'autorizado', 'get_servicio_odontologico', 'get_cobertura_usuario','get_plan_cob', 'get_rol_usuario', 'get_asignacion_consultorio',)
 
     def get_servicio_odontologico(self, obj):
         return obj.id_serv_odon.nombre_serv_odon if obj.id_serv_odon else None
@@ -52,7 +64,6 @@ class TurnosAdmin(admin.ModelAdmin):
     def get_cobertura_usuario(self, obj):
         return obj.id_cob_usu.id_plan_cob.id_cob.nom_cob if obj.id_cob_usu else None
     get_cobertura_usuario.short_description = 'Cobertura'
-
 
     def get_rol_usuario(self, obj):
         return obj.id_rol_usu.name if obj.id_rol_usu else None
@@ -67,13 +78,15 @@ class TurnosAdmin(admin.ModelAdmin):
     get_plan_cob.short_description = "Tipo de plan"
 
 class PlanesAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('nombre_plan',);
 
 class PlanXCoberturaAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('porcentaje_cob', 'id_plan', 'id_cob',)
+
+    
 
 class FacturasOdontologicasAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('costo_fact_pac', 'costo_fact_cob', 'costo_total_fact_odon', 'fecha_fact_odon', 'id_turno', 'id_caja',)
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Ciudades, CiudadesAdmin)
