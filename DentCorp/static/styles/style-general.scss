@@ -245,7 +245,7 @@ body {
                         cursor: pointer;
                     }
 
-                    div.buscar {
+                    div {
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -261,7 +261,8 @@ body {
                             text-align: center;
                         }
                         button {
-                            height: 1px;
+                            width: 2.3vw;
+                            height: 2.3vw;
                             border: 1px solid rgb(255, 255, 255);
                             background-color: white;
                             border-radius: 50%;
@@ -270,6 +271,8 @@ body {
                             padding: 0px;
 
                             img {
+                                width: 2.3vw;
+                                height: 2.3vw;
                                 padding: 5px;
                             }
                         }

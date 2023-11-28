@@ -216,26 +216,27 @@ body main div.div-principal div.div-botones form select option[value=Default] {
 body main div.div-principal div.div-botones form select:hover {
   cursor: pointer;
 }
-body main div.div-principal div.div-botones form div.buscar {
+body main div.div-principal div.div-botones form div {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-body main div.div-principal div.div-botones form div.buscar input {
+body main div.div-principal div.div-botones form div input {
   outline: none;
   border: 0;
   border-radius: 5px;
   width: 150px;
   height: 30px;
 }
-body main div.div-principal div.div-botones form div.buscar input::-moz-placeholder {
+body main div.div-principal div.div-botones form div input::-moz-placeholder {
   text-align: center;
 }
-body main div.div-principal div.div-botones form div.buscar input::placeholder {
+body main div.div-principal div.div-botones form div input::placeholder {
   text-align: center;
 }
-body main div.div-principal div.div-botones form div.buscar button {
-  height: 1px;
+body main div.div-principal div.div-botones form div button {
+  width: 2.3vw;
+  height: 2.3vw;
   border: 1px solid rgb(255, 255, 255);
   background-color: white;
   border-radius: 50%;
@@ -243,7 +244,9 @@ body main div.div-principal div.div-botones form div.buscar button {
   margin-left: 4px;
   padding: 0px;
 }
-body main div.div-principal div.div-botones form div.buscar button img {
+body main div.div-principal div.div-botones form div button img {
+  width: 2.3vw;
+  height: 2.3vw;
   padding: 5px;
 }
 body main div.div-principal div.div-botones button {
@@ -644,4 +647,4 @@ body footer p {
   body footer p {
     font-size: 14px;
   }
-}/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style-general.css.map */
