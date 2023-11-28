@@ -245,7 +245,7 @@ body {
                         cursor: pointer;
                     }
 
-                    div {
+                    div.buscar {
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -261,11 +261,11 @@ body {
                             text-align: center;
                         }
                         button {
+                            height: 1px;
                             border: 1px solid rgb(255, 255, 255);
                             background-color: white;
                             border-radius: 50%;
                             outline: none;
-                            width: 30px;
                             margin-left: 4px;
                             padding: 0px;
 
@@ -310,6 +310,7 @@ body {
         }
     }
 }
+
 @media (min-width: 340px) and (max-width: 719px) {
     body {
         width: 100%;

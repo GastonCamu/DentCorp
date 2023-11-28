@@ -1,4 +1,6 @@
 {% extends 'atencion-medica/tabla.html' %}
+
+{% load static %}
 {% block title %} PACIENTES {% endblock %}
 {% block name_page %} PACIENTES {% endblock%}
 {% block boton_agregar_name %} PACIENTE {% endblock%}
@@ -35,6 +37,22 @@
             <td colspan="7">No hay pacientes registrados</td>
         </tr>
     {% endif %}
+{% endblock %}
+{% block filtrar %}
+    <div class="buscar">
+        <form method="get" action="{% url 'paciente_buscar' %}">
+            <select name="filtro">
+                <option disabled selected value="Default">Filtrar</option>
+                <option value="DNI">DNI</option>
+                <option value="Email">Email</option>
+            </select>
+            <div>
+                {{ form.as_p }}
+                <input type="search" name="search" placeholder="BUSCAR">
+                <button id="lupa" type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button> 
+            </div> 
+        </form>
+    </div>
 {% endblock %}
 {% block botones %} 
     <a href="{% url 'paciente_create' %}">

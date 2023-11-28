@@ -216,34 +216,34 @@ body main div.div-principal div.div-botones form select option[value=Default] {
 body main div.div-principal div.div-botones form select:hover {
   cursor: pointer;
 }
-body main div.div-principal div.div-botones form div {
+body main div.div-principal div.div-botones form div.buscar {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-body main div.div-principal div.div-botones form div input {
+body main div.div-principal div.div-botones form div.buscar input {
   outline: none;
   border: 0;
   border-radius: 5px;
   width: 150px;
   height: 30px;
 }
-body main div.div-principal div.div-botones form div input::-moz-placeholder {
+body main div.div-principal div.div-botones form div.buscar input::-moz-placeholder {
   text-align: center;
 }
-body main div.div-principal div.div-botones form div input::placeholder {
+body main div.div-principal div.div-botones form div.buscar input::placeholder {
   text-align: center;
 }
-body main div.div-principal div.div-botones form div button {
+body main div.div-principal div.div-botones form div.buscar button {
+  height: 1px;
   border: 1px solid rgb(255, 255, 255);
   background-color: white;
   border-radius: 50%;
   outline: none;
-  width: 30px;
   margin-left: 4px;
   padding: 0px;
 }
-body main div.div-principal div.div-botones form div button img {
+body main div.div-principal div.div-botones form div.buscar button img {
   padding: 5px;
 }
 body main div.div-principal div.div-botones button {

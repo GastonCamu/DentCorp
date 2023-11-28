@@ -1,4 +1,5 @@
-{% extends 'atencion-medica/tabla_turnos.html' %}
+{% extends 'atencion-medica/tabla.html' %}
+{% load static %}
 {% block title %} Resultados de la búsqueda de Turnos {% endblock %}
 {% block name_page %} Resultados de la búsqueda {% endblock %}
 {% block boton_agregar_name %} TURNO {% endblock %}
@@ -40,7 +41,20 @@
         </tr>
     {% endif %}
 {% endblock %}
-
+{% block filtrar %}
+    <form method="get" action="{% url 'turno_buscar' %}">
+        <select name="filtro">
+            <option disabled selected value="Default">Filtrar</option>
+            <option value="Nombre y Apellido ">Nombre y Apellido</option>
+            <option value="Email">Email</option>
+        </select>
+        <div>
+            {{ form.as_p }}
+            <input type="search" name="search" placeholder="BUSCAR">
+            <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>  
+        </div>
+    </form>
+{% endblock %}
 {% block botones %} 
     <a href="{% url 'turno_create' %}">
         <button>AGREGAR TURNO</button>
