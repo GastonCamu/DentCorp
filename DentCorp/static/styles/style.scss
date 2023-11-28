@@ -158,6 +158,9 @@ body {
                     background: rgb(210, 210, 255);
                     width: 100%;
                     border-collapse: collapse;
+                    border-radius: collapse;
+                    table-layout: fixed;
+                    
                     tr {
                         cursor: pointer;
                         word-wrap: break-word;
@@ -168,6 +171,7 @@ body {
                             padding: 2px;
                         }
                         td.td_botones {
+                            width: 100%;
                             background: rgb(99, 99, 99);
                             button.td_botones__boton {
                                 margin: 0.1vw;
@@ -175,10 +179,10 @@ body {
                                 border: 1px solid rgb(0, 0, 0);
                                 border-radius: 50px;
                                 padding: 0.2vw;
-                                width: 8vw;
+                                width: 10vw;
                                 max-width: 100%;
                                 text-align: center;
-                                font-size: 1.1vw;
+                                font-size: 0.9vw;
                                 font-weight: bolder;
                             }
                             button.td_botones__boton:hover {
@@ -192,6 +196,7 @@ body {
                             color: white;
                             font-weight: bolder;
                             background: rgb(83, 83, 155);
+                            font-size: 1.1vw;
                         }
                         td.fila__titulo__contenido:last-child {
                             background: rgb(99, 99, 99);
@@ -240,7 +245,7 @@ body {
                         cursor: pointer;
                     }
 
-                    div {
+                    div.buscar {
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -256,11 +261,11 @@ body {
                             text-align: center;
                         }
                         button {
+                            height: 1px;
                             border: 1px solid rgb(255, 255, 255);
                             background-color: white;
                             border-radius: 50%;
                             outline: none;
-                            width: 30px;
                             margin-left: 4px;
                             padding: 0px;
 
@@ -305,6 +310,7 @@ body {
         }
     }
 }
+
 @media (min-width: 340px) and (max-width: 719px) {
     body {
         width: 100%;

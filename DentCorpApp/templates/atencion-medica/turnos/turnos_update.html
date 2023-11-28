@@ -1,8 +1,11 @@
-{% extends "base.html" %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'libs/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
 
-{% block title %} Modificación de turnos {% endblock %}
+<title>Modificación de turnos</title>
 
-{% block content %}
+<main>
     <h1 class="my-3">Modificar reserva</h1>
     <hr>
 
@@ -11,4 +14,7 @@
             {% include "partials/form.html" %}
         </div>
     </div>
-{% endblock %}
+    <script src="{% static 'libs/bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap/bootstrap.min.js' %}"></script>
+    <script src ="{% static 'scripts/index.js'%}"></script>
+</main>

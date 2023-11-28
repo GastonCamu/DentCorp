@@ -1,14 +1,20 @@
-{% extends "base.html" %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'libs/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
 
-{% block title %} Modificación de Pacientes {% endblock %}
+<title>Modificación de Pacientes</title>
 
-{% block content %}
+<main>
     <h1 class="my-3">Modificar Información</h1>
     <hr>
 
     <div class="row mt-3 mb-5">
         <div class="col-12">
-            {% include "partials/form.html" %}
+            {% include "partials/formpaciente.html" %}
         </div>
     </div>
-{% endblock %}
+    <script src="{% static 'libs/bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap/bootstrap.min.js' %}"></script>
+    <script src ="{% static 'scripts/index.js'%}"></script>
+</main>

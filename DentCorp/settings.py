@@ -39,7 +39,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-LOGIN_REDIRECT_URL = 'base'
+LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'login'
 
 # Application definition
@@ -142,8 +142,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'DentCorp/static'), )
-# MEDIA_URL ='/media/'
-# MEDIA_ROOT = (os.path.join(BASE_DIR, 'DentCorp/media'),)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -151,14 +151,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'DentCorp/static'), )
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'DentCorpApp.User'
 
-LOGIN_REDIRECT_URL = 'base'
+LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'login'
-
-MESSAGE_TAGS ={
-    mensajes_de_error.DEBUG: 'debug',
-    mensajes_de_error.INFO: 'info',
-    mensajes_de_error.SUCCESS: 'succes',
-    mensajes_de_error.WARNING: 'warning',
-    mensajes_de_error.ERROR: 'danger',
- 
-}

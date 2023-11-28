@@ -38,12 +38,12 @@
                     </div>
                 </div>
     
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                     <label for="ciudad" class="col-sm-2 col-form-label">Ciudad:</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ingrese su ciudad">
                     </div>
-                </div>
+                </div> -->
     
                 <div class="form-group row">
                     <label for="email" class="col-sm-2 col-form-label">Nuevo email:</label>
@@ -69,6 +69,8 @@
                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             </form>
         </div>
+
+        
     
 
 
@@ -83,7 +85,7 @@
     
 
 
-        <div class="container mt-5">
+        <!-- <div class="container mt-5">
             <h2 class="mb-4">Ajustes de Perfil</h2>
             <form onsubmit="return validarContrasenas()">
                 <div class="form-group row" id="camposNuevaContrasena">
@@ -104,7 +106,7 @@
             </form>
         </div>
     
-        <div class="volver"><a href="{% url 'base' %}" class="btn btn-primary">Ir atrás</a></div>
+        
     
         <script>
             function validarContrasenas() {
@@ -117,7 +119,8 @@
                 }
                 return true;
             }
-        </script>
+        </script> -->
+        <div class="volver"><a href="{% url 'index' %}" class="btn btn-primary">Ir atrás</a></div>
     
         <script src="{% static 'libs/bootstrap/popper.min.js' %}"></script>
         <script src="{% static 'libs/bootstrap/bootstrap.min.js' %}"></script>

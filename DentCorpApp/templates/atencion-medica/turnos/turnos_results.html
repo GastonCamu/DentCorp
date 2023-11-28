@@ -1,24 +1,24 @@
 {% extends 'atencion-medica/tabla.html' %}
-
 {% load static %}
-{% block title %} TURNOS {% endblock %}
-{% block name_page %} TURNOS {% endblock%}
-{% block boton_agregar_name %} TURNO {% endblock%}
+{% block title %} Resultados de la búsqueda de Turnos {% endblock %}
+{% block name_page %} Resultados de la búsqueda {% endblock %}
+{% block boton_agregar_name %} TURNO {% endblock %}
 {% block titulos_tabla %}
-    <td class="fila__titulo__contenido">Paciente</td>
-    <td class="fila__titulo__contenido">Email</td>
-    <td class="fila__titulo__contenido">Fecha</td>
-    <td class="fila__titulo__contenido">Autorizado</td>
-    <td class="fila__titulo__contenido">Servicio</td>
-    <td class="fila__titulo__contenido">Médico</td>
-    <td class="fila__titulo__contenido">Cobertura</td>
-    <td class="fila__titulo__contenido">Consultorio Asignado</td>
-    <td class="fila__titulo__contenido">OPCIONES</td>
+<td class="fila__titulo__contenido">Paciente</td>
+<td class="fila__titulo__contenido">Email</td>
+<td class="fila__titulo__contenido">Fecha</td>
+<td class="fila__titulo__contenido">Autorizado</td>
+<td class="fila__titulo__contenido">Servicio</td>
+<td class="fila__titulo__contenido">Médico</td>
+<td class="fila__titulo__contenido">Cobertura</td>
+<td class="fila__titulo__contenido">Consultorio Asignado</td>
+<td class="fila__titulo__contenido">OPCIONES</td>
 {% endblock %}
 
 {% block contenido_tabla %} 
-    {% if turnos %}
-        {% for turno in turnos %}
+
+    {% if resultados %}
+        {% for turno in resultados %}
             <tr class="fila__contenido">
                 <td>{{ turno.id_usu.first_name }} {{ turno.id_usu.last_name }}</td>
                 <td>{{ turno.id_usu.email }}</td>
@@ -30,17 +30,14 @@
                 <td>{{ turno.id_asig_cons.id_cons.num_cons }}</td>
                 <td class="td_botones">
                     <a href="{% url 'turno_update' turno.pk %}">
-                        <button class="td_botones__boton">MODIFICAR</button> 
+                        <button class="td_botones__boton">MODIFICAR</button>
                     </a>
-                    <a href="{% url 'turno_delete' turno.pk %}">
-                        <button class="td_botones__boton">CANCELAR</button>
-                    </a>
-                </td>
+                </td>                
             </tr>
         {% endfor %}
     {% else %}
         <tr>
-            <td colspan="9">No hay turnos registrados</td>
+            <td colspan="7">No se encontraron resultados para la búsqueda</td>
         </tr>
     {% endif %}
 {% endblock %}
@@ -54,7 +51,7 @@
         <div>
             {{ form.as_p }}
             <input type="search" name="search" placeholder="BUSCAR">
-            <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>
+            <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>  
         </div>
     </form>
 {% endblock %}

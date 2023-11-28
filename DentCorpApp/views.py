@@ -1,35 +1,59 @@
 from typing import Any
-from django.db.models.query import QuerySet
-from django.shortcuts import render
 from django.views.generic import  ListView, DetailView, DeleteView, CreateView,UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-
 from .models import Turnos
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .models import Consultorios, Especialidades, ServiciosOdontologicos, User, Turnos
-from django.shortcuts import render
 from django.contrib import messages
 from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
-from .models import Provincias, Ciudades, User
-from .forms import SearchForm,UserProfileForm
-from django.contrib.auth.decorators import login_required
 
-from django.shortcuts import render
-from django.views.generic import ListView
-from .models import User
+from django.contrib.auth.models import Group
+from .forms import UserProfileForm
 
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
+def search(request):
+    filtro = request.GET.get('filtro', 'Default')
+    search_term = request.GET.get('search', '')
+
+    if filtro == 'DNI':
+        resultados = User.objects.filter(dni_usu__icontains=search_term)
+    elif filtro == 'Email':
+        resultados = User.objects.filter(email__icontains=search_term)
+    else:
+        resultados = User.objects.all()
+
+    context = {
+        'resultados': resultados,
+    }
+
+    return render(request, 'atencion-medica/pacientes/pacientes_results.html', context)
+
+
+def search_turno(request):
+    filtro = request.GET.get('filtro', 'Default')
+    search_term = request.GET.get('search', '')
+
+    if filtro == 'Cobertura':
+        resultados = Turnos.objects.filter(id_cob_usu__id_plan_cob__id_cob__nom_cob__icontains=search_term)
+
+    elif filtro == 'Email':
+        resultados = Turnos.objects.filter(id_usu__email__icontains=search_term)
+
+    else:
+        resultados = Turnos.objects.all()
+
+    context = {
+        'resultados': resultados,
+    }
+
+    return render(request, 'atencion-medica/turnos/turnos_results.html', context)
 
 class PacientesListView(ListView):
     model = User
     template_name = 'atencion-medica/pacientes/pacientes.html'
     context_object_name = 'users'
+    permission_required = ('DentCorpApp.view_user',) 
     def get_queryset(self):
         
         return User.objects.filter(is_superuser=False, groups__name='paciente')
@@ -44,8 +68,12 @@ class PacientesCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView
     fields = ['dni_usu', 'first_name', 'last_name', 'username','dom_usu', 'email', 'id_ciu', 'password']
 
     def form_valid(self, form):
+        response = super().form_valid(form)
+        rol_paciente, _ = Group.objects.get_or_create(name='paciente')
+        form.instance.groups.add(rol_paciente)
+        
         messages.success(self.request, self.success_message)
-        return super().form_valid(form)
+        return response
 
 class PacientesUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView):
     model = User
@@ -61,7 +89,7 @@ class PacientesUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView
         return super().form_valid(form)    
 
 @login_required
-def base(request):
+def index(request):
 
     paciente = User.objects.all()
     cobertura = Coberturas.objects.all()
@@ -75,46 +103,65 @@ def base(request):
         'nroConsultorio': nroConsultorio,
     }        
     
-    return render(request, 'base.html', context) #cambio momentaneo
+    return render(request, 'index.html', context) #cambio momentaneo
+
+
 
 @login_required
 def ajustes(request):
     if request.method == 'POST':
         new_email = request.POST.get('email')
-        new_username=request.POST.get("username")
+        new_username = request.POST.get("username")
+        new_imagen = request.FILES.get('imagen')  # Cambiado a FILES para manejar la carga de archivos
+
+        # Obtener la instancia del usuario
         user_instance = User.objects.get(id=request.user.id)
-        user_form = UserProfileForm(request.POST or None, request.FILES or None, instance=user_instance)
+
+        # Actualizar la información del usuario
         if new_email:
             request.user.email = new_email
             request.user.save()
             messages.success(request, 'Dirección de correo actualizada exitosamente.')
+
         if new_username:
             request.user.username = new_username
             request.user.save()
             messages.success(request, 'Nombre de usuario actualizado exitosamente.')
-        if user_form.is_valid():
-            user_form.save()
+
+        # Actualizar la imagen de perfil si se proporciona una nueva imagen
+        if new_imagen:
+            user_instance.image = new_imagen
+            user_instance.save()
+            messages.success(request, 'Foto de perfil actualizada exitosamente.')
+
         return redirect('ajustes')
+
     else:
+        # Obtener o crear el formulario de perfil de usuario
         user_form = UserProfileForm(instance=request.user)
+
     return render(request, 'ajustes/ajustes.html', {'user_form': user_form})
 
+
+@login_required
 def medicos(request):
     context = {}
     template_name = 'atencion-medica/medicos.html'
     return render(request, template_name)
 
-
+@login_required
 def servicios_odontologicos(request):
     context = {}
     template_name = 'atencion-medica/servicios-odontologicos.html'
     return render(request, template_name)
 
+@login_required
 def especialidades(request):
     context = {}
     template_name = 'atencion-medica/especialidades.html'
     return render(request, template_name)
 
+@login_required
 def consultorios(request):
     context = {}
     template_name = 'atencion-medica/consultorios.html'
@@ -126,12 +173,6 @@ class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
     template_name = 'atencion-medica/turnos/turnos.html' 
     context_object_name = 'turnos'
-    permission_required = 'DentCorpApp.view_turnos'
-    
-class TurnosDetailView(PermissionRequiredMixin,LoginRequiredMixin, DetailView):
-    model = Turnos
-    template_name = 'atencion-medica/turnos/turnos_detail.html'
-    context_object_name = 'turno'
     permission_required = 'DentCorpApp.view_turnos'
 
 class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):
@@ -169,45 +210,24 @@ class TurnosDeleteView(PermissionRequiredMixin,LoginRequiredMixin, DeleteView):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
     
-class SearchView(ListView):
-    template_name = 'tu_template.html'
-    context_object_name = 'results'
-    form_class = SearchForm
-
-    def get_queryset(self):
-        form = self.form_class(self.request.GET)
-        if form.is_valid():
-            search_term = form.cleaned_data.get('search_term')
-            if search_term:
-                queryset = (
-                    Provincias.objects.filter(nom_prov__icontains=search_term) |
-                    Ciudades.objects.filter(nom_ciu__icontains=search_term) |
-                    User.objects.filter(dni_usu__icontains=search_term) |
-                    User.objects.filter(dom_usu__icontains=search_term) |
-                    User.objects.filter(tel_usu__icontains=search_term)
-                )
-                return queryset
-        return []
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = self.form_class(self.request.GET)
-        return context
 
     
-class ConsultoriosListView(LoginRequiredMixin, ListView):
+class ConsultoriosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Consultorios
     template_name = 'atencion-medica/consultorios.html'
     context_object_name = 'consultorios'
+    permission_required = ('DentCorpApp.view_consultorios',) 
 
-class EspecialidadesListView(LoginRequiredMixin, ListView):
+class EspecialidadesListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Especialidades
     template_name='atencion-medica/especialidades.html'
     context_object_name = 'especialidades'
+    permission_required = ('DentCorpApp.view_especialidades',) 
 
-class ServiciosOdontologicosListView(LoginRequiredMixin, ListView):
+class ServiciosOdontologicosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = ServiciosOdontologicos
     template_name='atencion-medica/servicios-odontologicos.html'
     context_object_name = 'servicios'
+    permission_required = ('DentCorpApp.view_serviciosodontologicos',) 
     
     

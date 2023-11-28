@@ -1,0 +1,15 @@
+div.custom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: rgba(63, 63, 211, 0.664);
+}
+main div.custom h1.custom-h1{
+    font-size: 7vw;
+}
+main div.custom h2.custom-h2{
+    font-size: 3vw;
+    font-weight: bolder;
+}

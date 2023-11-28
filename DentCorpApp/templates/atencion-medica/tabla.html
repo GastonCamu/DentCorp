@@ -10,26 +10,11 @@
                 {% block titulos_tabla %} {% endblock %}
             </tr>
             {% block contenido_tabla %} {% endblock %}
-            </table>
+        </table>
     </div>
         <div class="div-botones">
-        <form role="search">
-            <select id="">
-                <option disabled selected value="Default">Filtrar</option>
-                <option value="Paciente">Paciente</option>
-                <option value="Autorizado">Autorizado</option>
-                <option value="Medico">Medico</option>
-            </select>
-            <div>
-                <form method="get">
-                    {{ form.as_p }}
-                    <input type="search" placeholder="BUSCAR">
-                    <button type="submit"><img src="{% static 'assets/img/lupa.png' %}" alt="B"></button>                    
-                </form>
-
-            </div>
-        </form>
-        {% block botones %} {% endblock %}
+            {% block filtrar %} {% endblock %}
+            {% block botones %} {% endblock %}
         </div>
-</div>
-{% endblock %}
+            
+    {% endblock %}
