@@ -58,7 +58,7 @@
         <li class="nav-item dropdown">
             <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 
-                <img src="{% if user.image %}{{ user.image.url }}{% else %}{% static 'assets/img/default.png' %}{% endif %}" alt="{{ user.first_name }}">
+                <img src="{% if user.image %}{% static 'assets/img/default2.jpg' %}{% else %}{% static 'assets/img/default.png' %}{% endif %}" alt="{{ user.first_name }}">
                 <div>
                     <p class="nombre-usuario">
                         {{user.first_name}} {{user.last_name}}                            
