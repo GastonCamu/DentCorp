@@ -22,6 +22,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 import os
+
+from django.contrib.messages import constants as mensajes_de_error
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -97,7 +99,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dentcorp',
         'USER': 'root',
-        'PASSWORD': '12345678',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '3306'
     }
@@ -151,3 +153,12 @@ AUTH_USER_MODEL = 'DentCorpApp.User'
 
 LOGIN_REDIRECT_URL = 'base'
 LOGOUT_REDIRECT_URL = 'login'
+
+MESSAGE_TAGS ={
+    mensajes_de_error.DEBUG: 'debug',
+    mensajes_de_error.INFO: 'info',
+    mensajes_de_error.SUCCESS: 'succes',
+    mensajes_de_error.WARNING: 'warning',
+    mensajes_de_error.ERROR: 'danger',
+ 
+}

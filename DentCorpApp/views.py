@@ -22,6 +22,9 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from .models import User
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 
 class PacientesListView(ListView):
     model = User
@@ -75,18 +78,6 @@ def base(request):
     return render(request, 'base.html', context) #cambio momentaneo
 
 @login_required
-def actualizar_perfil(request):
-    if request.method == 'POST':
-        nuevo_email = request.POST.get('email')
-
-        request.user.email = nuevo_email
-        request.user.save()
-
-        return redirect('nombre_de_la_url')
-
-    return render(request, 'nombre_del_template.html')
-
-
 def ajustes(request):
     if request.method == 'POST':
         new_email = request.POST.get('email')
@@ -107,7 +98,6 @@ def ajustes(request):
     else:
         user_form = UserProfileForm(instance=request.user)
     return render(request, 'ajustes/ajustes.html', {'user_form': user_form})
-
 
 def medicos(request):
     context = {}
