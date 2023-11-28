@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from .models import Consultorios, Especialidades, ServiciosOdontologicos, User, Turnos
 from django.contrib import messages
 from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
-from .forms import UserProfileForm
+
 from django.contrib.auth.models import Group
 
 def search(request):
@@ -104,17 +104,6 @@ def index(request):
     
     return render(request, 'index.html', context) #cambio momentaneo
 
-@login_required
-def actualizar_perfil(request):
-    if request.method == 'POST':
-        nuevo_email = request.POST.get('email')
-
-        request.user.email = nuevo_email
-        request.user.save()
-
-        return redirect('nombre_de_la_url')
-
-    return render(request, 'nombre_del_template.html')
 
 
 @login_required
@@ -122,8 +111,7 @@ def ajustes(request):
     if request.method == 'POST':
         new_email = request.POST.get('email')
         new_username=request.POST.get("username")
-        user_instance = User.objects.get(id=request.user.id)
-        user_form = UserProfileForm(request.POST or None, request.FILES or None, instance=user_instance)
+        new_imagen = request.POST.get('imagen')
         if new_email:
             request.user.email = new_email
             request.user.save()
@@ -132,12 +120,12 @@ def ajustes(request):
             request.user.username = new_username
             request.user.save()
             messages.success(request, 'Nombre de usuario actualizado exitosamente.')
-        if user_form.is_valid():
-            user_form.save()
+        if new_imagen:
+            request.user.imagen=new_imagen
+            request.user.save()
+            messages.success(request, 'Foto de perfil actualizada exitosamente.')
         return redirect('ajustes')
-    else:
-        user_form = UserProfileForm(instance=request.user)
-    return render(request, 'ajustes/ajustes.html', {'user_form': user_form})
+    return render(request, 'ajustes/ajustes.html')
 
 
 @login_required

@@ -20,7 +20,7 @@ class UserForm(forms.ModelForm):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields['fecha_alta_usu'].widget.attrs.update({'class': 'datepicker'})  
 
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['image']
+# class UserProfileForm(forms.ModelForm):
+#     class Meta:
+#         model = User
+#         fields = ['image']
