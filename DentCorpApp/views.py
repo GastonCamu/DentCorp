@@ -10,6 +10,7 @@ from django.contrib import messages
 from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
 
 from django.contrib.auth.models import Group
+from .forms import UserProfileForm
 
 def search(request):
     filtro = request.GET.get('filtro', 'Default')
@@ -110,22 +111,36 @@ def index(request):
 def ajustes(request):
     if request.method == 'POST':
         new_email = request.POST.get('email')
-        new_username=request.POST.get("username")
-        new_imagen = request.POST.get('imagen')
+        new_username = request.POST.get("username")
+        new_imagen = request.FILES.get('imagen')  # Cambiado a FILES para manejar la carga de archivos
+
+        # Obtener la instancia del usuario
+        user_instance = User.objects.get(id=request.user.id)
+
+        # Actualizar la información del usuario
         if new_email:
             request.user.email = new_email
             request.user.save()
             messages.success(request, 'Dirección de correo actualizada exitosamente.')
+
         if new_username:
             request.user.username = new_username
             request.user.save()
             messages.success(request, 'Nombre de usuario actualizado exitosamente.')
+
+        # Actualizar la imagen de perfil si se proporciona una nueva imagen
         if new_imagen:
-            request.user.imagen=new_imagen
-            request.user.save()
+            user_instance.image = new_imagen
+            user_instance.save()
             messages.success(request, 'Foto de perfil actualizada exitosamente.')
+
         return redirect('ajustes')
-    return render(request, 'ajustes/ajustes.html')
+
+    else:
+        # Obtener o crear el formulario de perfil de usuario
+        user_form = UserProfileForm(instance=request.user)
+
+    return render(request, 'ajustes/ajustes.html', {'user_form': user_form})
 
 
 @login_required
