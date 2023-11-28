@@ -12,16 +12,48 @@ from .models import Consultorios, Especialidades, ServiciosOdontologicos, User, 
 from django.shortcuts import render
 from django.contrib import messages
 from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
-from .models import Provincias, Ciudades, User
-from .forms import SearchForm,UserProfileForm
+
+from .forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
 from django.views.generic import ListView
-from .models import User
+from .models import User 
 
 from django.contrib.auth.models import Group
 
+def search(request):
+    filtro = request.GET.get('filtro', 'Default')
+    search_term = request.GET.get('search', '')
+
+    if filtro == 'DNI':
+        resultados = User.objects.filter(dni_usu__icontains=search_term)
+    elif filtro == 'Email':
+        resultados = User.objects.filter(email__icontains=search_term)
+    else:
+        resultados = User.objects.all()
+
+    context = {
+        'resultados': resultados,
+    }
+
+    return render(request, 'atencion-medica/pacientes/pacientes_results.html', context)
+
+
+def search_turno(request):
+    filtro = request.GET.get('filtro', 'Default')
+    search_term = request.GET.get('search', '')
+
+    if filtro == 'NombreApellido':
+        resultados = Turnos.objects.filter(id_usu__first_name__icontains=search_term) | Turnos.objects.filter(id_usu__last_name__icontains=search_term)
+    else:
+        resultados = Turnos.objects.all()
+
+    context = {
+        'resultados': resultados,
+    }
+
+    return render(request, 'atencion-medica/turnos/turnos_results.html', context)
 
 class PacientesListView(ListView):
     model = User
@@ -188,30 +220,6 @@ class TurnosDeleteView(PermissionRequiredMixin,LoginRequiredMixin, DeleteView):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
     
-class SearchView(ListView):
-    template_name = 'tu_template.html'
-    context_object_name = 'results'
-    form_class = SearchForm
-
-    def get_queryset(self):
-        form = self.form_class(self.request.GET)
-        if form.is_valid():
-            search_term = form.cleaned_data.get('search_term')
-            if search_term:
-                queryset = (
-                    Provincias.objects.filter(nom_prov__icontains=search_term) |
-                    Ciudades.objects.filter(nom_ciu__icontains=search_term) |
-                    User.objects.filter(dni_usu__icontains=search_term) |
-                    User.objects.filter(dom_usu__icontains=search_term) |
-                    User.objects.filter(tel_usu__icontains=search_term)
-                )
-                return queryset
-        return []
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = self.form_class(self.request.GET)
-        return context
 
     
 class ConsultoriosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):

@@ -13,10 +13,10 @@
         </table>
     </div>
             <div class="div-botones">
-                <form method="get" action="{% url 'paciente_buscar' %}">
+                <form method="get" action="{% url 'turno_buscar' %}">
                     <select name="filtro">
                         <option disabled selected value="Default">Filtrar</option>
-                        <option value="DNI">DNI</option>
+                        <option value="Nombre y Apellido ">Nombre y Apellido</option>
                         <option value="Email">Email</option>
                     </select>
                     {{ form.as_p }}
@@ -25,4 +25,9 @@
                 </form>
             </div>
             
+    {% endblock %}
+    {% block botones %} 
+    <a href="{% url 'turno_create' %}">
+        <button>AGREGAR TURNO</button>
+    </a>
     {% endblock %}

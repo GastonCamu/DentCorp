@@ -20,9 +20,6 @@ class UserForm(forms.ModelForm):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields['fecha_alta_usu'].widget.attrs.update({'class': 'datepicker'})  
 
-class SearchForm(forms.Form):
-    search_term = forms.CharField(max_length=100, required=False)
-
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User

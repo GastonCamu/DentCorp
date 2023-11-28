@@ -19,4 +19,7 @@ urlpatterns = [
     path('pacientes/', PacientesListView.as_view(), name="pacientes"),
     path('pacientes/registrar/', PacientesCreateView.as_view(), name="paciente_create"),
     path('pacientes/modificar/<pk>/', PacientesUpdateView.as_view(), name="paciente_update"),
+
+    path('pacientes/resultado/', views.search, name="paciente_buscar" ),
+    path('turnos/resultado/', views.search_turno, name="turno_buscar" ),
 ]
