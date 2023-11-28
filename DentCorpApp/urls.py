@@ -2,7 +2,7 @@ from django.urls import path
 from DentCorpApp import views
 from .views import ConsultoriosListView, PacientesListView, PacientesUpdateView,EspecialidadesListView, ServiciosOdontologicosListView, PacientesListView,PacientesCreateView , TurnosDeleteView, TurnosListView, TurnosCreateView, TurnosUpdateView
 urlpatterns = [
-    path('base', views.base, name= "base"),
+    path('index', views.index, name= "index"),
     path('ajustes', views.ajustes, name = "ajustes"),
     path('especialidades/', EspecialidadesListView.as_view(), name = "especialidades"),
     path('medicos/', views.medicos, name = "medicos"),

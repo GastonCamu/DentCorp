@@ -1,25 +1,14 @@
 from typing import Any
-from django.shortcuts import render
 from django.views.generic import  ListView, DetailView, DeleteView, CreateView,UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-
 from .models import Turnos
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import Consultorios, Especialidades, ServiciosOdontologicos, User, Turnos
-from django.shortcuts import render
 from django.contrib import messages
 from DentCorpApp.models import User,Coberturas,Consultorios, ServiciosOdontologicos
-
 from .forms import UserProfileForm
-from django.contrib.auth.decorators import login_required
-
-from django.shortcuts import render
-from django.views.generic import ListView
-from .models import User 
-
 from django.contrib.auth.models import Group
 
 def search(request):
@@ -99,7 +88,7 @@ class PacientesUpdateView(PermissionRequiredMixin,LoginRequiredMixin, UpdateView
         return super().form_valid(form)    
 
 @login_required
-def base(request):
+def index(request):
 
     paciente = User.objects.all()
     cobertura = Coberturas.objects.all()
@@ -113,7 +102,7 @@ def base(request):
         'nroConsultorio': nroConsultorio,
     }        
     
-    return render(request, 'base.html', context) #cambio momentaneo
+    return render(request, 'index.html', context) #cambio momentaneo
 
 @login_required
 def actualizar_perfil(request):
