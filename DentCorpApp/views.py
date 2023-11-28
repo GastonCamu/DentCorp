@@ -44,8 +44,12 @@ def search_turno(request):
     filtro = request.GET.get('filtro', 'Default')
     search_term = request.GET.get('search', '')
 
-    if filtro == 'NombreApellido':
-        resultados = Turnos.objects.filter(id_usu__first_name__icontains=search_term) | Turnos.objects.filter(id_usu__last_name__icontains=search_term)
+    if filtro == 'Cobertura':
+        resultados = Turnos.objects.filter(id_cob_usu__id_plan_cob__id_cob__nom_cob__icontains=search_term)
+
+    elif filtro == 'Email':
+        resultados = Turnos.objects.filter(id_usu__email__icontains=search_term)
+
     else:
         resultados = Turnos.objects.all()
 
@@ -177,12 +181,6 @@ class TurnosListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
     model = Turnos
     template_name = 'atencion-medica/turnos/turnos.html' 
     context_object_name = 'turnos'
-    permission_required = 'DentCorpApp.view_turnos'
-    
-class TurnosDetailView(PermissionRequiredMixin,LoginRequiredMixin, DetailView):
-    model = Turnos
-    template_name = 'atencion-medica/turnos/turnos_detail.html'
-    context_object_name = 'turno'
     permission_required = 'DentCorpApp.view_turnos'
 
 class TurnosCreateView(PermissionRequiredMixin,LoginRequiredMixin, CreateView):

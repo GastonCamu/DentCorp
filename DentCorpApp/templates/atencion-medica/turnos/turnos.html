@@ -5,8 +5,8 @@
 {% block name_page %} TURNOS {% endblock%}
 {% block boton_agregar_name %} TURNO {% endblock%}
 {% block titulos_tabla %}
-    <td class="fila__titulo__contenido">Nombre</td>
-    <td class="fila__titulo__contenido">Apellido</td>
+    <td class="fila__titulo__contenido">Paciente</td>
+    <td class="fila__titulo__contenido">Email</td>
     <td class="fila__titulo__contenido">Fecha</td>
     <td class="fila__titulo__contenido">Autorizado</td>
     <td class="fila__titulo__contenido">Servicio</td>
@@ -20,8 +20,8 @@
     {% if turnos %}
         {% for turno in turnos %}
             <tr class="fila__contenido">
-                <td>{{ turno.id_usu.first_name }}</td>
-                <td>{{ turno.id_usu.last_name }}</td>
+                <td>{{ turno.id_usu.first_name }} {{ turno.id_usu.last_name }}</td>
+                <td>{{ turno.id_usu.email }}</td>
                 <td>{{ turno.fecha_hr_turno }}</td>
                 <td>{{ turno.autorizado }}</td>
                 <td>{{ turno.id_serv_odon.nombre_serv_odon }}</td>
@@ -48,7 +48,7 @@
     <form method="get" action="{% url 'turno_buscar' %}">
         <select name="filtro">
             <option disabled selected value="Default">Filtrar</option>
-            <option value="Nombre y Apellido ">Nombre y Apellido</option>
+            <option value="Cobertura">Cobertura</option>
             <option value="Email">Email</option>
         </select>
         <div>
